@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DnDWeb.Models
+namespace DnDWeb.Core
 {
-    public class Building : DndObject
+    public class Money
     {
-        public List<Room> Rooms { get; set; }
     }
 }

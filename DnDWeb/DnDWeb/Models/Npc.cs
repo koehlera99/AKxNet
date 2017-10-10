@@ -7,6 +7,6 @@ namespace DnDWeb.Models
 {
     public class Npc : DndObject
     {
-
+        public virtual Location Location { get; set; }
     }
 }

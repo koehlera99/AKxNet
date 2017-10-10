@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace DnDWeb.Models
 {
-    public class Location : DndObject
+    public class Furniture : DndObject
     {
-
+        public int Size { get; set; }
     }
 }

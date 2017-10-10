@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace DnDWeb.Models
 {
-    public class City : DndObject
+    public class Location : DndObject
     {
-        public int Population { get; set; }
+        public List<Building> Buildings { get; set; }
         public virtual Campaign Campaign { get; set; }
+        public List<Npc> Npcs { get; set; }
     }
 }

@@ -11,28 +11,33 @@ namespace DnDWeb.Models
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public DndObject() { }
-        public DndObject(int id)
+        protected DndObject() { }
+        protected DndObject(int id)
         {
             id = Id;
         }
 
-        public DndObject(string name)
+        protected DndObject(string name)
         {
             Name = name;
         }
 
-        public DndObject(string name, string description)
+        protected DndObject(string name, string description)
         {
             Name = name;
             Description = description;
         }
 
-        public DndObject(int id, string name, string description)
+        protected DndObject(int id, string name, string description)
         {
             Id = id;
             Name = name;
             Description = description;
+        }
+
+        public  override string ToString()
+        {
+            return Name;
         }
     }
 }
