@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimeWebCore", "PrimeWebCore\PrimeWebCore.csproj", "{DD339280-C469-474C-B534-4A2463B6EE42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RpgCore", "RpgCore\RpgCore.csproj", "{3B2F2A02-17D6-4FD0-97F2-A41209F05A2A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DD339280-C469-474C-B534-4A2463B6EE42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD339280-C469-474C-B534-4A2463B6EE42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD339280-C469-474C-B534-4A2463B6EE42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD339280-C469-474C-B534-4A2463B6EE42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B2F2A02-17D6-4FD0-97F2-A41209F05A2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B2F2A02-17D6-4FD0-97F2-A41209F05A2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B2F2A02-17D6-4FD0-97F2-A41209F05A2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B2F2A02-17D6-4FD0-97F2-A41209F05A2A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7538E41E-0D03-4C81-BEC3-F8C93F879C39}
+	EndGlobalSection
+EndGlobal
