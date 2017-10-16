@@ -29,7 +29,7 @@ namespace PrimeWebCore.Core
 
         public int TotalCopper()
         {
-            return (Platinum * 1000) + (Gold * 100) + (Silver * 10) + Copper
+            return (Platinum * 1000) + (Gold * 100) + (Silver * 10) + Copper;
         }
     }
 }
