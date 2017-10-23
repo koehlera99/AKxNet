@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DnDWeb.Models
+namespace DnDWeb.DomainModels
 {
     public class Campaign : DndObject
     {

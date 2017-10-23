@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DnDWeb.Models
+namespace DnDWeb
 {
     public abstract class DndObject
     {

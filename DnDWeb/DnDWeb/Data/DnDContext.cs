@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
-using DnDWeb.Models;
+using DnDWeb.DomainModels;
 
 namespace DnDWebCore.Data
 {

@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DnDWeb.Models
+namespace DnDWeb.DomainModels
 {
-    public class Room : DndObject
+    interface IMonster
     {
-        public List<Furniture> Furniture { get; set; }
     }
 }

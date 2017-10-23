@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DnDWeb.Models
+namespace DnDWeb.DomainModels
 {
-    public class Building : DndObject
+    interface IStructure
     {
-        public List<Room> Rooms { get; set; }
+
     }
 }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DnDWeb.Models
+namespace DnDWeb.DomainModels
 {
-    public class Npc : DndObject
+    interface IArea
     {
-        public virtual Location Location { get; set; }
+        List<ILocation> Locations { get; set; }
     }
 }
