@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="TCS.WPF.Controls.ResourceBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Height="190">
+    <UserControl.Resources>
+        <!--<mud:CutoffConverter x:Key="CutOffValueConverter"/>-->
+        <Storyboard x:Key="sbProg">
+            <ColorAnimation To="Red"
+                            Storyboard.TargetName="DefenderHPBar"
+                            Storyboard.TargetProperty="(ProgressBar.Foreground).(SolidColorBrush.Color)"
+                            FillBehavior="Stop"
+                            RepeatBehavior="Forever"
+                            Duration="0:0:1" />
+        </Storyboard>
+    </UserControl.Resources>
+    <Grid x:Name="GridCurrentLevels" Height="190" VerticalAlignment="Top" Grid.Column="1" Width="280">
+        <Grid.Effect>
+            <DropShadowEffect/>
+        </Grid.Effect>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="0"/>
+                <GradientStop Color="#FFB2AEAE" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <ProgressBar x:Name="HPBar" Height="15" Margin="10,30,10,0" VerticalAlignment="Top" BorderBrush="Black" Background="Black"  BorderThickness="1">
+            <ProgressBar.Effect>
+                <DropShadowEffect BlurRadius="10" RenderingBias="Quality"/>
+            </ProgressBar.Effect>
+            <ProgressBar.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="1"/>
+                    <GradientStop Color="#FF3AFF00" Offset="0.175"/>
+                </LinearGradientBrush>
+            </ProgressBar.Foreground>
+        </ProgressBar>
+        <ProgressBar x:Name="PowerBar" Height="15" Margin="10,70,10,0" VerticalAlignment="Top" BorderBrush="Black" Background="Black"  BorderThickness="1">
+            <ProgressBar.Effect>
+                <DropShadowEffect BlurRadius="10" RenderingBias="Quality"/>
+            </ProgressBar.Effect>
+            <ProgressBar.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="1"/>
+                    <GradientStop Color="Red" Offset="0.194"/>
+                </LinearGradientBrush>
+            </ProgressBar.Foreground>
+        </ProgressBar>
+        <ProgressBar x:Name="MagicBar" Height="15" Margin="10,110,10,0" VerticalAlignment="Top" Background="Black"  BorderThickness="1">
+            <ProgressBar.Effect>
+                <DropShadowEffect BlurRadius="10" RenderingBias="Quality"/>
+            </ProgressBar.Effect>
+            <ProgressBar.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="1"/>
+                    <GradientStop Color="#FF1B68EE" Offset="0.207"/>
+                </LinearGradientBrush>
+            </ProgressBar.Foreground>
+        </ProgressBar>
+        <ProgressBar x:Name="EnergyBar" Height="15" Margin="10,150,10,0" VerticalAlignment="Top" Background="Black"  BorderThickness="1">
+            <ProgressBar.Effect>
+                <DropShadowEffect BlurRadius="10" RenderingBias="Quality"/>
+            </ProgressBar.Effect>
+            <ProgressBar.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="1"/>
+                    <GradientStop Color="#FFE8FF00" Offset="0.217"/>
+                </LinearGradientBrush>
+            </ProgressBar.Foreground>
+        </ProgressBar>
+
+        <Label x:Name="lblHP" Content="HP" Height="24" Margin="10,6,10,0" VerticalAlignment="Top" FontSize="11" />
+        <Label x:Name="lblPower" Content="Power" Height="24" Margin="10,46,10,0" VerticalAlignment="Top" FontSize="11" />
+        <Label x:Name="lblMagic" Content="Magic" Height="24" Margin="10,86,10,0" VerticalAlignment="Top" FontSize="11"/>
+        <Label x:Name="lblEnergy" Content="Energy" HorizontalAlignment="Left" Height="24" Margin="10,126,0,0" VerticalAlignment="Top" Width="260" FontSize="11"/>
+    </Grid>
+</UserControl>

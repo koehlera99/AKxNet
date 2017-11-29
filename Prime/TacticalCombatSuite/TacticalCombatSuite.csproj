@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7AF95566-0410-4604-871E-410FBCEC9785}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>TacticalCombatSuite</RootNamespace>
+    <AssemblyName>TacticalCombatSuite</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HelixToolkit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=52aa3500039caf0d, processorArchitecture=MSIL">
+      <HintPath>..\packages\HelixToolkit.1.0.0\lib\portable-net45+win8+wpa81+wp8\HelixToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="HelixToolkit.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=52aa3500039caf0d, processorArchitecture=MSIL">
+      <HintPath>..\packages\HelixToolkit.Wpf.1.0.0\lib\net45\HelixToolkit.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Framework, Version=3.6.0.1625, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Framework.WindowsDX.3.6.0.1625\lib\net40\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="RPG\Worlds\ISectionItem.cs" />
+    <Compile Include="Net\ClientData.cs" />
+    <Compile Include="Net\Command.cs" />
+    <Compile Include="Net\CommandProcessor.cs" />
+    <Compile Include="Net\IITCSServiceReference.cs" />
+    <Compile Include="Net\ITCSService.cs" />
+    <Compile Include="Net\ITCSServicePrime.cs" />
+    <Compile Include="Net\Main.cs" />
+    <Compile Include="Net\TCSService.cs" />
+    <Compile Include="Net\TCSServicePrime.cs" />
+    <Compile Include="Net\UnitData.cs" />
+    <Compile Include="RPG\Effects\Ability.cs" />
+    <Compile Include="RPG\Effects\Conditions.cs" />
+    <Compile Include="RPG\Effects\Effect.cs" />
+    <Compile Include="RPG\Effects\Event.cs" />
+    <Compile Include="RPG\Effects\Property.cs" />
+    <Compile Include="RPG\Items\Armor.cs" />
+    <Compile Include="RPG\Items\Artifact.cs" />
+    <Compile Include="RPG\Items\Element.cs" />
+    <Compile Include="RPG\Items\EquipableItem.cs" />
+    <Compile Include="RPG\Items\Item.cs" />
+    <Compile Include="RPG\Items\ItemQuality.cs" />
+    <Compile Include="RPG\Items\Material.cs" />
+    <Compile Include="RPG\Items\Weapon.cs" />
+    <Compile Include="RPG\Object.cs" />
+    <Compile Include="RPG\Stats\BaseStats.cs" />
+    <Compile Include="RPG\Stats\PrimaryStats.cs" />
+    <Compile Include="RPG\Stats\SecondaryStats.cs" />
+    <Compile Include="RPG\Tools\CombatManager.cs" />
+    <Compile Include="RPG\Tools\Roll.cs" />
+    <Compile Include="RPG\Tools\Tools.cs" />
+    <Compile Include="RPG\Units\DamageResistance.cs" />
+    <Compile Include="RPG\Units\LevelTable.cs" />
+    <Compile Include="RPG\Units\Statistics.cs" />
+    <Compile Include="RPG\Units\Unit.cs" />
+    <Compile Include="RPG\Units\UnitActions.cs" />
+    <Compile Include="RPG\Units\UnitFunctions.cs" />
+    <Compile Include="RPG\Units\UnitProperties.cs" />
+    <Compile Include="RPG\Worlds\Room.cs" />
+    <Compile Include="RPG\Worlds\Section.cs" />
+    <Compile Include="RPG\Worlds\Universe.cs" />
+    <Compile Include="RPG\Worlds\World.cs" />
+    <Compile Include="Server\IServerDuplexContract.cs" />
+    <Compile Include="Server\ServerDuplexContract.cs" />
+    <Compile Include="Server\ServerHost.cs" />
+    <Compile Include="Server\ServerInterface.xaml.cs">
+      <DependentUpon>ServerInterface.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Server\WSDLService.cs" />
+    <Compile Include="Space\Map.xaml.cs">
+      <DependentUpon>Map.xaml</DependentUpon>
+    </Compile>
+    <Page Include="WPF\Controls\ResourceBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\CraftingMain.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\HelixMap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\Map.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\Map3D.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\Controls\CharacterSheet.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Commands\Commands.cs" />
+    <Compile Include="Commands\Move.cs" />
+    <Compile Include="Common\Enums.cs" />
+    <Compile Include="WPF\Controls\ResourceBar.xaml.cs">
+      <DependentUpon>ResourceBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Crafting\Element.cs" />
+    <Compile Include="WPF\CraftingMain.xaml.cs">
+      <DependentUpon>CraftingMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Crafting\Material.cs" />
+    <Compile Include="Crafting\MaterialElement.cs" />
+    <Compile Include="Crafting\Scarcity.cs" />
+    <Compile Include="FantasyBattle\BattleGrid.cs" />
+    <Compile Include="FantasyBattle\CubeModel.cs" />
+    <Compile Include="WPF\HelixMap.xaml.cs">
+      <DependentUpon>HelixMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\Map.xaml.cs">
+      <DependentUpon>Map.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\Map3D.xaml.cs">
+      <DependentUpon>Map3D.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FantasyBattle\MonoGame\MonoGame.cs" />
+    <Compile Include="FantasyBattle\MonoGame\TileEngine\Camera.cs" />
+    <Compile Include="FantasyBattle\MonoGame\TileEngine\Game1.cs" />
+    <Compile Include="FantasyBattle\MonoGame\TileEngine\MapCell.cs" />
+    <Compile Include="FantasyBattle\MonoGame\TileEngine\Tile.cs" />
+    <Compile Include="FantasyBattle\MonoGame\TileEngine\TileMap.cs" />
+    <Compile Include="FantasyBattle\Room.cs" />
+    <Compile Include="FantasyBattle\RoomSection.cs" />
+    <Compile Include="FantasyBattle\Sector.cs" />
+    <Compile Include="FantasyBattle\UnitSection.cs" />
+    <Compile Include="WPF\Controls\CharacterSheet.xaml.cs">
+      <DependentUpon>CharacterSheet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="WPF\MudInterface.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Platformer\OpenWorld.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Server\ServerInterface.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Space\Map.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="RPG\CutoffConverter.cs" />
+    <Compile Include="WPF\MudInterface.xaml.cs">
+      <DependentUpon>MudInterface.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Net\IClientData.cs" />
+    <Compile Include="Net\Network.cs" />
+    <Compile Include="Net\Players.cs" />
+    <Compile Include="Net\TcsCallbackHandler.cs" />
+    <Compile Include="Platformer\OpenWorld.xaml.cs">
+      <DependentUpon>OpenWorld.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Platformer\World.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="FantasyBattle\MonoGame\Content.mgcb" />
+    <None Include="FantasyBattle\MonoGame\TileEngine\Content\robot.xnb" />
+    <None Include="FantasyBattle\MonoGame\TileEngine\Fonts\Pericles6.spritefont" />
+    <None Include="FantasyBattle\MonoGame\TileEngine\Models\robot.xnb" />
+    <None Include="FantasyBattle\MonoGame\TileEngine\Models\robottexture_0.xnb" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icon\3-Leg-White-Machine.jpg" />
+    <Resource Include="Images\Icon\GreySlate.jpg" />
+    <Resource Include="FantasyBattle\MonoGame\TileEngine\Game.ico" />
+    <Resource Include="FantasyBattle\MonoGame\TileEngine\GameThumbnail.png" />
+    <Resource Include="FantasyBattle\MonoGame\TileEngine\Textures\TileSets\part1_tileset.png" />
+    <Resource Include="FantasyBattle\MonoGame\TileEngine\Textures\TileSets\part2_tileset.png" />
+    <Resource Include="FantasyBattle\MonoGame\TileEngine\Textures\TileSets\part3_tileset.png" />
+    <Resource Include="FantasyBattle\MonoGame\TileEngine\Textures\TileSets\part4_tileset.png" />
+    <Resource Include="Space\Images\Dash.jpg" />
+    <Resource Include="Space\Images\PlanetMoonGalaxy.jpg" />
+    <Resource Include="Space\Images\PlethoraOfStars.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Connected Services\" />
+    <Folder Include="Helix\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Grids\BigbysTomb.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Grids\CragmawCastle.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

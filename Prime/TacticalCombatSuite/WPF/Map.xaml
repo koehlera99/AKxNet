@@ -1,0 +1,20 @@
+﻿<Window x:Name="MainMap" x:Class="TCS.WPF.Map"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TCS.FantasyBattle"
+        mc:Ignorable="d"
+        Title="Map" Height="632.3" Width="888" Closed="MainMap_Closed" Loaded="MainMap_Loaded" SizeChanged="MainMap_SizeChanged">
+    <Canvas x:Name="CanvasMap">
+        <Canvas.Background>
+            <ImageBrush ImageSource="GridMaps/p583676971-3.jpg"/>
+        </Canvas.Background>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="64" VerticalAlignment="Top" Width="122" Panel.ZIndex="1" Source="Icons/3-Leg-White-Machine.jpg" Stretch="Fill" Cursor="SizeAll" Canvas.Left="188" Canvas.Top="49">
+            <Image.OpacityMask>
+                <ImageBrush ImageSource="Icons/3-Leg-White-Machine.jpg"/>
+            </Image.OpacityMask>
+        </Image>
+
+    </Canvas>
+</Window>

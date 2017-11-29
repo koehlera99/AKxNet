@@ -33,5 +33,12 @@ namespace DnDWeb.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult Partial()
+        {
+            ViewData["Message"] = "Your contact page.";
+
+            return PartialView("Contact");
+        }
     }
 }

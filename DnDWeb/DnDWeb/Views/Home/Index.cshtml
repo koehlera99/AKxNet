@@ -105,4 +105,26 @@
             <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
         </ul>
     </div>
+    <form asp-action="Partial" asp-controller="Home" method="POST" data-ajax="true" data-ajax-update="divEmp">
+        <input type="submit" value="Partial" />
+
+        <div id="divEmp">
+
+        </div>
+    </form>
+
+    @*@using (Ajax.BeginForm("Partial", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "divEmp" }))
+    {
+
+        
+    }*@
 </div>
+
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+<script type="text/javascript">
+
+
+</script>
