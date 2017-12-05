@@ -24,10 +24,10 @@ namespace TCS.RPG.Effects
         public TimeSpan Duration;
         public bool IsActive = true;
 
-        public Effect() : base(RPGObjectType.Effect)
+        public Effect()
         { }
 
-        public Effect(string name, int value, string description = "", string source = "", int timeToLive = 0) : base(RPGObjectType.Effect)
+        public Effect(string name, int value, string description = "", string source = "", int timeToLive = 0)
         {
             TotalCount++;
             CurrentEffects++;

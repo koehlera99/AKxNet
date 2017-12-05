@@ -13,8 +13,8 @@ namespace TCS.RPG
         public string Description { get; set; }
         public AbilityHandler AbilityFunction { get; set; }
 
-        public Ability() : base(RPGObjectType.Ability) { }
-        public Ability(int id, string name, int value, string description, AbilityHandler function) : base(RPGObjectType.Ability)
+        public Ability() { }
+        public Ability(int id, string name, int value, string description, AbilityHandler function)
         {
             this.ID = id;
             this.Name = name;

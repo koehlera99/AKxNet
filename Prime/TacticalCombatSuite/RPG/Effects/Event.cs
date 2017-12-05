@@ -8,7 +8,7 @@ namespace TCS.RPG.Effects
 {
     class Event : Object
     {
-        public Event() : base(RPGObjectType.Event) { }
+        public Event()  { }
 
     }
 }

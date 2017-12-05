@@ -13,7 +13,6 @@ namespace TCS.RPG.Units
     /// Properties of a typical Unit
     /// </summary>
     public partial class Unit : Object, ISectionItem
-
     {
         #region Stats
         //Primary Stats

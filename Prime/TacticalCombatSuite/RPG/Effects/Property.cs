@@ -12,6 +12,6 @@ namespace TCS.RPG.Effects
         public string Value { get; set; }
         public string Description { get; set; }
 
-        public Property() : base(RPGObjectType.Property) { }
+        public Property() { }
     } 
 }

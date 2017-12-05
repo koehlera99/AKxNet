@@ -33,7 +33,7 @@ namespace TCS.RPG.Items
         public EquipmentSlots EquipLocation { get; set; } = EquipmentSlots.None;
         public WeaponSlots WeaponLocation { get; set; } = WeaponSlots.PrimaryHand;
 
-        public Item() : base(RPGObjectType.Item)
+        public Item()
         {
             Size = 0;
             Weight = 0;
@@ -43,7 +43,7 @@ namespace TCS.RPG.Items
         }
 
         public Item(int itemID, ItemTypes itemType, string itemName, float size, float weight, bool iscontainer, EquipmentSlots equipSlot,
-            int hp, int energy, List<Element> elements, List<Property> properties) : base(RPGObjectType.Item)
+            int hp, int energy, List<Element> elements, List<Property> properties)
         {
             Size = size;
             Weight = weight;

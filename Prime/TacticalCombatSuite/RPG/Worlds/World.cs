@@ -13,6 +13,6 @@ namespace TCS.RPG.Worlds
         public List<Room> Rooms { get; set; } = new List<Room>();
         public List<Event> Events { get; set; } = new List<Event>();
 
-        public World() : base(RPGObjectType.World) { }
+        public World() { }
     }
 }
