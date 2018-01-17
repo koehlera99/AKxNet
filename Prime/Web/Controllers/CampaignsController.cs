@@ -3,32 +3,33 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Web.Domain;
-using Web.Models;
+using Prime.Data.Entity;
 
 namespace Web.Controllers
 {
     public class CampaignsController : Controller
     {
-        private WebContext db = new WebContext();
+        private GameContext db = new GameContext();
 
         // GET: Campaigns
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View(db.Campaigns.ToList());
+            var campaigns = db.Campaigns.Include(c => c.Player);
+            return View(await campaigns.ToListAsync());
         }
 
         // GET: Campaigns/Details/5
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Campaign campaign = db.Campaigns.Find(id);
+            Campaign campaign = await db.Campaigns.FindAsync(id);
             if (campaign == null)
             {
                 return HttpNotFound();
@@ -39,6 +40,7 @@ namespace Web.Controllers
         // GET: Campaigns/Create
         public ActionResult Create()
         {
+            ViewBag.PlayerId = new SelectList(db.Players, "PlayerId", "Playername");
             return View();
         }
 
@@ -47,30 +49,32 @@ namespace Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description")] Campaign campaign)
+        public async Task<ActionResult> Create([Bind(Include = "CampaignId,CampaignTitle,Content,PlayerId")] Campaign campaign)
         {
             if (ModelState.IsValid)
             {
                 db.Campaigns.Add(campaign);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
+            ViewBag.PlayerId = new SelectList(db.Players, "PlayerId", "Playername", campaign.PlayerId);
             return View(campaign);
         }
 
         // GET: Campaigns/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Campaign campaign = db.Campaigns.Find(id);
+            Campaign campaign = await db.Campaigns.FindAsync(id);
             if (campaign == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.PlayerId = new SelectList(db.Players, "PlayerId", "Playername", campaign.PlayerId);
             return View(campaign);
         }
 
@@ -79,25 +83,26 @@ namespace Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description")] Campaign campaign)
+        public async Task<ActionResult> Edit([Bind(Include = "CampaignId,CampaignTitle,Content,PlayerId")] Campaign campaign)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(campaign).State = EntityState.Modified;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewBag.PlayerId = new SelectList(db.Players, "PlayerId", "Playername", campaign.PlayerId);
             return View(campaign);
         }
 
         // GET: Campaigns/Delete/5
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Campaign campaign = db.Campaigns.Find(id);
+            Campaign campaign = await db.Campaigns.FindAsync(id);
             if (campaign == null)
             {
                 return HttpNotFound();
@@ -108,11 +113,11 @@ namespace Web.Controllers
         // POST: Campaigns/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Campaign campaign = db.Campaigns.Find(id);
+            Campaign campaign = await db.Campaigns.FindAsync(id);
             db.Campaigns.Remove(campaign);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 

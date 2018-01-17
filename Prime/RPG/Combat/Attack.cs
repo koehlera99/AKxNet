@@ -1,8 +1,8 @@
-﻿namespace RPG.Core.Items.Offense
+﻿namespace RPG.Core.Combat
 {
-    class AttackObject : IAttack
+    class Attack : IAttack
     {
-        public AttackObject(AttackType attackType, int attackRoll, int damageRoll)
+        public Attack(AttackType attackType, int attackRoll, int damageRoll)
         {
             AttackType = attackType;
             AttackRoll = attackRoll;

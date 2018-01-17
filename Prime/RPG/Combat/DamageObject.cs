@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace RPG.Core.Items.Offense
+namespace RPG.Core.Combat
 {
     class DamageObject : IDamage
     {
         public int DamageAmount { get; set; }
-        public DamageType DamageType { get; set; }
+        public PrimaryDamageType DamageType { get; set; }
 
         public IDamage GetDamage()
         {

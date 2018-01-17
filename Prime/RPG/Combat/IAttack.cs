@@ -1,4 +1,4 @@
-﻿namespace RPG.Core.Items.Offense
+﻿namespace RPG.Core.Combat
 {
     public interface IAttack
     {

@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E38FEBD7-A212-49FD-817F-FD40D62AFAA2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RPG</RootNamespace>
+    <AssemblyName>RPG</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Combat\Attack.cs" />
+    <Compile Include="Combat\AttackObject.cs" />
+    <Compile Include="Combat\CombatController.cs" />
+    <Compile Include="Combat\CombatFacilitator.cs" />
+    <Compile Include="Combat\CombatManager.cs" />
+    <Compile Include="Combat\DamageObject.cs" />
+    <Compile Include="Combat\IAttack.cs" />
+    <Compile Include="Combat\IDamage.cs" />
+    <Compile Include="Effects\Ability.cs" />
+    <Compile Include="Effects\Conditions.cs" />
+    <Compile Include="Effects\Effect.cs" />
+    <Compile Include="Effects\Event.cs" />
+    <Compile Include="Effects\IStatusEffect.cs" />
+    <Compile Include="Effects\Property.cs" />
+    <Compile Include="Effects\StatusEffects.cs" />
+    <Compile Include="Items\Artifact.cs" />
+    <Compile Include="Items\Defense\Armor.cs" />
+    <Compile Include="Items\Defense\IArmor.cs" />
+    <Compile Include="Items\Defense\IShield.cs" />
+    <Compile Include="Items\Element.cs" />
+    <Compile Include="Items\EquipableItem.cs" />
+    <Compile Include="Items\IEquipable.cs" />
+    <Compile Include="Items\IItem.cs" />
+    <Compile Include="Items\Item.cs" />
+    <Compile Include="Items\Material.cs" />
+    <Compile Include="Items\Offense\IWeapon.cs" />
+    <Compile Include="Items\Offense\Weapon.cs" />
+    <Compile Include="Object.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stats\BaseStats.cs" />
+    <Compile Include="Stats\IDefense.cs" />
+    <Compile Include="Stats\IOffense.cs" />
+    <Compile Include="Stats\IPrimaryStats.cs" />
+    <Compile Include="Stats\ISecondaryStats.cs" />
+    <Compile Include="Stats\IUnitStats.cs" />
+    <Compile Include="Stats\PrimaryStats.cs" />
+    <Compile Include="Stats\SecondaryStats.cs" />
+    <Compile Include="Stats\UnitStats.cs" />
+    <Compile Include="Tools\Roll.cs" />
+    <Compile Include="Tools\Tools.cs" />
+    <Compile Include="Units\DamageResistance.cs" />
+    <Compile Include="Units\IAction.cs" />
+    <Compile Include="Units\IUnit.cs" />
+    <Compile Include="Units\LevelTable.cs" />
+    <Compile Include="Units\Statistics.cs" />
+    <Compile Include="Units\Unit.Actions.cs" />
+    <Compile Include="Units\Unit.cs" />
+    <Compile Include="Units\Unit.Functions.cs" />
+    <Compile Include="Units\Unit.Properties.cs" />
+    <Compile Include="Worlds\ISectionItem.cs" />
+    <Compile Include="Worlds\Room.cs" />
+    <Compile Include="Worlds\Section.cs" />
+    <Compile Include="Worlds\Universe.cs" />
+    <Compile Include="Worlds\World.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Items\Gear\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

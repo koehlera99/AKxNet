@@ -203,8 +203,15 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CampaignsController.cs" />
+    <Compile Include="Controllers\EquipmentsController.cs" />
+    <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MissionsController.cs" />
+    <Compile Include="Controllers\PlayersController.cs" />
+    <Compile Include="Controllers\SquadsController.cs" />
+    <Compile Include="Controllers\UnitClassesController.cs" />
+    <Compile Include="Controllers\UnitsController.cs" />
     <Compile Include="Core\Inhabitants.cs" />
     <Compile Include="Core\Money.cs" />
     <Compile Include="Data\DbInitializer.cs" />
@@ -300,9 +307,45 @@
     <Content Include="Views\Campaigns\Details.cshtml" />
     <Content Include="Views\Campaigns\Edit.cshtml" />
     <Content Include="Views\Campaigns\Index.cshtml" />
+    <Content Include="Views\Games\Create.cshtml" />
+    <Content Include="Views\Games\Delete.cshtml" />
+    <Content Include="Views\Games\Details.cshtml" />
+    <Content Include="Views\Games\Edit.cshtml" />
+    <Content Include="Views\Games\Index.cshtml" />
+    <Content Include="Views\Players\Create.cshtml" />
+    <Content Include="Views\Players\Delete.cshtml" />
+    <Content Include="Views\Players\Details.cshtml" />
+    <Content Include="Views\Players\Edit.cshtml" />
+    <Content Include="Views\Players\Index.cshtml" />
+    <Content Include="Views\Units\Create.cshtml" />
+    <Content Include="Views\Units\Delete.cshtml" />
+    <Content Include="Views\Units\Details.cshtml" />
+    <Content Include="Views\Units\Edit.cshtml" />
+    <Content Include="Views\Units\Index.cshtml" />
+    <Content Include="Views\UnitClasses\Create.cshtml" />
+    <Content Include="Views\UnitClasses\Delete.cshtml" />
+    <Content Include="Views\UnitClasses\Details.cshtml" />
+    <Content Include="Views\UnitClasses\Edit.cshtml" />
+    <Content Include="Views\UnitClasses\Index.cshtml" />
+    <Content Include="Views\Missions\Create.cshtml" />
+    <Content Include="Views\Missions\Delete.cshtml" />
+    <Content Include="Views\Missions\Details.cshtml" />
+    <Content Include="Views\Missions\Edit.cshtml" />
+    <Content Include="Views\Missions\Index.cshtml" />
+    <Content Include="Views\Squads\Create.cshtml" />
+    <Content Include="Views\Squads\Delete.cshtml" />
+    <Content Include="Views\Squads\Details.cshtml" />
+    <Content Include="Views\Squads\Edit.cshtml" />
+    <Content Include="Views\Squads\Index.cshtml" />
+    <Content Include="Views\Equipments\Create.cshtml" />
+    <Content Include="Views\Equipments\Delete.cshtml" />
+    <Content Include="Views\Equipments\Details.cshtml" />
+    <Content Include="Views\Equipments\Edit.cshtml" />
+    <Content Include="Views\Equipments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Entity\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -316,6 +359,15 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Data\Prime.Data.csproj">
+      <Project>{62dda067-b366-4785-b5c0-47bdc5c639db}</Project>
+      <Name>Prime.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

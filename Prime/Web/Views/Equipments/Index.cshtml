@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Prime.Data.Entity.Equipment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Unit.UnitName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EquipmentName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Unit.UnitName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EquipmentName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EquipmentId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EquipmentId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.EquipmentId })
+        </td>
+    </tr>
+}
+
+</table>
