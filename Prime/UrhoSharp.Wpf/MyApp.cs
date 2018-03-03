@@ -7,6 +7,7 @@ using Urho.Shapes;
 
 namespace UrhoSharp.Wpf
 {
+
     public class MyApp : Application
     {
         Node cameraNode;
