@@ -15,7 +15,7 @@ namespace UrhoSharp.Wpf
 
         async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var app = await UrhoSurface.Show<BattleGrid>(new Urho.ApplicationOptions("MyData"));
+            var app = await UrhoSurface.Show<Navigation>(new Urho.ApplicationOptions("MyData"));
         }
     }
 }
