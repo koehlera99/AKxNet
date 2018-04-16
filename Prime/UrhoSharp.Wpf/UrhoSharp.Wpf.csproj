@@ -98,7 +98,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -111,6 +113,15 @@
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="MyData\Textures\BlackStone.png" />
+    <Resource Include="MyData\Textures\Whitestone.jpg" />
+    <Resource Include="MyData\Textures\box2.jpg" />
+    <Resource Include="MyData\Textures\Grass2.jpg" />
+    <Resource Include="MyData\Textures\Grass.jpg" />
+    <Resource Include="MyData\Textures\box.jpg" />
+    <Resource Include="MyData\Materials\Box.xml" />
+    <Resource Include="MyData\Materials\Grass.xml" />
+    <Resource Include="MyData\Materials\Box2.xml" />
     <Content Include="MyData\Textures\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

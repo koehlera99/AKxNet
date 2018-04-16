@@ -114,8 +114,9 @@ namespace UrhoSharp.Wpf
             {
                 IntVector2 mouseMove = Input.MouseMove;
                 yaw += mouseSensitivity * mouseMove.X;
+
                 pitch += mouseSensitivity * mouseMove.Y;
-                pitch = MathHelper.Clamp(pitch, -90.0f, 90.0f);
+                pitch = MathHelper.Clamp(pitch, -90, 90);
 
                 // Construct new orientation for the camera scene node from yaw and pitch. Roll is fixed to zero
                 CameraNode.Rotation = new Quaternion(pitch, yaw, 0.0f);
@@ -130,6 +131,11 @@ namespace UrhoSharp.Wpf
                 CameraNode.Translate(-Vector3.UnitX * moveSpeed * timeStep);
             if (Input.GetKeyDown(Key.D))
                 CameraNode.Translate(Vector3.UnitX * moveSpeed * timeStep);
+
+            if (Input.GetKeyDown(Key.R))
+                CameraNode.Translate(Vector3.UnitY * moveSpeed * timeStep);
+            if (Input.GetKeyDown(Key.F))
+                CameraNode.Translate(-Vector3.UnitY * moveSpeed * timeStep);
 
             // Set destination or teleport with left mouse button
             if (Input.GetMouseButtonPress(MouseButton.Left))
@@ -194,12 +200,32 @@ namespace UrhoSharp.Wpf
             scene.CreateComponent<Octree>();
             scene.CreateComponent<DebugRenderer>();
 
-            // Create scene node & StaticModel component for showing a static plane
-            Node planeNode = scene.CreateChild("Plane");
-            planeNode.Scale = new Vector3(100.0f, 1.0f, 100.0f);
-            StaticModel planeObject = planeNode.CreateComponent<StaticModel>();
-            planeObject.Model = cache.GetModel("Models/Plane.mdl");
-            planeObject.SetMaterial(cache.GetMaterial("Materials/Moon.xml"));
+            //// Create scene node & StaticModel component for showing a static plane
+            //Node planeNode = scene.CreateChild("Plane");
+            //planeNode.Scale = new Vector3(100.0f, 1.0f, 100.0f);
+            //StaticModel planeObject = planeNode.CreateComponent<StaticModel>();
+            //planeObject.Model = cache.GetModel("Models/Plane.mdl");
+            //planeObject.SetMaterial(cache.GetMaterial("Materials/Grass.xml"));
+
+            for (int x = -8; x < 12; x++)
+            {
+                for (int y = -8; y < 12; y++)
+                {
+                    Node box = scene.CreateChild();
+                    box.SetScale(5f);
+                    //box.Rotation = new Quaternion(25, 180, 145);
+                    box.Position = new Vector3(x*5, -2.5f, y*5);
+
+                    // Create a static model component - Sphere:
+                    var earth = box.CreateComponent<Box>();
+                    earth.SetMaterial(ResourceCache.GetMaterial("Materials/Grass.xml")); // or simply Material.FromImage("Textures/Earth.jpg")
+                }
+            }
+
+
+
+
+
 
             // Create a Zone component for ambient lighting & fog control
             Node zoneNode = scene.CreateChild("Zone");
@@ -235,7 +261,21 @@ namespace UrhoSharp.Wpf
                 boxNode.SetScale(size);
                 StaticModel boxObject = boxNode.CreateComponent<StaticModel>();
                 boxObject.Model = cache.GetModel("Models/Box.mdl");
-                boxObject.SetMaterial(cache.GetMaterial("Materials/Earth.xml"));
+                boxObject.SetMaterial(cache.GetMaterial("Materials/Box.xml"));
+                boxObject.CastShadows = true;
+                if (size >= 3.0f)
+                    boxObject.Occluder = true;
+            }
+
+            for (uint i = 0; i < numBoxes; ++i)
+            {
+                Node boxNode = scene.CreateChild("Box");
+                float size = 1.0f + NextRandom(10.0f);
+                boxNode.Position = new Vector3(NextRandom(80.0f) - 40.0f, size * 0.5f, NextRandom(80.0f) - 40.0f);
+                boxNode.SetScale(size);
+                StaticModel boxObject = boxNode.CreateComponent<StaticModel>();
+                boxObject.Model = cache.GetModel("Models/Box.mdl");
+                boxObject.SetMaterial(cache.GetMaterial("Materials/Box2.xml"));
                 boxObject.CastShadows = true;
                 if (size >= 3.0f)
                     boxObject.Occluder = true;
@@ -266,6 +306,7 @@ namespace UrhoSharp.Wpf
             CameraNode = scene.CreateChild("Camera");
             Camera camera = CameraNode.CreateComponent<Camera>();
             camera.FarClip = 300.0f;
+            
 
             // Set an initial position for the camera scene node above the plane
             CameraNode.Position = new Vector3(0.0f, 5.0f, 0.0f);
