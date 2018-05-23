@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:UrhoSharp.Wpf"
         xmlns:wpf="clr-namespace:Urho.Extensions.Wpf;assembly=Urho.Extensions.Wpf"
         mc:Ignorable="d" Loaded="Window_Loaded"
-        Title="My UrhoSharp app" Height="800" Width="1200">
+        Title="My UrhoSharp app" Height="800" Width="1200" WindowState="Maximized">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="900*"/>
             <ColumnDefinition Width="100*"/>
         </Grid.ColumnDefinitions>
-        <wpf:UrhoSurface x:Name="UrhoSurface" Grid.ColumnSpan="1"/>
+        <wpf:UrhoSurface x:Name="UrhoSurface" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

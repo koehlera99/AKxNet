@@ -57,6 +57,7 @@ namespace UrhoSharp.Wpf
             SubscribeToEvents();
         }
 
+#pragma warning disable CS0618 // Type or member is obsolete
         void SubscribeToEvents()
         {
             Engine.SubscribeToPostRenderUpdate(args =>
@@ -86,6 +87,7 @@ namespace UrhoSharp.Wpf
                 }
             });
         }
+#pragma warning restore CS0618 // Type or member is obsolete
 
         protected override void OnUpdate(float timeStep)
         {
@@ -147,6 +149,8 @@ namespace UrhoSharp.Wpf
             // Toggle debug geometry with space
             if (Input.GetKeyPress(Key.Space))
                 drawDebug = !drawDebug;
+
+            
         }
 
         void SetupViewport()
@@ -189,6 +193,11 @@ namespace UrhoSharp.Wpf
             UI.Root.AddChild(instructionText);
         }
 
+        private Material GetMaterial(string textureName)
+        {
+            return Material.FromImage($"Textures/{textureName}");
+        }
+
         void CreateScene()
         {
             var cache = ResourceCache;
@@ -207,25 +216,56 @@ namespace UrhoSharp.Wpf
             //planeObject.Model = cache.GetModel("Models/Plane.mdl");
             //planeObject.SetMaterial(cache.GetMaterial("Materials/Grass.xml"));
 
-            for (int x = -8; x < 12; x++)
+            for (int x = 0; x < 25; x++)
             {
-                for (int y = -8; y < 12; y++)
+                for (int y = 0; y < 25; y++)
                 {
                     Node box = scene.CreateChild();
                     box.SetScale(5f);
                     //box.Rotation = new Quaternion(25, 180, 145);
-                    box.Position = new Vector3(x*5, -2.5f, y*5);
+                    box.Position = new Vector3(x*5, 0, y*5);
 
                     // Create a static model component - Sphere:
                     var earth = box.CreateComponent<Box>();
-                    earth.SetMaterial(ResourceCache.GetMaterial("Materials/Grass.xml")); // or simply Material.FromImage("Textures/Earth.jpg")
+                    //earth.SetMaterial(ResourceCache.GetMaterial("Materials/BlackStone.xml")); // or simply Material.FromImage("Textures/BlackStone.png")
+
+                    if(x == 17 || x == 18)
+                    {
+                        earth.SetMaterial(GetMaterial(Materials.Grass));
+                    }
+                    else
+                    {
+                        earth.SetMaterial(GetMaterial(Materials.BlackStone));
+                    }
                 }
             }
 
+            for (int x = 15; x <= 20; x++)
+            {
+                for (int y = 15; y <= 20; y++)
+                {
+                    for(int z = 1; z < 5; z++)
+                    {
+                        Node box = scene.CreateChild();
+                        box.SetScale(5f);
+                        //box.Rotation = new Quaternion(25, 180, 145);
+                        box.Position = new Vector3(x * 5, z * 5, y * 5);
 
+                        // Create a static model component - Sphere:
+                        var earth = box.CreateComponent<Box>();
 
-
-
+                        if((z == 1 || z == 2) && (x == 17 || x == 18))
+                        {
+                            earth.SetMaterial(GetMaterial("OakPanel.jpg"));
+                        }
+                        else
+                        {
+                            earth.SetMaterial(GetMaterial("Brick.jpg"));
+                        }
+                        
+                    }
+                }
+            }
 
             // Create a Zone component for ambient lighting & fog control
             Node zoneNode = scene.CreateChild("Zone");
@@ -252,13 +292,15 @@ namespace UrhoSharp.Wpf
             //    CreateMushroom(new Vector3(NextRandom(90.0f) - 45.0f, 0.0f, NextRandom(90.0f) - 45.0f));
 
             // Create randomly sized boxes. If boxes are big enough, make them occluders
-            const uint numBoxes = 20;
+            const uint numBoxes = 15;
+            const float size = 5f;
+
             for (uint i = 0; i < numBoxes; ++i)
             {
                 Node boxNode = scene.CreateChild("Box");
-                float size = 1.0f + NextRandom(10.0f);
-                boxNode.Position = new Vector3(NextRandom(80.0f) - 40.0f, size * 0.5f, NextRandom(80.0f) - 40.0f);
-                boxNode.SetScale(size);
+                
+                boxNode.Position = new Vector3(NextRandom(i) * size, size, NextRandom(i) * size);
+                boxNode.SetScale(5f);
                 StaticModel boxObject = boxNode.CreateComponent<StaticModel>();
                 boxObject.Model = cache.GetModel("Models/Box.mdl");
                 boxObject.SetMaterial(cache.GetMaterial("Materials/Box.xml"));
@@ -270,8 +312,7 @@ namespace UrhoSharp.Wpf
             for (uint i = 0; i < numBoxes; ++i)
             {
                 Node boxNode = scene.CreateChild("Box");
-                float size = 1.0f + NextRandom(10.0f);
-                boxNode.Position = new Vector3(NextRandom(80.0f) - 40.0f, size * 0.5f, NextRandom(80.0f) - 40.0f);
+                boxNode.Position = new Vector3(NextRandom(i) * size, size, NextRandom(i) * size);
                 boxNode.SetScale(size);
                 StaticModel boxObject = boxNode.CreateComponent<StaticModel>();
                 boxObject.Model = cache.GetModel("Models/Box.mdl");
@@ -300,7 +341,7 @@ namespace UrhoSharp.Wpf
             // Now build the navigation geometry. This will take some time. Note that the navigation mesh will prefer to use
             // physics geometry from the scene nodes, as it often is simpler, but if it can not find any (like in this example)
             // it will use renderable geometry instead
-            navMesh.Build();
+            //navMesh.Build();
 
             // Create the camera. Limit far clip distance to match the fog
             CameraNode = scene.CreateChild("Camera");
@@ -309,7 +350,9 @@ namespace UrhoSharp.Wpf
             
 
             // Set an initial position for the camera scene node above the plane
-            CameraNode.Position = new Vector3(0.0f, 5.0f, 0.0f);
+            CameraNode.Position = new Vector3(50.6586f, 22.66369f, -59.32669f);
+
+            { }
         }
 
         void SetPathPoint()
@@ -432,7 +475,10 @@ namespace UrhoSharp.Wpf
 
         public float NextRandom(float max)
         {
-            return Random.Next(0, (int)max);
+            int next = Random.Next(0, (int)max);
+
+            return next > 5 ? max : next;
+
         }
         /// <summary>
         /// Set custom Joystick layout for mobile platforms

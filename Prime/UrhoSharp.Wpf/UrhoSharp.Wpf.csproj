@@ -79,6 +79,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Materials.cs" />
     <Compile Include="MyApp.cs" />
     <Compile Include="Navigation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -113,6 +114,9 @@
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="MyData\Textures\OakPanel.jpg" />
+    <Resource Include="MyData\Textures\Door.jpg" />
+    <Resource Include="MyData\Textures\Brick.jpg" />
     <Resource Include="MyData\Textures\BlackStone.png" />
     <Resource Include="MyData\Textures\Whitestone.jpg" />
     <Resource Include="MyData\Textures\box2.jpg" />
@@ -120,12 +124,24 @@
     <Resource Include="MyData\Textures\Grass.jpg" />
     <Resource Include="MyData\Textures\box.jpg" />
     <Resource Include="MyData\Materials\Box.xml" />
-    <Resource Include="MyData\Materials\Grass.xml" />
+    <Resource Include="MyData\Materials\Grass.xml">
+      <SubType>Designer</SubType>
+    </Resource>
     <Resource Include="MyData\Materials\Box2.xml" />
+    <Resource Include="MyData\Materials\BlackStone.xml" />
     <Content Include="MyData\Textures\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="MyData\Materials\*.*">
+    <Content Include="MyData\Materials\Box.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MyData\Materials\Box2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MyData\Materials\Earth.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MyData\Materials\Moon.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
