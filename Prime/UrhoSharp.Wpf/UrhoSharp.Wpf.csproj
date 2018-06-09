@@ -95,9 +95,34 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="MyData\Models\tombstone_01.mdl" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="MyData\Models\Biffdd.mdl" />
+    <None Include="MyData\Models\Biffddd.mdl" />
+    <EmbeddedResource Include="MyData\Models\Bliff.mdl" />
+    <EmbeddedResource Include="MyData\Models\BluePawn.mdl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Include="MyData\Models\cc.mdl" />
+    <None Include="MyData\Models\Cone.mdl" />
+    <EmbeddedResource Include="MyData\Models\cross_big.mdl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyData\Models\Cube.005.mdl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Include="MyData\Models\Cube.mdl" />
+    <None Include="MyData\Models\Cube2.mdl" />
+    <None Include="MyData\Models\Cylinder.mdl" />
+    <None Include="MyData\Models\kk.mdl" />
+    <EmbeddedResource Include="MyData\Models\Pawn.mdl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyData\Models\tombstone_01.001.mdl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="packages.config">
       <SubType>Designer</SubType>
@@ -129,6 +154,10 @@
     </Resource>
     <Resource Include="MyData\Materials\Box2.xml" />
     <Resource Include="MyData\Materials\BlackStone.xml" />
+    <EmbeddedResource Include="MyData\Materials\Material.001.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Resource Include="MyData\Materials\BlueBlackSphere.jpg" />
     <Content Include="MyData\Textures\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
