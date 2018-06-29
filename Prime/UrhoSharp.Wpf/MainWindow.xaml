@@ -5,31 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UrhoSharp.Wpf"
         xmlns:wpf="clr-namespace:Urho.Extensions.Wpf;assembly=Urho.Extensions.Wpf"
-        xmlns:gui="clr-namespace:Urho.Gui;assembly=Urho"
         mc:Ignorable="d" Loaded="Window_Loaded"
-        Title="Yes" Height="800" Width="1214.4" WindowState="Maximized">
+        Title="My UrhoSharp app" Height="800" Width="1200" WindowState="Maximized">
     <Grid>
         <Grid.ColumnDefinitions>
-
-            <ColumnDefinition Width="75*"/>
-            <ColumnDefinition Width="850*"/>
-            <ColumnDefinition Width="75*"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="75*"/>
-            <RowDefinition Height="850*"/>
-            <RowDefinition Height="75*"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        <wpf:UrhoSurface x:Name="UrhoSurface" Grid.Column="1" Grid.Row="1" Margin="0,0,0,0.4" />
-        <StackPanel Grid.Column="0" Grid.Row="1">
-            <Button Content="Button" Background="#FF963232" Height="25"/>
-            <Button Content="Supe button" Background="#FF165B74" Height="25" />
+        <wpf:UrhoSurface x:Name="UrhoSurface" Grid.Column="1" Grid.Row="1"/>
+        <StackPanel Grid.ColumnSpan="3" Margin="1,0,0,0" Orientation="Vertical">
+            <Button x:Name="ColA"  Panel.ZIndex="1" MinWidth="20" MinHeight="20" Content="Test" Height="100"/>
         </StackPanel>
-
-        <StackPanel Grid.Column="2" Grid.Row="1" />
-
-
-
-
+        <StackPanel Grid.Column="2" Margin="1,0,0,0" Orientation="Vertical" Grid.Row="1">
+            <Button x:Name="ColB" Panel.ZIndex="1" MinWidth="20" MinHeight="20" Content="Test" Height="569"/>
+        </StackPanel>
+        <StackPanel Grid.ColumnSpan="3" Margin="1,0,0,0" Orientation="Vertical" Grid.Row="2">
+            <Button x:Name="RowA" Panel.ZIndex="1" MinWidth="20" MinHeight="20" Content="Test" Height="100"/>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Margin="1,0,0,0" Orientation="Vertical" Grid.Row="1">
+            <Button x:Name="RowB" Panel.ZIndex="1" MinWidth="20" MinHeight="20" Content="Test" Height="569"/>
+        </StackPanel>
     </Grid>
 </Window>

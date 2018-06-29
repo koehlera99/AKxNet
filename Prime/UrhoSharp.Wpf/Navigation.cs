@@ -193,14 +193,37 @@ namespace UrhoSharp.Wpf
             UI.Root.AddChild(instructionText);
         }
 
-        private Material GetMaterial(string textureName)
+        
+
+        private void AddModel(string modelName, string materialName = "")
         {
-            return Material.FromImage($"Textures/{textureName}");
+            //// Create scene node & StaticModel component for showing a static plane
+            Node planeNode = scene.CreateChild();
+            planeNode.SetScale(1f);
+            planeNode.Position = new Vector3(Randoms.Next(0, 60), Randoms.Next(10, 14), Randoms.Next(0, 60));
+            var testModel = planeNode.CreateComponent<StaticModel>();
+
+            testModel.Model = ResourceCache.GetModel($"Models/{modelName}.mdl");
+
+            if(string.IsNullOrWhiteSpace(materialName))
+            {
+                testModel.SetMaterial(Material.FromColor(Randoms.NextColor()));                                      
+            }
+            else
+            {
+                testModel.SetMaterial(ResourceCache.GetMaterial($"Materials/{materialName}.xml"));
+            }
         }
 
         void CreateScene()
         {
             var cache = ResourceCache;
+            //cache.GetFile("Models/Bliff.mdl");
+            //cache.GetResource("Model", "Models/Bliff.mdl");
+
+            //cache.GetResource(new StringHash("Model"), "Models/Bliff.mdl");
+            
+            //ResourceCache.GetModel("Models/Bliff.mdl");
 
             scene = new Scene();
 
@@ -209,12 +232,29 @@ namespace UrhoSharp.Wpf
             scene.CreateComponent<Octree>();
             scene.CreateComponent<DebugRenderer>();
 
-            //// Create scene node & StaticModel component for showing a static plane
-            //Node planeNode = scene.CreateChild("Plane");
-            //planeNode.Scale = new Vector3(100.0f, 1.0f, 100.0f);
-            //StaticModel planeObject = planeNode.CreateComponent<StaticModel>();
-            //planeObject.Model = cache.GetModel("Models/Plane.mdl");
-            //planeObject.SetMaterial(cache.GetMaterial("Materials/Grass.xml"));
+            AddModel("Bliff");
+            AddModel("cross_big");
+            AddModel("Cube.005");
+            AddModel("tombstone_01.001");
+            AddModel("tombstone_01");
+            AddModel("Bliff");
+            AddModel("BluePawn");
+            AddModel("BluePawn");
+
+            Node sphere = scene.CreateChild();
+            sphere.SetScale(5f);
+            sphere.Position = new Vector3(50, 40, 10);
+            var s = sphere.CreateComponent<Sphere>();
+            s.SetMaterial(Texture.BlueBlackSphere);
+
+            for(int i = 0; i < 10; i++)
+            {
+                Node sp = scene.CreateChild();
+                sp.SetScale(5f);
+                sp.Position = new Vector3(i * 5, 40, 10);
+                var p = sp.CreateComponent<Sphere>();
+                p.SetMaterial(Texture.GetRandomTexture());
+            }
 
             for (int x = 0; x < 25; x++)
             {
@@ -231,11 +271,11 @@ namespace UrhoSharp.Wpf
 
                     if(x == 17 || x == 18)
                     {
-                        earth.SetMaterial(GetMaterial(Materials.Grass));
+                        earth.SetMaterial(Texture.Grass);
                     }
                     else
                     {
-                        earth.SetMaterial(GetMaterial(Materials.BlackStone));
+                        earth.SetMaterial(Texture.BlackStone);
                     }
                 }
             }
@@ -256,11 +296,11 @@ namespace UrhoSharp.Wpf
 
                         if((z == 1 || z == 2) && (x == 17 || x == 18))
                         {
-                            earth.SetMaterial(GetMaterial("OakPanel.jpg"));
+                            earth.SetMaterial(Texture.OakPanel);
                         }
                         else
                         {
-                            earth.SetMaterial(GetMaterial("Brick.jpg"));
+                            earth.SetMaterial(Texture.Brick);
                         }
                         
                     }
@@ -350,7 +390,8 @@ namespace UrhoSharp.Wpf
             
 
             // Set an initial position for the camera scene node above the plane
-            CameraNode.Position = new Vector3(50.6586f, 22.66369f, -59.32669f);
+            CameraNode.Position = new Vector3(57.48847f, 60.82811f, -60.87394f); //
+            CameraNode.Rotation = new Quaternion(29.3f, 1.1f, 0.0f);
 
             { }
         }
