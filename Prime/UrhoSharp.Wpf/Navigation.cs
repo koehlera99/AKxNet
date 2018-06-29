@@ -193,10 +193,7 @@ namespace UrhoSharp.Wpf
             UI.Root.AddChild(instructionText);
         }
 
-        private Material GetMaterial(string textureName)
-        {
-            return Material.FromImage($"Textures/{textureName}");
-        }
+        
 
         private void AddModel(string modelName, string materialName = "")
         {
@@ -248,13 +245,16 @@ namespace UrhoSharp.Wpf
             sphere.SetScale(5f);
             sphere.Position = new Vector3(50, 40, 10);
             var s = sphere.CreateComponent<Sphere>();
-            s.SetMaterial(GetMaterial("BlueBlackSphere.jpg"));
+            s.SetMaterial(Texture.BlueBlackSphere);
 
-            Node sp = scene.CreateChild();
-            sp.SetScale(5f);
-            sp.Position = new Vector3(45, 40, 10);
-            var p = sp.CreateComponent<Sphere>();
-            p.SetMaterial(GetMaterial(Materials.BlackStone));
+            for(int i = 0; i < 10; i++)
+            {
+                Node sp = scene.CreateChild();
+                sp.SetScale(5f);
+                sp.Position = new Vector3(i * 5, 40, 10);
+                var p = sp.CreateComponent<Sphere>();
+                p.SetMaterial(Texture.GetRandomTexture());
+            }
 
             for (int x = 0; x < 25; x++)
             {
@@ -271,11 +271,11 @@ namespace UrhoSharp.Wpf
 
                     if(x == 17 || x == 18)
                     {
-                        earth.SetMaterial(GetMaterial(Materials.Grass));
+                        earth.SetMaterial(Texture.Grass);
                     }
                     else
                     {
-                        earth.SetMaterial(GetMaterial(Materials.BlackStone));
+                        earth.SetMaterial(Texture.BlackStone);
                     }
                 }
             }
@@ -296,11 +296,11 @@ namespace UrhoSharp.Wpf
 
                         if((z == 1 || z == 2) && (x == 17 || x == 18))
                         {
-                            earth.SetMaterial(GetMaterial("OakPanel.jpg"));
+                            earth.SetMaterial(Texture.OakPanel);
                         }
                         else
                         {
-                            earth.SetMaterial(GetMaterial("Brick.jpg"));
+                            earth.SetMaterial(Texture.Brick);
                         }
                         
                     }
