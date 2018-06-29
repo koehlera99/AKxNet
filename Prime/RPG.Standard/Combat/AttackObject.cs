@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using RPG.Core.Units;
+using RPG.Standard.Units;
 
-namespace RPG.Core.Combat
+namespace RPG.Standard.Combat
 {
     class AttackObject
     {
+        public string AttackType { get; set; }
+        public int AttackRoll { get; set; }
         public AttackObject(IUnit attackingUnit, IList<IUnit> defendingUnits, IList<IAttack> attacks)
         {
             AttackingUnit = attackingUnit;

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RPG.Core.Items.Offense;
-using RPG.Core.Stats;
+using RPG.Standard.Items.Offense;
+using RPG.Standard.Stats;
 
-namespace RPG.Core.Combat
+namespace RPG.Standard.Combat
 {
     class CombatFacilitator
     {

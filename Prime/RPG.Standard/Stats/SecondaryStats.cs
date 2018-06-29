@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RPG.Core.Stats
+namespace RPG.Standard.Stats
 {
     [Obsolete]
     class SecondaryStats

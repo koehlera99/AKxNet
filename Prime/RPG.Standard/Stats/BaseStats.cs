@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG.Core.Stats
+namespace RPG.Standard.Stats
 {
     [Obsolete("Included in IUnitStat")]
     class BaseStats

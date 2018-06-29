@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RPG.Core.Combat
+namespace RPG.Standard.Combat
 {
     class DamageObject : IDamage
     {

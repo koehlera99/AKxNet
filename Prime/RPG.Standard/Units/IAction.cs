@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RPG.Core.Units
+namespace RPG.Standard.Units
 {
     interface IAction
     {

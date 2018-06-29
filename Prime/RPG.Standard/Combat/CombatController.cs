@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RPG.Core.Combat
+namespace RPG.Standard.Combat
 {
     class CombatController
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG.Core.Items
+namespace RPG.Standard.Items
 {
     public class Element : Object
     {

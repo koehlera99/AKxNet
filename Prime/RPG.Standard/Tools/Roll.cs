@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG.Core.Tools
+namespace RPG.Standard.Tools
 {
     /// <summary>
     /// Generate random dice rolls

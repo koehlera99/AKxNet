@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using RPG.Core.Effects;
+using RPG.Standard.Effects;
 
-namespace RPG.Core.Tools
+namespace RPG.Standard.Tools
 {
     static class Tools
     {

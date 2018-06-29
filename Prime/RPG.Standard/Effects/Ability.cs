@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG.Core
+namespace RPG.Standard
 {
     public class Ability : Object
     {

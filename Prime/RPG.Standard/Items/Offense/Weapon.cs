@@ -1,8 +1,8 @@
 ﻿using System;
-using RPG.Core.Combat;
-using RPG.Core.Units;
+using RPG.Standard.Combat;
+using RPG.Standard.Units;
 
-namespace RPG.Core.Items.Offense
+namespace RPG.Standard.Items.Offense
 {
     public class Weapon : Item, IWeapon, IDamage
     {

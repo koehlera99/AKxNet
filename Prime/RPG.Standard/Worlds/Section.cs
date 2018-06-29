@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG.Core.Worlds
+namespace RPG.Standard.Worlds
 {
     class Section
     {

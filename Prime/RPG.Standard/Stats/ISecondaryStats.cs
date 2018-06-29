@@ -1,4 +1,4 @@
-﻿namespace RPG.Core.Stats
+﻿namespace RPG.Standard.Stats
 {
     interface ISecondaryStats
     {

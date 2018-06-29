@@ -1,4 +1,4 @@
-﻿namespace RPG.Core.Combat
+﻿namespace RPG.Standard.Combat
 {
     public interface IAttack
     {

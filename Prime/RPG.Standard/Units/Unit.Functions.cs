@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using RPG.Core.Combat;
-using RPG.Core.Items;
-using RPG.Core.Effects;
-using RPG.Core.Items.Offense;
-using RPG.Core.Tools;
+using RPG.Standard.Combat;
+using RPG.Standard.Items;
+using RPG.Standard.Effects;
+using RPG.Standard.Items.Offense;
+using RPG.Standard.Tools;
 
-namespace RPG.Core.Units
+namespace RPG.Standard.Units
 {
     public partial class Unit
     {

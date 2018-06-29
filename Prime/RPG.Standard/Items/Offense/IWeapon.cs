@@ -1,7 +1,7 @@
 ﻿using System;
-using RPG.Core.Combat;
+using RPG.Standard.Combat;
 
-namespace RPG.Core.Items.Offense
+namespace RPG.Standard.Items.Offense
 {
     public interface IWeapon
     {
