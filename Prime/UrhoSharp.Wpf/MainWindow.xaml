@@ -22,9 +22,16 @@
         <StackPanel Grid.ColumnSpan="3" Margin="1,0,0,0" Orientation="Vertical">
             <Button x:Name="ColA"  Panel.ZIndex="1" MinWidth="20" MinHeight="20" Content="Test" Height="100"/>
         </StackPanel>
-        <StackPanel Grid.Column="2" Margin="1,0,0,0" Orientation="Vertical" Grid.Row="1">
-            <Button x:Name="ColB" Panel.ZIndex="1" MinWidth="20" MinHeight="20" Content="Test" Height="569"/>
-        </StackPanel>
+        <Grid Grid.Column="2" Margin="1,0,0,0" Grid.Row="1">
+            <Button x:Name="MoveLeftButton" Content="L" HorizontalAlignment="Left" VerticalAlignment="Top" Width="27" Height="25" Margin="0,25,0,0" Click="MoveLeftButton_Click"/>
+            <Button x:Name="MoveForwardButton" Content="F" HorizontalAlignment="Left" VerticalAlignment="Top" Width="27" Height="25" Margin="27,0,0,0" Click="MoveForwardButton_Click"/>
+            <Button x:Name="MoveRightButton" Content="R" HorizontalAlignment="Left" VerticalAlignment="Top" Width="27" Height="25" Margin="54,25,0,0" Click="MoveRightButton_Click"/>
+            <Button x:Name="MoveBackButton" Content="B" HorizontalAlignment="Left" VerticalAlignment="Top" Width="27" Height="25" Margin="27,50,0,0" Click="MoveBackButton_Click"/>
+            <Button x:Name="MoveUp" Content="U" HorizontalAlignment="Left" VerticalAlignment="Top" Width="27" Height="12" Margin="27,25,0,0" Click="MoveUp_Click"/>
+            <Button x:Name="MoveDown" Content="D" HorizontalAlignment="Left" VerticalAlignment="Top" Width="27" Height="12" Margin="27,38,0,0" Click="MoveDown_Click"/>
+            <Button x:Name="ActionButton" Content="A" HorizontalAlignment="Left" VerticalAlignment="Top" Width="27" Height="25" Margin="27,80,0,0" Click="ActionButton_Click" />
+
+        </Grid>
         <StackPanel Grid.ColumnSpan="3" Margin="1,0,0,0" Orientation="Vertical" Grid.Row="2">
             <Button x:Name="RowA" Panel.ZIndex="1" MinWidth="20" MinHeight="20" Content="Test" Height="100"/>
         </StackPanel>

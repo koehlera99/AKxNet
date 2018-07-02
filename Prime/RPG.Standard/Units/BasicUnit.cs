@@ -14,15 +14,15 @@ namespace RPG.Standard.Units
         public int CurrentHP { get; set; }
         public int MaxHP { get; set; }
 
-        public int PerformAttack(BasicUnit defender)
+        public int? PerformAttack(BasicUnit defender)
         {
             //TODO: Replace with weapon damage
             int damage = 5;
 
-            int attackRoll = Roll.D100() + BasicAttackValue;
+            int attackRoll = Roll.d100 + BasicAttackValue;
 
-            var attack = new BasicAttackObject(attackRoll, damage);
-            var combatResolver = new BasicCombatResolver(attack, defender);
+            var attack = new BasicAttackObject(attackRoll, damage, defender, this);
+            var combatResolver = new BasicCombatResolver(attack);
 
             return combatResolver.ResolveAttack();
         }

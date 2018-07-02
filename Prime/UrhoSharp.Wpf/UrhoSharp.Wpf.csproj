@@ -135,7 +135,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\RPG.Standard\RPG.Standard.csproj">
+      <Project>{519a9c71-da18-4fbe-8826-df0bdc404dc6}</Project>
+      <Name>RPG.Standard</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
