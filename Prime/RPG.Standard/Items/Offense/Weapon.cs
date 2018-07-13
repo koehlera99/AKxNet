@@ -1,6 +1,7 @@
 ﻿using System;
 using RPG.Standard.Combat;
 using RPG.Standard.Units;
+using RPG.Standard.Tools;
 
 namespace RPG.Standard.Items.Offense
 {
@@ -23,8 +24,7 @@ namespace RPG.Standard.Items.Offense
         public int CritChanceBonus { get; set; } = 0;
         public int CritDamageBonus { get; set; } = 0;
 
-        public int MinDamage { get; set; } = 1;
-        public int MaxDamage { get; set; } = 10;
+        
 
         public int MinRange { get; set; } = 0; //Self
         public int MaxRange { get; set; } = 1; //Melee
@@ -54,7 +54,12 @@ namespace RPG.Standard.Items.Offense
             }
         }
 
-        public int DamageAmount { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int DamageAmount => Roll.Dice(DamageDie);
+
+        public int MinDamage { get; } = 1;
+        public int MaxDamage { get; set; } = 10;
+
+        public Die DamageDie { get; set; }
         PrimaryDamageType IDamage.DamageType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Weapon()

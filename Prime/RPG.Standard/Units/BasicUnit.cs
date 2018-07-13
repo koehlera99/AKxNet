@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using RPG.Standard.Combat;
 using RPG.Standard.Tools;
+using RPG.Standard.Items.Offense;
 
 namespace RPG.Standard.Units
 {
@@ -11,20 +12,21 @@ namespace RPG.Standard.Units
         public int BasicAttackValue { get; set; }
         public int BasicDefenseValue { get; set; }
 
-        public int CurrentHP { get; set; }
-        public int MaxHP { get; set; }
+        public int CurrentHp { get; set; }
+        public int MaxHp { get; set; }
 
-        public int PerformAttack(BasicUnit defender)
+        //public int AttackRoll => Roll.D100() + BasicAttackValue;
+
+        public AttackRoll UnitAttackRoll => new AttackRoll(BasicAttackValue);
+
+        public int PerformAttack(IWeapon weapon, BasicUnit defender)
         {
-            //TODO: Replace with weapon damage
-            int damage = 5;
+            var defenders = new List<BasicUnit>() {defender};
+            var attack = new BasicAttackObject(UnitAttackRoll, weapon, this, defenders);
+            //var combatResolver = new BasicCombatResolver(attack);
 
-            int attackRoll = Roll.D100() + BasicAttackValue;
-
-            var attack = new BasicAttackObject(attackRoll, damage);
-            var combatResolver = new BasicCombatResolver(attack, defender);
-
-            return combatResolver.ResolveAttack();
+            return BasicCombatResolver.ResolveAttack(attack);
+            //return combatResolver.ResolveAttack();
         }
 
         public BasicDefenseObject DefendAgainstAttack(BasicAttackObject attack)

@@ -124,6 +124,16 @@ namespace RPG.Standard.Tools
             return value;
         }
 
+        public static int Dice(Die die, int multiplier = 1)
+        {
+            int value = 0;
+
+            for (int i = 0; i < multiplier; i++)
+                value += random.Next(1, (int)die + 1);
+
+            return value;
+        }
+
         /// <summary>
         /// Standard attack roll: D20 + Attack modifier
         /// </summary>
@@ -133,9 +143,19 @@ namespace RPG.Standard.Tools
         {
             return D20() + modifier;
         }
+    }
 
-
-
+    public enum Die
+    {
+        D2 = 2,
+        D3 = 3,
+        D4 = 4,
+        D6 = 6,
+        D8 = 8,
+        D10 = 10,
+        D12 = 12,
+        D20 = 20,
+        D100 = 100
 
     }
 }

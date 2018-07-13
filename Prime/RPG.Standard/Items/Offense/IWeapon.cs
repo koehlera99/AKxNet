@@ -12,6 +12,7 @@ namespace RPG.Standard.Items.Offense
         //Damage WeaponDamage { get; set; }
         Element WeaponElementDamage { get; set; }
         WeaponSlotRestriction WeaponRestriction { get; set; }
+        int DamageAmount { get; }
 
         IAttack GetAttack();
     }
