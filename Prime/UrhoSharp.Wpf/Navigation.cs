@@ -31,6 +31,8 @@ using System.Diagnostics;
 using Urho;
 using Urho.Actions;
 using Urho.Shapes;
+using System.Threading.Tasks;
+using RPG.Standard.Tools;
 
 namespace UrhoSharp.Wpf
 {
@@ -55,6 +57,7 @@ namespace UrhoSharp.Wpf
             CreateUI();
             SetupViewport();
             SubscribeToEvents();
+            CreateCharacter();
         }
 
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -193,8 +196,6 @@ namespace UrhoSharp.Wpf
             UI.Root.AddChild(instructionText);
         }
 
-        
-
         private void AddModel(string modelName, string materialName = "")
         {
             //// Create scene node & StaticModel component for showing a static plane
@@ -213,6 +214,120 @@ namespace UrhoSharp.Wpf
             {
                 testModel.SetMaterial(ResourceCache.GetMaterial($"Materials/{materialName}.xml"));
             }
+        }
+
+        private async Task CreateCharacter()
+        {
+            character = scene.CreateChild();
+            character.SetScale(5f);
+            character.Position = new Vector3(12 * 5, 40, 10);
+            var cp = character.CreateComponent<Sphere>();
+            cp.SetMaterial(Texture.GetRandomTexture());
+
+            //await character.RunActionsAsync(
+            //   new RepeatForever(
+            //       new RotateBy(duration: 1, deltaAngleX: 0, deltaAngleY: 90, deltaAngleZ: 0)));
+        }
+
+        public static async Task PerformAction()
+        {
+            //await character.RunActionsAsync(new FadeOut(duration: 3));
+
+            
+
+
+            await character.RunActionsAsync(
+               new RepeatForever(
+                   new RotateBy(duration: 1, deltaAngleX: 0, deltaAngleY: 0, deltaAngleZ: 90)));
+
+            //var return = gotoExit.Reverse();
+        }
+
+        public static Node character;
+
+        public static void MoveCharacter(string direction)
+        {
+            var vector = character.Position;
+            RotateBy rotate;
+
+            const float distance = 25;
+            const float duration = distance / 25;
+
+            switch (direction)
+            {
+                case "L":
+                    rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: 0, deltaAngleZ: 90);
+                    vector.X -= distance;
+                    break;
+                case "R":
+                    rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: 0, deltaAngleZ: -90);
+                    vector.X += distance;
+                    break;
+                case "D":
+                    rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: -90, deltaAngleZ: 0);
+                    vector.Y -= distance;
+                    break;
+                case "U":
+                    rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: 90, deltaAngleZ: 0);
+                    vector.Y += distance;
+                    break;
+                case "B":
+                    rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: 0, deltaAngleZ: 0);
+                    vector.Z -= distance;
+                    break;
+                case "F":
+                    rotate = new RotateBy(duration: duration, deltaAngleX: -90, deltaAngleY: 0, deltaAngleZ: 0);
+                    vector.Z += distance;
+                    break;
+                default:
+                    rotate = new RotateBy(duration: duration, deltaAngleX: 90, deltaAngleY: 0, deltaAngleZ: 0);
+                    break;
+            }
+
+            var move = new MoveTo(duration, vector);
+
+            ActionEase ease;
+
+            switch (Roll.d10)
+            {
+                case 1:
+                    ease = new EaseBackInOut(move);
+                    break;
+                case 2:
+                    ease = new EaseBackIn(move);
+                    break;
+                case 3:
+                    ease = new EaseBackOut(move);
+                    break;
+                case 4:
+                    ease = new EaseBounceInOut(move);
+                    break;
+                case 5:
+                    ease = new EaseElasticInOut(move);
+                    break;
+                case 6:
+                    ease = new EaseElasticOut(move);
+                    break;
+                case 7:
+                    ease = new EaseExponentialIn(move);
+                    break;
+                case 8:
+                    ease = new EaseExponentialInOut(move);
+                    break;
+                case 9:
+                    ease = new EaseExponentialOut(move);
+                    break;
+                case 10:
+                    ease = new EaseInOut(move, 5f);
+                    break;
+                default:
+                    ease = new EaseBackInOut(move);
+                    break;
+            }
+
+            character.RunActionsAsync(ease);
+
+            character.RunActionsAsync(new Urho.Actions.Parallel(ease, rotate));
         }
 
         void CreateScene()
@@ -247,13 +362,21 @@ namespace UrhoSharp.Wpf
             var s = sphere.CreateComponent<Sphere>();
             s.SetMaterial(Texture.BlueBlackSphere);
 
-            for(int i = 0; i < 10; i++)
+            
+
+
+            for (int i = 0; i < 10; i++)
             {
                 Node sp = scene.CreateChild();
                 sp.SetScale(5f);
                 sp.Position = new Vector3(i * 5, 40, 10);
+
+                
+                
                 var p = sp.CreateComponent<Sphere>();
                 p.SetMaterial(Texture.GetRandomTexture());
+
+               
             }
 
             for (int x = 0; x < 25; x++)

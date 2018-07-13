@@ -72,7 +72,7 @@ namespace RPG.Standard.Combat
 
         public void AttackDefense()
         {
-            int roll = Roll.D100();
+            int roll = Roll.d100;
             int dmg = 20;
 
             attkBonus = 5;
