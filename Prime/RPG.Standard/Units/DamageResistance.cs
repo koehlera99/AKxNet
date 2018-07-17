@@ -33,6 +33,7 @@ namespace RPG.Standard.Units
             Value = value;
             Source = source;
         }
+
         /// <summary>
         /// Constructors using 'enum' as damageType
         /// </summary>

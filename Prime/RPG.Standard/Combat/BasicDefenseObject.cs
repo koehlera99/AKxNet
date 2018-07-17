@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using RPG.Standard.Units;
 
 namespace RPG.Standard.Combat
 {
-    class BasicDefenseObject
+    public class BasicDefenseObject
     {
-        public int DefenseValue { get; set; }
         public int DamageResistance { get; set; }
 
-        public BasicDefenseObject(int defenseValue, int damageResistance = 0)
+        public DefenseRoll BasicDefenseRoll { get; set; }
+
+        public BasicDefenseObject(BasicUnit unit)
         {
-            DefenseValue = defenseValue;
-            DamageResistance = damageResistance;
+            BasicDefenseRoll = new DefenseRoll(unit);
+            DamageResistance = unit.DamageResistanceTest;
         }
     }
 }

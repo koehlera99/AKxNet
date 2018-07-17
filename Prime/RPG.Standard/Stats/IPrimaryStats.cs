@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RPG.Standard.Stats
 {
-    interface IPrimaryStats
+    public interface IPrimaryStats
     {
         int Strength { get; }
         int Dexterity { get; }

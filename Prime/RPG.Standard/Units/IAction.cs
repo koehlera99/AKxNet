@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RPG.Standard.Units
 {
-    interface IAction
+    public interface IAction
     {
         bool PerformAction(ActionType actionType);
     }

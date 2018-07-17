@@ -7,7 +7,6 @@
             AttackType = attackType;
             AttackRoll = attackRoll;
             DamageRoll = damageRoll;
-
         }
 
         public AttackType AttackType { get; }

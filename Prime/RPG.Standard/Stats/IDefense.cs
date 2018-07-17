@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RPG.Standard.Stats
 {
-    interface IDefense
+    public interface IDefense
     {
         //Strength
         int ArmorClass { get; }

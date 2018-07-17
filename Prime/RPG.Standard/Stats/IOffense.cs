@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RPG.Standard.Stats
 {
-    interface IOffense
+    public interface IOffense
     {
         int Melee { get; }
         int Ranged { get; }

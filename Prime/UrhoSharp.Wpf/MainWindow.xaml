@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UrhoSharp.Wpf"
         xmlns:wpf="clr-namespace:Urho.Extensions.Wpf;assembly=Urho.Extensions.Wpf"
+        xmlns:control="clr-namespace:UrhoSharp.Wpf.Controls"
         mc:Ignorable="d" Loaded="Window_Loaded"
-        Title="My UrhoSharp app" Height="800" Width="1200" WindowState="Maximized">
+        Title="Tactical Combat Suite" Height="800" Width="1200" WindowState="Maximized">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>
@@ -16,27 +17,21 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="100*"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
         <wpf:UrhoSurface x:Name="UrhoSurface" Grid.Column="1" Grid.Row="1"/>
         <StackPanel Grid.ColumnSpan="3" Margin="1,0,0,0" Orientation="Vertical">
-            <Button x:Name="ColA"  Panel.ZIndex="1" MinWidth="20" MinHeight="20" Content="Test" Height="100"/>
+            <Button x:Name="ColA"  Panel.ZIndex="1" MinWidth="20" MinHeight="20" Content="Test2" Height="100"/>
         </StackPanel>
         <Grid Grid.Column="2" Margin="1,0,0,0" Grid.Row="1">
-            <Button x:Name="MoveLeftButton" Content="L" HorizontalAlignment="Left" VerticalAlignment="Top" Width="27" Height="25" Margin="0,25,0,0" Click="MoveLeftButton_Click"/>
-            <Button x:Name="MoveForwardButton" Content="F" HorizontalAlignment="Left" VerticalAlignment="Top" Width="27" Height="25" Margin="27,0,0,0" Click="MoveForwardButton_Click"/>
-            <Button x:Name="MoveRightButton" Content="R" HorizontalAlignment="Left" VerticalAlignment="Top" Width="27" Height="25" Margin="54,25,0,0" Click="MoveRightButton_Click"/>
-            <Button x:Name="MoveBackButton" Content="B" HorizontalAlignment="Left" VerticalAlignment="Top" Width="27" Height="25" Margin="27,50,0,0" Click="MoveBackButton_Click"/>
-            <Button x:Name="MoveUp" Content="U" HorizontalAlignment="Left" VerticalAlignment="Top" Width="27" Height="12" Margin="27,25,0,0" Click="MoveUp_Click"/>
-            <Button x:Name="MoveDown" Content="D" HorizontalAlignment="Left" VerticalAlignment="Top" Width="27" Height="12" Margin="27,38,0,0" Click="MoveDown_Click"/>
-            <Button x:Name="ActionButton" Content="A" HorizontalAlignment="Left" VerticalAlignment="Top" Width="27" Height="25" Margin="27,80,0,0" Click="ActionButton_Click" />
-
+            <control:DirectionPanel x:Name="DirectionPanel" Height="122" VerticalAlignment="Top" HorizontalAlignment="Left" Width="99" />
         </Grid>
-        <StackPanel Grid.ColumnSpan="3" Margin="1,0,0,0" Orientation="Vertical" Grid.Row="2">
-            <Button x:Name="RowA" Panel.ZIndex="1" MinWidth="20" MinHeight="20" Content="Test" Height="100"/>
+        <StackPanel Grid.ColumnSpan="3" Margin="1,0,0,0" Orientation="Horizontal" Grid.Row="2">
+            <control:ResourceBar x:Name="TargetLevels" Height="190" Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="290" />
+            <control:ResourceBar x:Name="MyLevels" Height="190" Margin="0,0,0,0" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Left" Width="290" />
         </StackPanel>
         <StackPanel Grid.Column="0" Margin="1,0,0,0" Orientation="Vertical" Grid.Row="1">
-            <Button x:Name="RowB" Panel.ZIndex="1" MinWidth="20" MinHeight="20" Content="Test" Height="569"/>
+            <Button x:Name="RowB" Panel.ZIndex="1" MinWidth="20" MinHeight="20" Content="Test4" Height="569"/>
         </StackPanel>
     </Grid>
 </Window>
