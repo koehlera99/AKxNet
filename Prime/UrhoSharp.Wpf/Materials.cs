@@ -62,12 +62,9 @@ namespace UrhoSharp.Wpf
             TextureList = new List<Material>();
 
             TextureList.Add(Texture.BlackStone);
-            TextureList.Add(Texture.Grass);
             TextureList.Add(Texture.BlueBlackSphere);
             TextureList.Add(Texture.BlueSlate);
             TextureList.Add(Texture.BrownClay);
-            TextureList.Add(Texture.Grass2);
-            TextureList.Add(Texture.GreenSlate);
             TextureList.Add(Texture.GreyTile);
             TextureList.Add(Texture.SquareSquareBlue);
             TextureList.Add(Texture.Whitestone);

@@ -224,63 +224,55 @@ namespace UrhoSharp.Wpf
             var cp = character.CreateComponent<Sphere>();
             cp.SetMaterial(Texture.GetRandomTexture());
 
-            //await character.RunActionsAsync(
-            //   new RepeatForever(
-            //       new RotateBy(duration: 1, deltaAngleX: 0, deltaAngleY: 90, deltaAngleZ: 0)));
+            await character.RunActionsAsync(
+               new RepeatForever(
+                   new RotateBy(duration: 1, deltaAngleX: 0, deltaAngleY: 90, deltaAngleZ: 0)));
         }
 
         public static async Task PerformAction()
         {
-            //await character.RunActionsAsync(new FadeOut(duration: 3));
-
-            
-
-
             await character.RunActionsAsync(
                new RepeatForever(
-                   new RotateBy(duration: 1, deltaAngleX: 0, deltaAngleY: 0, deltaAngleZ: 90)));
+                   new RotateBy(duration: 1, deltaAngleX: 0, deltaAngleY: 90, deltaAngleZ: 0)));
+        }
 
-            //var return = gotoExit.Reverse();
+        public static void AddRotation(Node node)
+        {
+            node.RunActionsAsync(
+               new RepeatForever(
+                   new RotateBy(duration: 1, deltaAngleX: 0, deltaAngleY: 90, deltaAngleZ: 0)));
         }
 
         public static Node character;
 
-        public static void MoveCharacter(string direction)
+        public async static void MoveCharacter(string direction)
         {
             var vector = character.Position;
-            RotateBy rotate;
-
-            const float distance = 25;
-            const float duration = distance / 25;
+            
+            const float distance = 5;
+            const float duration = distance / 5;
 
             switch (direction)
             {
                 case "L":
-                    rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: 0, deltaAngleZ: 90);
                     vector.X -= distance;
                     break;
                 case "R":
-                    rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: 0, deltaAngleZ: -90);
                     vector.X += distance;
                     break;
                 case "D":
-                    rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: -90, deltaAngleZ: 0);
                     vector.Y -= distance;
                     break;
                 case "U":
-                    rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: 90, deltaAngleZ: 0);
                     vector.Y += distance;
                     break;
                 case "B":
-                    rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: 0, deltaAngleZ: 0);
                     vector.Z -= distance;
                     break;
                 case "F":
-                    rotate = new RotateBy(duration: duration, deltaAngleX: -90, deltaAngleY: 0, deltaAngleZ: 0);
                     vector.Z += distance;
                     break;
                 default:
-                    rotate = new RotateBy(duration: duration, deltaAngleX: 90, deltaAngleY: 0, deltaAngleZ: 0);
                     break;
             }
 
@@ -325,12 +317,22 @@ namespace UrhoSharp.Wpf
                     break;
             }
 
-            character.RunActionsAsync(ease);
+            await character.RunActionsAsync(ease);
 
-            character.RunActionsAsync(new Urho.Actions.Parallel(ease, rotate));
+            //RotateBy rotate;
+            //rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: 0, deltaAngleZ: 90);
+            //rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: 0, deltaAngleZ: -90);
+            //rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: -90, deltaAngleZ: 0);
+            //rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: 90, deltaAngleZ: 0);
+            //rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: 0, deltaAngleZ: 0);
+            //rotate = new RotateBy(duration: duration, deltaAngleX: -90, deltaAngleY: 0, deltaAngleZ: 0);
+            //rotate = new RotateBy(duration: duration, deltaAngleX: 90, deltaAngleY: 0, deltaAngleZ: 0);
+
+
+            //character.RunActionsAsync(new Urho.Actions.Parallel(ease, rotate));
         }
 
-        void CreateScene()
+        private async Task CreateScene()
         {
             var cache = ResourceCache;
             //cache.GetFile("Models/Bliff.mdl");
@@ -359,6 +361,8 @@ namespace UrhoSharp.Wpf
             Node sphere = scene.CreateChild();
             sphere.SetScale(5f);
             sphere.Position = new Vector3(50, 40, 10);
+            AddRotation(sphere);
+
             var s = sphere.CreateComponent<Sphere>();
             s.SetMaterial(Texture.BlueBlackSphere);
 
@@ -371,12 +375,12 @@ namespace UrhoSharp.Wpf
                 sp.SetScale(5f);
                 sp.Position = new Vector3(i * 5, 40, 10);
 
-                
-                
+                AddRotation(sp);
+
                 var p = sp.CreateComponent<Sphere>();
                 p.SetMaterial(Texture.GetRandomTexture());
 
-               
+                
             }
 
             for (int x = 0; x < 25; x++)
@@ -515,8 +519,6 @@ namespace UrhoSharp.Wpf
             // Set an initial position for the camera scene node above the plane
             CameraNode.Position = new Vector3(57.48847f, 60.82811f, -60.87394f); //
             CameraNode.Rotation = new Quaternion(29.3f, 1.1f, 0.0f);
-
-            { }
         }
 
         void SetPathPoint()
