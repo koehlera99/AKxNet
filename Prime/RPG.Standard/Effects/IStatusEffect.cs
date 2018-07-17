@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RPG.Standard.Effects
 {
-    interface IStatusEffect
+    public interface IStatusEffect
     {
         int TimeToLive { get; set; }
     }

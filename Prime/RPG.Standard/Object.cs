@@ -8,13 +8,19 @@ namespace RPG.Standard
 {
     public abstract class Object : IEquatable<Object>
     {
+        public Guid Guid { get; }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
-        protected Object() { }
+        protected Object()
+        {
+            Guid = new Guid();
+        }
+
         protected Object(int id)
         {
+            Guid = new Guid();
             Id = id;
         }
 

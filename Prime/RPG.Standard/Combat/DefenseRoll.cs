@@ -2,25 +2,28 @@
 using System.Collections.Generic;
 using System.Text;
 using RPG.Standard.Tools;
+using RPG.Standard.Units;
 
-namespace RPG.Standard.Units
+namespace RPG.Standard.Combat
 {
-    class DefenseRoll
+    public class DefenseRoll
     {
+        public bool IsAutoMiss { get; private set; }
         public int BasicDefenseValue { get; }
         public int BasicDefenseRoll { get; private set; }
         public int FullDefenseRoll => BasicDefenseRoll + BasicDefenseValue;
 
-        public DefenseRoll(int basicDefenseValue)
+        public DefenseRoll(BasicUnit unit)
         {
-            BasicDefenseValue = basicDefenseValue;
+            BasicDefenseValue = unit.BasicDefenseValue;
 
             RollBasicDefense();
         }
 
         public void RollBasicDefense()
         {
-            BasicDefenseRoll = Roll.D100();
+            BasicDefenseRoll = Roll.d100;
+            IsAutoMiss = BasicDefenseRoll >= 95;
         }
     }
 }

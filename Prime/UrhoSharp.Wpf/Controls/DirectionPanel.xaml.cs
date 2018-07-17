@@ -1,24 +1,17 @@
-using System.Threading.Tasks;
-using System.Windows;
-using RPG.Standard.Units;
+﻿using System.Windows;
+using System.Windows.Controls;
 using UrhoSharp.Wpf.Apps;
 
-namespace UrhoSharp.Wpf
+namespace UrhoSharp.Wpf.Controls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for DirectionPanel.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class DirectionPanel : UserControl
     {
-        public MainWindow()
+        public DirectionPanel()
         {
             InitializeComponent();
-            InitializeUnits();
-        }
-
-        async void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            var app = await UrhoSurface.Show<Navigation>(new Urho.ApplicationOptions("MyData"));
         }
 
         private void MoveForwardButton_Click(object sender, RoutedEventArgs e)
@@ -49,20 +42,6 @@ namespace UrhoSharp.Wpf
         private void MoveDown_Click(object sender, RoutedEventArgs e)
         {
             Navigation.MoveCharacter("D");
-        }
-
-        private void ActionButton_Click(object sender, RoutedEventArgs e)
-        {
-            Navigation.PerformAction();
-        }
-
-        private void InitializeUnits()
-        {
-            var player = new BasicUnit(200, 100, 50, 25);
-            var target = new BasicUnit(150, 50, 200, 50);
-
-            MyLevels.Unit = player;
-            TargetLevels.Unit = target;
         }
     }
 }

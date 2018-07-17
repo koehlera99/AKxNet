@@ -6,7 +6,7 @@ using RPG.Standard.Units;
 
 namespace RPG.Standard.Combat
 {
-    class BasicAttackObject
+    public class BasicAttackObject
     {
         public AttackRoll AttackRoll { get; set; }
         public int Damage { get; set; }

@@ -2,26 +2,27 @@
 using System.Collections.Generic;
 using System.Text;
 using RPG.Standard.Tools;
+using RPG.Standard.Units;
 
-namespace RPG.Standard.Units
+namespace RPG.Standard.Combat
 {
-    class AttackRoll
+    public class AttackRoll
     {
         public bool IsAutoHit { get; private set; }
         public int BasicAttackValue { get; }
         public int BasicAttackRoll { get; private set; }
         public int FullAttackRoll => BasicAttackRoll + BasicAttackValue;
 
-        public AttackRoll(int basicAttackValue)
+        public AttackRoll(BasicUnit unit)
         {
-            BasicAttackValue = basicAttackValue;
+            BasicAttackValue = unit.BasicDefenseValue;
 
             RollBasicAttack();
         }
 
         public void RollBasicAttack()
         {
-            BasicAttackRoll = Roll.D100();
+            BasicAttackRoll = Roll.d100;
             IsAutoHit = BasicAttackRoll >= 95;
         }
     }

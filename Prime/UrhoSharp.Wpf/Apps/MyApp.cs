@@ -5,7 +5,7 @@ using Urho.Actions;
 using Urho.Gui;
 using Urho.Shapes;
 
-namespace UrhoSharp.Wpf
+namespace UrhoSharp.Wpf.Apps
 {
     public class MyApp : Application
     {

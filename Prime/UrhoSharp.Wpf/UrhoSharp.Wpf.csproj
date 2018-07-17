@@ -64,6 +64,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\CharacterSheet.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\DirectionPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ResourceBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -72,7 +84,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BattleGrid.cs" />
+    <Compile Include="Apps\BattleGrid.cs" />
+    <Compile Include="Controls\CharacterSheet.xaml.cs">
+      <DependentUpon>CharacterSheet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DirectionPanel.xaml.cs">
+      <DependentUpon>DirectionPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ResourceBar.xaml.cs">
+      <DependentUpon>ResourceBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -80,8 +101,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Materials.cs" />
-    <Compile Include="MyApp.cs" />
-    <Compile Include="Navigation.cs" />
+    <Compile Include="Apps\MyApp.cs" />
+    <Compile Include="Apps\Navigation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

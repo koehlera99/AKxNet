@@ -5,16 +5,16 @@ using RPG.Standard.Units;
 
 namespace RPG.Standard.Combat
 {
-    class BasicDefenseObject
+    public class BasicDefenseObject
     {
         public int DamageResistance { get; set; }
 
         public DefenseRoll BasicDefenseRoll { get; set; }
 
-        public BasicDefenseObject(int defenseValue, int damageResistance = 0)
+        public BasicDefenseObject(BasicUnit unit)
         {
-            BasicDefenseRoll = new DefenseRoll(defenseValue);
-            DamageResistance = damageResistance;
+            BasicDefenseRoll = new DefenseRoll(unit);
+            DamageResistance = unit.DamageResistanceTest;
         }
     }
 }
