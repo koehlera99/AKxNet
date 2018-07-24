@@ -191,10 +191,5 @@ namespace TCS.WPF.Controls
             this.MaxEnergy = _unit.MaxEnergy;
             this.Energy = _unit.Energy;
         }
-
-
-        
-
-
     }
 }

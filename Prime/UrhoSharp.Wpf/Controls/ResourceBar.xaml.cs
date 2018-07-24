@@ -177,7 +177,7 @@ namespace UrhoSharp.Wpf.Controls
             }
         }
 
-        private void RefreshResourceBar()
+        public void RefreshResourceBar()
         {
             this.MaxHP = _unit.MaxHp;
             this.HP = _unit.CurrentHp;

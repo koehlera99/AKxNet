@@ -29,6 +29,9 @@ namespace UrhoSharp.Wpf
         public static Material WoodPanel => GetTexture("WoodPanel.jpg");
         public static Material OakPanel => GetTexture("OakPanel.jpg");
         public static Material Brick => GetTexture("Brick.jpg");
+        public static Material LightWood => GetTexture("box.jpg");
+        public static Material DarkWood => GetTexture("box2.jpg");
+
 
         public Texture()
         {
@@ -62,19 +65,13 @@ namespace UrhoSharp.Wpf
             TextureList = new List<Material>();
 
             TextureList.Add(Texture.BlackStone);
-            //TextureList.Add(Texture.Grass);
             TextureList.Add(Texture.BlueBlackSphere);
-            //TextureList.Add(Texture.BlueSlate);
             TextureList.Add(Texture.BrownClay);
-            //TextureList.Add(Texture.Grass2);
-            //TextureList.Add(Texture.GreenSlate);
             TextureList.Add(Texture.GreyTile);
             TextureList.Add(Texture.SquareSquareBlue);
             TextureList.Add(Texture.Whitestone);
             TextureList.Add(Texture.Whitestone2);
             TextureList.Add(Texture.Whitestone3);
-            //TextureList.Add(Texture.WoodPanel);
-            //TextureList.Add(Texture.OakPanel);
             TextureList.Add(Texture.Brick);
 
         }

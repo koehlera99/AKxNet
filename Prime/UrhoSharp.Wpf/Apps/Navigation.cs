@@ -33,6 +33,7 @@ using Urho.Actions;
 using Urho.Shapes;
 using System.Threading.Tasks;
 using RPG.Standard.Tools;
+using UrhoSharp.Wpf.Scenes;
 
 namespace UrhoSharp.Wpf.Apps
 {
@@ -48,6 +49,8 @@ namespace UrhoSharp.Wpf.Apps
         Node CameraNode;
         System.Random Random = new Random();
 
+        private static Scene1 scene1;
+
         public Navigation(ApplicationOptions options = null) : base(options) { }
 
         protected override void Start()
@@ -57,11 +60,25 @@ namespace UrhoSharp.Wpf.Apps
             CreateUI();
             SetupViewport();
             SubscribeToEvents();
-            CreateCharacter();
+
+            //UI.m
+            //UI.KeyDown += HandleKeyDown;
+
+            scene1.DropCharacterSpheres();
+        }
+
+
+
+        void HandleKeyDown(KeyDownEventArgs arg)
+        {
+            switch (arg.Key)
+            {
+                //case Key.Esc: Engine.(); return;
+            }
         }
 
 #pragma warning disable CS0618 // Type or member is obsolete
-        void SubscribeToEvents()
+            void SubscribeToEvents()
         {
             Engine.SubscribeToPostRenderUpdate(args =>
             {
@@ -135,22 +152,10 @@ namespace UrhoSharp.Wpf.Apps
                 CameraNode.Translate(-Vector3.UnitX * moveSpeed * timeStep);
             if (Input.GetKeyDown(Key.D))
                 CameraNode.Translate(Vector3.UnitX * moveSpeed * timeStep);
-
             if (Input.GetKeyDown(Key.R))
                 CameraNode.Translate(Vector3.UnitY * moveSpeed * timeStep);
             if (Input.GetKeyDown(Key.F))
                 CameraNode.Translate(-Vector3.UnitY * moveSpeed * timeStep);
-
-            // Set destination or teleport with left mouse button
-            //if (Input.GetMouseButtonPress(MouseButton.Left))
-            //    SetPathPoint();
-            // Add or remove objects with middle mouse button, then rebuild navigation mesh partially
-            //if (Input.GetMouseButtonPress(MouseButton.Middle))
-            //    AddOrRemoveObject();
-
-            // Toggle debug geometry with space
-            if (Input.GetKeyPress(Key.Space))
-                drawDebug = !drawDebug;
         }
 
         private void SetupViewport()
@@ -173,303 +178,115 @@ namespace UrhoSharp.Wpf.Apps
             // Set starting position of the cursor at the rendering window center
             var graphics = Graphics;
             cursor.SetPosition(graphics.Width / 2, graphics.Height / 2);
-
-            //// Construct new Text object, set string to display and font to use
-            //var instructionText = new Text();
-            //instructionText.Value =
-            //    "Use WASD keys to move, RMB to rotate view\n" +
-            //    "LMB to set destination, SHIFT+LMB to teleport\n" +
-            //    "MMB to add or remove obstacles\n" +
-            //    "Space to toggle debug geometry";
-
-            //instructionText.SetFont(cache.GetFont("Fonts/Anonymous Pro.ttf"), 15);
-            //// The text has multiple rows. Center them in relation to each other
-            //instructionText.TextAlignment = HorizontalAlignment.Center;
-
-            //// Position the text relative to the screen center
-            //instructionText.HorizontalAlignment = HorizontalAlignment.Center;
-            //instructionText.VerticalAlignment = VerticalAlignment.Center;
-            //instructionText.SetPosition(0, UI.Root.Height / 4);
-            //UI.Root.AddChild(instructionText);
         }
-
-        private void AddModel(string modelName, string materialName = "")
-        {
-            //// Create scene node & StaticModel component for showing a static plane
-            Node planeNode = BrickScene.CreateChild();
-            planeNode.SetScale(1f);
-            planeNode.Position = new Vector3(Randoms.Next(0, 60), Randoms.Next(10, 14), Randoms.Next(0, 60));
-            var testModel = planeNode.CreateComponent<StaticModel>();
-
-            testModel.Model = ResourceCache.GetModel($"Models/{modelName}.mdl");
-
-            if (string.IsNullOrWhiteSpace(materialName))
-            {
-                testModel.SetMaterial(Material.FromColor(Randoms.NextColor()));
-            }
-            else
-            {
-                testModel.SetMaterial(ResourceCache.GetMaterial($"Materials/{materialName}.xml"));
-            }
-        }
-
-        private void CreateCharacter()
-        {
-            character = BrickScene.CreateChild();
-            character.SetScale(5f);
-            character.Position = new Vector3(12 * 5, 40, 10);
-            var cp = character.CreateComponent<Sphere>();
-            cp.SetMaterial(Texture.GetRandomTexture());
-
-            character.RunActionsAsync(
-               new RepeatForever(
-                   new RotateBy(duration: 1, deltaAngleX: 0, deltaAngleY: 90, deltaAngleZ: 0)));
-        }
-
-        public static async Task PerformAction()
-        {
-            //await character.RunActionsAsync(new FadeOut(duration: 3));
-
-
-
-
-            await character.RunActionsAsync(
-               new RepeatForever(
-                   new RotateBy(duration: 1, deltaAngleX: 0, deltaAngleY: 0, deltaAngleZ: 90)));
-
-            //var return = gotoExit.Reverse();
-        }
-
-        public static Node character;
 
         public static void MoveCharacter(string direction)
         {
-            var vector = character.Position;
-            RotateBy rotate;
+            var vector3 = scene1.PrimayCharacter.Location;
 
-            const float distance = 25;
-            const float duration = distance / 25;
+            Vector3 vector = new Vector3(vector3.X, vector3.Y, vector3.Z);
 
-            switch (direction)
+            if (vector.X % 5f == 0 && vector.Y % 5f == 0 && vector.Z % 5f == 0)
             {
-                case "L":
-                    rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: 0, deltaAngleZ: 90);
-                    vector.X -= distance;
-                    break;
-                case "R":
-                    rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: 0, deltaAngleZ: -90);
-                    vector.X += distance;
-                    break;
-                case "D":
-                    rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: -90, deltaAngleZ: 0);
-                    vector.Y -= distance;
-                    break;
-                case "U":
-                    rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: 90, deltaAngleZ: 0);
-                    vector.Y += distance;
-                    break;
-                case "B":
-                    rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: 0, deltaAngleZ: 0);
-                    vector.Z -= distance;
-                    break;
-                case "F":
-                    rotate = new RotateBy(duration: duration, deltaAngleX: -90, deltaAngleY: 0, deltaAngleZ: 0);
-                    vector.Z += distance;
-                    break;
-                default:
-                    rotate = new RotateBy(duration: duration, deltaAngleX: 90, deltaAngleY: 0, deltaAngleZ: 0);
-                    break;
+                RotateBy rotate = null;
+                RotateTo rotateTo = null;
+
+                const float distance = 5;
+                const float duration = distance / 5;
+
+                switch (direction)
+                {
+                    case "L":
+                        rotateTo = new RotateTo(duration: duration, deltaAngleX: 0, deltaAngleY: 0, deltaAngleZ: 90);
+                        vector.X -= distance;
+                        break;
+                    case "R":
+                        rotateTo = new RotateTo(duration: duration, deltaAngleX: 0, deltaAngleY: 0, deltaAngleZ: -90);
+                        vector.X += distance;
+                        break;
+                    case "D":
+                        rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: -90, deltaAngleZ: 0);
+                        vector.Y -= distance;
+                        break;
+                    case "U":
+                        rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: 90, deltaAngleZ: 0);
+                        vector.Y += distance;
+                        break;
+                    case "B":
+                        rotate = new RotateBy(duration: duration, deltaAngleX: 0, deltaAngleY: 0, deltaAngleZ: 0);
+                        vector.Z -= distance;
+                        break;
+                    case "F":
+                        rotate = new RotateBy(duration: duration, deltaAngleX: -90, deltaAngleY: 0, deltaAngleZ: 0);
+                        vector.Z += distance;
+                        break;
+                    default:
+                        rotate = new RotateBy(duration: duration, deltaAngleX: 90, deltaAngleY: 0, deltaAngleZ: 0);
+                        break;
+                }
+
+                if (scene1.CheckBlockLocationIsEmpty(vector))
+                {
+                    var moveTo = new MoveTo(duration, vector);
+
+                    var ease = GetRandomActionEase(moveTo);
+
+                    scene1.PrimayCharacter.BlockNode.RunActions(ease);
+
+                    //if (rotate == null)
+                    //{
+                    //    scene1.PrimayCharacter.BlockNode.RunActionsAsync(new Urho.Actions.Parallel(ease, rotateTo));
+                    //}
+                    //else
+                    //{
+                    //    scene1.PrimayCharacter.BlockNode.RunActionsAsync(new Urho.Actions.Parallel(ease, rotate));
+                    //}
+                }
             }
+        }
 
-            var move = new MoveTo(duration, vector);
-
+        private static ActionEase GetRandomActionEase(MoveTo moveTo)
+        {
             ActionEase ease;
 
             switch (Roll.d10)
             {
                 case 1:
-                    ease = new EaseBackInOut(move);
+                    ease = new EaseBackInOut(moveTo);
                     break;
                 case 2:
-                    ease = new EaseBackIn(move);
+                    ease = new EaseBackIn(moveTo);
                     break;
                 case 3:
-                    ease = new EaseBackOut(move);
+                    ease = new EaseBackOut(moveTo);
                     break;
                 case 4:
-                    ease = new EaseBounceInOut(move);
+                    ease = new EaseBounceInOut(moveTo);
                     break;
                 case 5:
-                    ease = new EaseElasticInOut(move);
+                    ease = new EaseElasticInOut(moveTo);
                     break;
                 case 6:
-                    ease = new EaseElasticOut(move);
+                    ease = new EaseElasticOut(moveTo);
                     break;
                 case 7:
-                    ease = new EaseExponentialIn(move);
+                    ease = new EaseExponentialIn(moveTo);
                     break;
                 case 8:
-                    ease = new EaseExponentialInOut(move);
+                    ease = new EaseExponentialInOut(moveTo);
                     break;
                 case 9:
-                    ease = new EaseExponentialOut(move);
+                    ease = new EaseExponentialOut(moveTo);
                     break;
                 case 10:
-                    ease = new EaseInOut(move, 5f);
+                    ease = new EaseInOut(moveTo, 5f);
                     break;
                 default:
-                    ease = new EaseBackInOut(move);
+                    ease = new EaseBackInOut(moveTo);
                     break;
             }
 
-            character.RunActionsAsync(ease);
-
-            character.RunActionsAsync(new Urho.Actions.Parallel(ease, rotate));
-        }
-
-        private void AddCharacterSphere()
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                var node = BrickScene.CreateChild();
-                node.SetScale(5f);
-                node.Position = new Vector3(i * 5, 40, 10);
-
-                var sphere = node.CreateComponent<Sphere>();
-                sphere.SetMaterial(Texture.GetRandomTexture());
-            }
-        }
-
-        private void AddLevelFoundation()
-        {
-            for (int x = 0; x < 50; x++)
-            {
-                for (int y = 0; y < 50; y++)
-                {
-                    var node = BrickScene.CreateChild();
-
-                    node.SetScale(5f);
-                    node.Position = new Vector3(x * 5, 0, y * 5);
-
-                    var box = node.CreateComponent<Box>();
-
-                    if (x == 17 || x == 18)
-                    {
-                        box.SetMaterial(Texture.Grass);
-                    }
-                    else
-                    {
-                        box.SetMaterial(Texture.BlackStone);
-                    }
-                }
-            }
-        }
-
-        private void AddLevelTerrain()
-        {
-            for (int x = 15; x <= 20; x++)
-            {
-                for (int y = 15; y <= 20; y++)
-                {
-                    for (int z = 1; z < 5; z++)
-                    {
-                        var node = BrickScene.CreateChild();
-                        node.SetScale(5f);
-
-                        node.Position = new Vector3(x * 5, z * 5, y * 5);
-
-                        var box = node.CreateComponent<Box>();
-
-                        if ((z == 1 || z == 2) && (x == 17 || x == 18))
-                        {
-                            box.SetMaterial(Texture.OakPanel);
-                        }
-                        else
-                        {
-                            box.SetMaterial(Texture.Brick);
-                        }
-                    }
-                }
-            }
-        }
-
-        private void CreateBoxes(ResourceCache cache)
-        {
-            // Create randomly sized boxes. If boxes are big enough, make them occluders
-            uint numBoxes = 15;
-            const float size = 5f;
-
-            for (uint i = 0; i < numBoxes; ++i)
-            {
-                Node boxNode = BrickScene.CreateChild("Box");
-
-                boxNode.Position = new Vector3(NextRandom(i) * size, size, NextRandom(i) * size);
-                boxNode.SetScale(5f);
-                StaticModel boxObject = boxNode.CreateComponent<StaticModel>();
-                boxObject.Model = cache.GetModel("Models/Box.mdl");
-                boxObject.SetMaterial(cache.GetMaterial("Materials/Box.xml"));
-                boxObject.CastShadows = true;
-
-                if (size >= 3.0f)
-                {
-                    boxObject.Occluder = true;
-                }
-            }
-
-            numBoxes += 20;
-
-            for (uint i = 14; i < numBoxes; ++i)
-            {
-                Node boxNode = BrickScene.CreateChild("Box");
-
-                boxNode.Position = new Vector3(NextRandom(i) * size, size, NextRandom(i) * size);
-                boxNode.SetScale(5f);
-                StaticModel boxObject = boxNode.CreateComponent<StaticModel>();
-                boxObject.Model = cache.GetModel("Models/Box.mdl");
-                boxObject.SetMaterial(cache.GetMaterial("Materials/Box.xml"));
-                boxObject.CastShadows = true;
-
-                if (size >= 3.0f)
-                {
-                    boxObject.Occluder = true;
-                }
-            }
-
-            numBoxes = 15;
-
-            for (uint i = 0; i < numBoxes; ++i)
-            {
-                Node boxNode = BrickScene.CreateChild("Box");
-                boxNode.Position = new Vector3(NextRandom(i) * size, size, NextRandom(i) * size);
-                boxNode.SetScale(size);
-                StaticModel boxObject = boxNode.CreateComponent<StaticModel>();
-                boxObject.Model = cache.GetModel("Models/Box.mdl");
-                boxObject.SetMaterial(cache.GetMaterial("Materials/Box2.xml"));
-                boxObject.CastShadows = true;
-
-                if (size >= 3.0f)
-                {
-                    boxObject.Occluder = true;
-                }
-            }
-
-            numBoxes += 20;
-
-            for (uint i = 14; i < numBoxes; ++i)
-            {
-                Node boxNode = BrickScene.CreateChild("Box");
-                boxNode.Position = new Vector3(NextRandom(i) * size, size, NextRandom(i) * size);
-                boxNode.SetScale(size);
-                StaticModel boxObject = boxNode.CreateComponent<StaticModel>();
-                boxObject.Model = cache.GetModel("Models/Box.mdl");
-                boxObject.SetMaterial(cache.GetMaterial("Materials/Box2.xml"));
-                boxObject.CastShadows = true;
-
-                if (size >= 3.0f)
-                {
-                    boxObject.Occluder = true;
-                }
-            }
+            return ease;
         }
 
         private void CreateScene()
@@ -481,16 +298,8 @@ namespace UrhoSharp.Wpf.Apps
             BrickScene.CreateComponent<Octree>();
             BrickScene.CreateComponent<DebugRenderer>();
 
-            var node = BrickScene.CreateChild();
-            node.SetScale(5f);
-            node.Position = new Vector3(50, 40, 10);
-
-            var sphere = node.CreateComponent<Sphere>();
-            sphere.SetMaterial(Texture.BlueBlackSphere);
-
-            AddCharacterSphere();
-            AddLevelFoundation();
-            AddLevelTerrain();
+            scene1 = new Scene1();
+            scene1.CreateListOfBlocks(BrickScene);
 
             // Create a Zone component for ambient lighting & fog control
             var zoneNode = BrickScene.CreateChild("Zone");
@@ -512,9 +321,6 @@ namespace UrhoSharp.Wpf.Apps
             // Set cascade splits at 10, 50 and 200 world units, fade shadows out at 80% of maximum shadow distance
             light.ShadowCascade = new CascadeParameters(10.0f, 50.0f, 200.0f, 0.0f, 0.8f);
 
-
-            CreateBoxes(cache);
-
             // Create Jack node that will follow the path
             jackNode = BrickScene.CreateChild("Jack");
             jackNode.Position = new Vector3(15.0f, 15.0f, 20.0f);
@@ -531,16 +337,11 @@ namespace UrhoSharp.Wpf.Apps
             // Add padding to the navigation mesh in Y-direction so that we can add objects on top of the tallest boxes
             // in the scene and still update the mesh correctly
             navMesh.Padding = new Vector3(0.0f, 10.0f, 0.0f);
-            // Now build the navigation geometry. This will take some time. Note that the navigation mesh will prefer to use
-            // physics geometry from the scene nodes, as it often is simpler, but if it can not find any (like in this example)
-            // it will use renderable geometry instead
-            //navMesh.Build();
 
             // Create the camera. Limit far clip distance to match the fog
             CameraNode = BrickScene.CreateChild("Camera");
             Camera camera = CameraNode.CreateComponent<Camera>();
             camera.FarClip = 300.0f;
-
 
             // Set an initial position for the camera scene node above the plane
             CameraNode.Position = new Vector3(57.48847f, 60.82811f, -60.87394f); //
@@ -555,129 +356,3 @@ namespace UrhoSharp.Wpf.Apps
         }
     }   
 }
-
-
-
-//void SetPathPoint()
-//{
-//    Vector3 hitPos;
-//    Drawable hitDrawable;
-//    NavigationMesh navMesh = scene.GetComponent<NavigationMesh>();
-
-//    if (Raycast(250.0f, out hitPos, out hitDrawable))
-//    {
-//        Vector3 pathPos = navMesh.FindNearestPoint(hitPos, new Vector3(1.0f, 1.0f, 1.0f));
-
-//        const int qualShift = 1;
-//        if (Input.GetQualifierDown(qualShift))
-//        {
-//            // Teleport
-//            currentPath.Clear();
-//            jackNode.LookAt(new Vector3(pathPos.X, jackNode.Position.Y, pathPos.Z), Vector3.UnitY, TransformSpace.World);
-//            jackNode.Position = (pathPos);
-//        }
-//        else
-//        {
-//            // Calculate path from Jack's current position to the end point
-//            endPos = pathPos;
-//            var result = navMesh.FindPath(jackNode.Position, endPos);
-//            currentPath = new List<Vector3>(result);
-//        }
-//    }
-//}
-
-//private void AddOrRemoveObject()
-//{
-//    // Raycast and check if we hit a mushroom node. If yes, remove it, if no, create a new one
-//    Vector3 hitPos;
-//    Drawable hitDrawable;
-
-//    if (Raycast(250.0f, out hitPos, out hitDrawable))
-//    {
-//        // The part of the navigation mesh we must update, which is the world bounding box of the associated
-//        // drawable component
-//        BoundingBox updateBox;
-
-//        Node hitNode = hitDrawable.Node;
-
-//        updateBox = hitDrawable.WorldBoundingBox;
-//        hitNode.Remove();
-
-
-
-//        // Rebuild part of the navigation mesh, then recalculate path if applicable
-//        NavigationMesh navMesh = scene.GetComponent<NavigationMesh>();
-//        navMesh.Build(updateBox);
-//        if (currentPath.Count > 0)
-//            currentPath = new List<Vector3>(navMesh.FindPath(jackNode.Position, endPos));
-//    }
-//}
-
-//bool Raycast(float maxDistance, out Vector3 hitPos, out Drawable hitDrawable)
-//{
-//    hitDrawable = null;
-//    hitPos = new Vector3();
-
-//    IntVector2 pos = UI.CursorPosition;
-//    // Check the cursor is visible and there is no UI element in front of the cursor
-//    if (!UI.Cursor.Visible || UI.GetElementAt(pos, true) != null)
-//        return false;
-
-//    var graphics = Graphics;
-//    Camera camera = CameraNode.GetComponent<Camera>();
-//    Ray cameraRay = camera.GetScreenRay((float)pos.X / graphics.Width, (float)pos.Y / graphics.Height);
-//    // Pick only geometry objects, not eg. zones or lights, only get the first (closest) hit
-//    var result = scene.GetComponent<Octree>().RaycastSingle(cameraRay, RayQueryLevel.Triangle, maxDistance, DrawableFlags.Geometry, uint.MaxValue);
-//    if (result != null)
-//    {
-//        hitPos = result.Value.Position;
-//        hitDrawable = result.Value.Drawable;
-//        return true;
-//    }
-
-//    return false;
-//}
-
-
-//void FollowPath(float timeStep)
-//{
-//    if (currentPath.Count > 0)
-//    {
-//        Vector3 nextWaypoint = currentPath[0]; // NB: currentPath[0] is the next waypoint in order
-
-//        // Rotate Jack toward next waypoint to reach and move. Check for not overshooting the target
-//        float move = 5.0f * timeStep;
-//        float distance = (jackNode.Position - nextWaypoint).Length;
-//        if (move > distance)
-//            move = distance;
-
-//        jackNode.LookAt(nextWaypoint, Vector3.UnitY, TransformSpace.World);
-//        jackNode.Translate(Vector3.UnitZ * move, TransformSpace.Local);
-
-//        // Remove waypoint if reached it
-//        if (distance < 0.1f)
-//            currentPath.RemoveAt(0);
-//    }
-//}
-
-
-
-
-//cache.GetFile("Models/Bliff.mdl");
-//cache.GetResource("Model", "Models/Bliff.mdl");
-
-//cache.GetResource(new StringHash("Model"), "Models/Bliff.mdl");
-
-//ResourceCache.GetModel("Models/Bliff.mdl");
-
-// Create octree, use default volume (-1000, -1000, -1000) to (1000, 1000, 1000)
-// Also create a DebugRenderer component so that we can draw debug geometry
-
-//AddModel("Bliff");
-//AddModel("cross_big");
-//AddModel("Cube.005");
-//AddModel("tombstone_01.001");
-//AddModel("tombstone_01");
-//AddModel("Bliff");
-//AddModel("BluePawn");
-//AddModel("BluePawn");

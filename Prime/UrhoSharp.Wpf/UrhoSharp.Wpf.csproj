@@ -64,6 +64,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Scenes\Scene1.cs" />
     <Page Include="Controls\CharacterSheet.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -85,6 +86,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Apps\BattleGrid.cs" />
+    <Compile Include="Block.cs" />
     <Compile Include="Controls\CharacterSheet.xaml.cs">
       <DependentUpon>CharacterSheet.xaml</DependentUpon>
     </Compile>

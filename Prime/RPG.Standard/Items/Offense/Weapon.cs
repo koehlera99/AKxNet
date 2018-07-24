@@ -59,7 +59,7 @@ namespace RPG.Standard.Items.Offense
         public int MinDamage { get; } = 1;
         public int MaxDamage { get; set; } = 10;
 
-        public Die DamageDie { get; set; }
+        public Die DamageDie { get; set; } = Die.D6;
         PrimaryDamageType IDamage.DamageType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Weapon()
