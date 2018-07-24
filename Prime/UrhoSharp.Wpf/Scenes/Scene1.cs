@@ -10,6 +10,7 @@ using Urho.Actions;
 using Urho.Shapes;
 using System.Threading.Tasks;
 using RPG.Standard.Tools;
+using System.Threading;
 
 namespace UrhoSharp.Wpf.Scenes
 {
@@ -92,6 +93,8 @@ namespace UrhoSharp.Wpf.Scenes
 
         public void DropCharacterSpheres()
         {
+            int count = 0;
+
             foreach(var block in ListOfCharacters)
             {
                 var vector = block.Value.Location;
@@ -104,9 +107,38 @@ namespace UrhoSharp.Wpf.Scenes
                 }
 
                 var moveTo = new MoveTo(5, vector);
-                var ease = new EaseBackInOut(moveTo);
+                var ease = new EaseBounceOut(moveTo);
 
-                block.Value.BlockNode.RunActions(ease);            
+                Thread.Sleep(count * 500);
+
+                block.Value.BlockNode.RunActionsAsync(ease);
+
+
+
+                //if (count == 0)
+                //{
+                //    var ease = new EaseBounceOut(moveTo);
+                //    block.Value.BlockNode.RunActions(ease);
+                //}
+                //else if (count == 1)
+                //{
+                //    var ease = new EaseBounceIn(moveTo);
+                //    block.Value.BlockNode.RunActions(ease);
+                //}
+                //else if (count == 2)
+                //{
+                //    var ease = new EaseBounceInOut(moveTo);
+                //    block.Value.BlockNode.RunActions(ease);
+
+                //    count = -1;
+                //}
+
+                count++;
+
+                //if (count == 5)
+                //    count = 0;
+                //else
+                    
             }
         }
 
