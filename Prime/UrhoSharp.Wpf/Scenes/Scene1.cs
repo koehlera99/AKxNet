@@ -106,10 +106,8 @@ namespace UrhoSharp.Wpf.Scenes
                     vector.Y += 5;
                 }
 
-                var moveTo = new MoveTo(5, vector);
+                var moveTo = new MoveTo(2, vector);
                 var ease = new EaseBounceOut(moveTo);
-
-                Thread.Sleep(count * 500);
 
                 block.Value.BlockNode.RunActionsAsync(ease);
 
