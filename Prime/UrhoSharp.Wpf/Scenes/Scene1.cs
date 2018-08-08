@@ -111,32 +111,7 @@ namespace UrhoSharp.Wpf.Scenes
 
                 block.Value.BlockNode.RunActionsAsync(ease);
 
-
-
-                //if (count == 0)
-                //{
-                //    var ease = new EaseBounceOut(moveTo);
-                //    block.Value.BlockNode.RunActions(ease);
-                //}
-                //else if (count == 1)
-                //{
-                //    var ease = new EaseBounceIn(moveTo);
-                //    block.Value.BlockNode.RunActions(ease);
-                //}
-                //else if (count == 2)
-                //{
-                //    var ease = new EaseBounceInOut(moveTo);
-                //    block.Value.BlockNode.RunActions(ease);
-
-                //    count = -1;
-                //}
-
-                count++;
-
-                //if (count == 5)
-                //    count = 0;
-                //else
-                    
+                count++;  
             }
         }
 
