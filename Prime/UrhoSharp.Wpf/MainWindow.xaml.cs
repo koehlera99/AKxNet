@@ -97,5 +97,10 @@ namespace UrhoSharp.Wpf
         {
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Navigation.AddAndDropSpheres();
+        }
     }
 }

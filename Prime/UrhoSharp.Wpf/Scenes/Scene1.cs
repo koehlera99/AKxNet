@@ -70,11 +70,11 @@ namespace UrhoSharp.Wpf.Scenes
         {
             ListOfCharacters = new Dictionary<Vector3, Block>();
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
                 var block = new Block(scene.CreateChild());
 
-                block.Location = new Vector3(i * 5, 40, 10);
+                block.Location = new Vector3(i * 5, 40, Roll.d10 * 5);
 
                 var sphere = block.BlockNode.CreateComponent<Sphere>();
                 sphere.SetMaterial(Texture.GetRandomTexture());
@@ -91,9 +91,14 @@ namespace UrhoSharp.Wpf.Scenes
             }
         }
 
+        public void AddCharacterSpheresAgain(Scene scene)
+        {
+            AddCharacterSphere(scene);
+        }
+
         public void DropCharacterSpheres()
         {
-            int count = 0;
+            int count = 1;
 
             foreach(var block in ListOfCharacters)
             {
@@ -106,38 +111,15 @@ namespace UrhoSharp.Wpf.Scenes
                     vector.Y += 5;
                 }
 
-                var moveTo = new MoveTo(5, vector);
+                var moveTo = new MoveTo(count, vector);
                 var ease = new EaseBounceOut(moveTo);
-
-                Thread.Sleep(count * 500);
 
                 block.Value.BlockNode.RunActionsAsync(ease);
 
-
-
-                //if (count == 0)
-                //{
-                //    var ease = new EaseBounceOut(moveTo);
-                //    block.Value.BlockNode.RunActions(ease);
-                //}
-                //else if (count == 1)
-                //{
-                //    var ease = new EaseBounceIn(moveTo);
-                //    block.Value.BlockNode.RunActions(ease);
-                //}
-                //else if (count == 2)
-                //{
-                //    var ease = new EaseBounceInOut(moveTo);
-                //    block.Value.BlockNode.RunActions(ease);
-
-                //    count = -1;
-                //}
-
                 count++;
 
-                //if (count == 5)
-                //    count = 0;
-                //else
+                if (count == 4)
+                    count = 2;
                     
             }
         }

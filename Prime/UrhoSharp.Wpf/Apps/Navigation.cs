@@ -39,7 +39,7 @@ namespace UrhoSharp.Wpf.Apps
 {
     public class Navigation : Application
     {
-        private Scene BrickScene;
+        private static Scene BrickScene;
         float yaw;
         float pitch;
         bool drawDebug;
@@ -65,6 +65,8 @@ namespace UrhoSharp.Wpf.Apps
             //UI.KeyDown += HandleKeyDown;
 
             scene1.DropCharacterSpheres();
+
+
         }
 
 
@@ -113,6 +115,12 @@ namespace UrhoSharp.Wpf.Apps
         {
             base.OnUpdate(timeStep);
             MoveCamera(timeStep);
+        }
+
+        public static void AddAndDropSpheres()
+        {
+            scene1.AddCharacterSpheresAgain(BrickScene);
+            scene1.DropCharacterSpheres();
         }
 
         private void MoveCamera(float timeStep)
@@ -346,6 +354,19 @@ namespace UrhoSharp.Wpf.Apps
             // Set an initial position for the camera scene node above the plane
             CameraNode.Position = new Vector3(57.48847f, 60.82811f, -60.87394f); //
             CameraNode.Rotation = new Quaternion(29.3f, 1.1f, 0.0f);
+
+            var n = BrickScene.CreateChild("gui");
+
+            var b = new Urho.Gui.Button(); 
+            //b.
+            ///var b = new UrhoSharp.Gu
+            ///
+            var bnNode = BrickScene.CreateChild("button");
+            var btn = new Button();
+            btn.CreateButton("newBtn");
+            btn.SetSize(500, 500);
+
+           // bnNode.AddChild(btn);
         }
 
         public float NextRandom(float max)
