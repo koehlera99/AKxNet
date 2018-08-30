@@ -1,8 +1,8 @@
-﻿namespace RPG.Core.Combat
+﻿namespace RPG.Standard.Combat
 {
     public interface IDamage
     {
-        int DamageAmount { get; set; }
+        int DamageAmount { get; }
         PrimaryDamageType DamageType { get; set; }
 
         IDamage GetDamage();

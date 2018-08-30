@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using RPG.Core.Stats;
+using RPG.Standard.Stats;
 
-namespace RPG.Core.Units
+namespace RPG.Standard.Units
 {
-    interface IUnit : IUnitStats, IAction
+    public interface IUnit : IUnitStats, IAction
     {
         Guid PlayerId { get; set; }
         Guid UnitId { get; set; }

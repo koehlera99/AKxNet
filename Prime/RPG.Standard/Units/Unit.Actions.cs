@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RPG.Core.Items;
-using RPG.Core.Items.Defense;
-using RPG.Core.Items.Offense;
-using RPG.Core.Tools;
+using RPG.Standard.Items;
+using RPG.Standard.Items.Defense;
+using RPG.Standard.Items.Offense;
+using RPG.Standard.Tools;
 
-namespace RPG.Core.Units
+namespace RPG.Standard.Units
 {
     public partial class Unit
     {

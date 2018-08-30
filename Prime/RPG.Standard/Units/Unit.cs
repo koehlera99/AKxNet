@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RPG.Core.Worlds;
-using RPG.Core.Effects;
-using RPG.Core.Items;
+using RPG.Standard.Worlds;
+using RPG.Standard.Effects;
+using RPG.Standard.Items;
 
-namespace RPG.Core.Units
+namespace RPG.Standard.Units
 {
     /// <summary>
     /// Properties of a typical Unit

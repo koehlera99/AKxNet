@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RPG.Core.Items;
-using RPG.Core.Items.Defense;
-using RPG.Core.Items.Offense;
-using RPG.Core.Units;
-using RPG.Core.Tools;
+using RPG.Standard.Items;
+using RPG.Standard.Items.Defense;
+using RPG.Standard.Items.Offense;
+using RPG.Standard.Units;
+using RPG.Standard.Tools;
 
-namespace RPG.Core.Combat
+namespace RPG.Standard.Combat
 {
     public class Combat
     {
@@ -72,7 +72,7 @@ namespace RPG.Core.Combat
 
         public void AttackDefense()
         {
-            int roll = Roll.D100();
+            int roll = Roll.d100;
             int dmg = 20;
 
             attkBonus = 5;

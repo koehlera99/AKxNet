@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using RPG.Core.Effects;
+using RPG.Standard.Effects;
 
-namespace RPG.Core.Worlds
+namespace RPG.Standard.Worlds
 {
     class Universe : Object
     {

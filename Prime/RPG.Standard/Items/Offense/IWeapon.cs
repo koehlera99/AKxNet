@@ -1,7 +1,7 @@
 ﻿using System;
-using RPG.Core.Combat;
+using RPG.Standard.Combat;
 
-namespace RPG.Core.Items.Offense
+namespace RPG.Standard.Items.Offense
 {
     public interface IWeapon
     {
@@ -12,6 +12,7 @@ namespace RPG.Core.Items.Offense
         //Damage WeaponDamage { get; set; }
         Element WeaponElementDamage { get; set; }
         WeaponSlotRestriction WeaponRestriction { get; set; }
+        int DamageAmount { get; }
 
         IAttack GetAttack();
     }

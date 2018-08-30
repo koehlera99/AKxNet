@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RPG.Core.Items.Defense
+namespace RPG.Standard.Items.Defense
 {
     interface IShield
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using RPG.Core.Items.Offense;
+using RPG.Standard.Items.Offense;
 
-namespace RPG.Core.Items.Defense
+namespace RPG.Standard.Items.Defense
 {
     public class Armor : Item, IArmor
     {

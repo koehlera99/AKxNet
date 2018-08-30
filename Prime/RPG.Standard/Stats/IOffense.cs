@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG.Core.Stats
+namespace RPG.Standard.Stats
 {
-    interface IOffense
+    public interface IOffense
     {
         int Melee { get; }
         int Ranged { get; }

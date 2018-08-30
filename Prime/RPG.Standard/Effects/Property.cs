@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG.Core.Effects
+namespace RPG.Standard.Effects
 {
     public class Property : Object
     {

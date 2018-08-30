@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using RPG.Core.Effects;
-using RPG.Core.Items;
-using RPG.Core.Items.Defense;
-using RPG.Core.Items.Offense;
+using RPG.Standard.Effects;
+using RPG.Standard.Items;
+using RPG.Standard.Items.Defense;
+using RPG.Standard.Items.Offense;
 
-namespace RPG.Core.Units
+namespace RPG.Standard.Units
 {
     public partial class Unit
     {

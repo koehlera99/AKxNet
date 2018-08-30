@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG.Core.Stats
+namespace RPG.Standard.Stats
 {
-    interface IPrimaryStats
+    public interface IPrimaryStats
     {
         int Strength { get; }
         int Dexterity { get; }

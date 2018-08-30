@@ -1,4 +1,4 @@
-﻿namespace RPG.Core.Combat
+﻿namespace RPG.Standard.Combat
 {
     class Attack : IAttack
     {
@@ -7,7 +7,6 @@
             AttackType = attackType;
             AttackRoll = attackRoll;
             DamageRoll = damageRoll;
-
         }
 
         public AttackType AttackType { get; }

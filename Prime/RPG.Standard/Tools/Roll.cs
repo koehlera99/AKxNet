@@ -4,112 +4,138 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG.Core.Tools
+namespace RPG.Standard.Tools
 {
     /// <summary>
     /// Generate random dice rolls
     /// multiplier = number of rolls
-    /// Typical polyhedral dice (Ex: D20 = 1 thru 20)
+    /// Typical polyhedral dice (Ex: d20 = 1 thru 20)
     /// </summary>
-    static class Roll
+    public static class Roll
     {
         private static Random random = new Random();
 
-        public static int D2(int multiplier = 1)
+        public static bool Coin
+        {
+            get { return random.Next(0, 2) == 0 ? false : true; }
+        }
+
+        public static int d4
+        {
+            get { return random.Next(0, 4) + 1; }
+        }
+
+        public static int d6
+        {
+            get { return random.Next(0, 6) + 1; }
+        }
+
+        public static int d8
+        {
+            get { return random.Next(0, 8) + 1; }
+        }
+
+        public static int d10
+        {
+            get { return random.Next(0, 10) + 1; }
+        }
+
+        public static int d12
+        {
+            get { return random.Next(0, 12) + 1; }
+        }
+
+        public static int d20
+        {
+            get { return random.Next(0, 20) + 1; }
+        }
+
+        public static int d100
+        {
+            get { return random.Next(0, 100) + 1; }
+        }
+
+        public static int d1000
+        {
+            get { return random.Next(0, 1000) + 1; }
+        }
+
+        public static int D4(int multiplier)
         {
             int value = 0;
 
             for (int i = 0; i < multiplier; i++)
-                value += random.Next(1, 3);
+                value += random.Next(0, 4) + 1;
 
             return value;
         }
 
-        public static int D3(int multiplier = 1)
+        public static int D6(int multiplier)
         {
             int value = 0;
 
             for (int i = 0; i < multiplier; i++)
-                value += random.Next(1, 4);
+                value += random.Next(0, 6) + 1;
 
             return value;
         }
 
-        public static int D4(int multiplier = 1)
+        public static int D8(int multiplier)
         {
             int value = 0;
 
             for (int i = 0; i < multiplier; i++)
-                value += random.Next(1, 5);
+                value += random.Next(0, 8) + 1;
 
             return value;
         }
 
-        public static int D6(int multiplier = 1)
+        public static int D10(int multiplier)
         {
             int value = 0;
 
             for (int i = 0; i < multiplier; i++)
-                value += random.Next(1, 7);
-
-            return value;
-        }
-        public static int D8(int multiplier = 1)
-        {
-            int value = 0;
-
-            for (int i = 0; i < multiplier; i++)
-                value += random.Next(1, 9);
+                value += random.Next(0, 10) + 1;
 
             return value;
         }
 
-        public static int D10(int multiplier = 1)
+        public static int D12(int multiplier)
         {
             int value = 0;
 
             for (int i = 0; i < multiplier; i++)
-                value += random.Next(1, 11);
+                value += random.Next(0, 12) + 1;
 
             return value;
         }
 
-        public static int D12(int multiplier = 1)
+        public static int D20(int multiplier)
         {
             int value = 0;
 
             for (int i = 0; i < multiplier; i++)
-                value += random.Next(1, 13);
+                value += random.Next(0, 20) + 1;
 
             return value;
         }
 
-        public static int D20(int multiplier = 1)
+        public static int D100(int multiplier)
         {
             int value = 0;
 
             for (int i = 0; i < multiplier; i++)
-                value += random.Next(1, 21);
+                value += random.Next(0, 100) + 1;
 
             return value;
         }
 
-        public static int D100(int multiplier = 1)
+        public static int D1000(int multiplier)
         {
             int value = 0;
 
             for (int i = 0; i < multiplier; i++)
-                value += random.Next(1, 101);
-
-            return value;
-        }
-
-        public static int D1000(int multiplier = 1)
-        {
-            int value = 0;
-
-            for (int i = 0; i < multiplier; i++)
-                value += random.Next(1, 1001);
+                value += random.Next(0, 1000) + 1;
 
             return value;
         }
@@ -119,7 +145,17 @@ namespace RPG.Core.Tools
             int value = 0;
 
             for (int i = 0; i < multiplier; i++)
-                value += random.Next(1, die + 1);
+                value += random.Next(0, die) + 1;
+
+            return value;
+        }
+
+        public static int Dice(Die die, int multiplier = 1)
+        {
+            int value = 0;
+
+            for (int i = 0; i < multiplier; i++)
+                value += random.Next(1, (int)die + 1);
 
             return value;
         }
@@ -131,11 +167,21 @@ namespace RPG.Core.Tools
         /// <returns></returns>
         public static int AttackRoll(int modifier = 0)
         {
-            return D20() + modifier;
+            return d20 + modifier;
         }
+    }
 
-
-
+    public enum Die
+    {
+        D2 = 2,
+        D3 = 3,
+        D4 = 4,
+        D6 = 6,
+        D8 = 8,
+        D10 = 10,
+        D12 = 12,
+        D20 = 20,
+        D100 = 100
 
     }
 }

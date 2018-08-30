@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using RPG.Core.Items;
-using RPG.Core.Items.Offense;
+using RPG.Standard.Items;
+using RPG.Standard.Items.Offense;
 
-namespace RPG.Core.Units
+namespace RPG.Standard.Units
 {
     public class DamageResistance
     {
@@ -33,6 +33,7 @@ namespace RPG.Core.Units
             Value = value;
             Source = source;
         }
+
         /// <summary>
         /// Constructors using 'enum' as damageType
         /// </summary>

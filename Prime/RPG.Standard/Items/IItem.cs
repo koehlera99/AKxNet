@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RPG.Core.Items
+namespace RPG.Standard.Items
 {
     public interface IItem
     {

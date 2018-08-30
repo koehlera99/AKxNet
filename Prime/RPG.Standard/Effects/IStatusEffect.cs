@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG.Core.Effects
+namespace RPG.Standard.Effects
 {
-    interface IStatusEffect
+    public interface IStatusEffect
     {
         int TimeToLive { get; set; }
     }

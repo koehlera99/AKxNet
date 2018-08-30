@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG.Core.Stats
+namespace RPG.Standard.Stats
 {
-    interface IUnitStats : IPrimaryStats, IOffense, IDefense
+    public interface IUnitStats : IPrimaryStats, IOffense, IDefense
     {
         int Power { get; }
         int Mind { get; }
