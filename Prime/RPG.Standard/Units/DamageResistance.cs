@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using RPG.Standard.Base;
 using RPG.Standard.Items;
 using RPG.Standard.Items.Offense;
 
@@ -12,7 +12,7 @@ namespace RPG.Standard.Units
     public class DamageResistance
     {
         public string DamageTypeName { get; }
-        public DamageTypes DamageType { get; }
+        public DamageType DamageType { get; }
         public int Value { get; set; }
         public Object Source { get; set; }
 
@@ -39,13 +39,13 @@ namespace RPG.Standard.Units
         /// </summary>
         /// <param name="damageType"></param>
         /// <param name="value"></param>
-        public DamageResistance(DamageTypes damageType, int value)
+        public DamageResistance(DamageType damageType, int value)
         {
             DamageType = damageType;
             Value = value;
         }
 
-        public DamageResistance(DamageTypes damageType, int value, Object source)
+        public DamageResistance(DamageType damageType, int value, Object source)
         {
             DamageType = damageType;
             Value = value;

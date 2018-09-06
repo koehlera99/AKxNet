@@ -34,6 +34,16 @@ namespace RPG.Standard
             return obj != null && Id.Equals(obj.Id);
         }
 
+        public static bool operator== (Object obj, Object obj2)
+        {
+            return obj != null && obj2 != null && obj.Id.Equals(obj2.Id);
+        }
+
+        public static bool operator !=(Object obj, Object obj2)
+        {
+            return obj == null || obj2 == null || !obj.Id.Equals(obj2.Id);
+        }
+
         public override int GetHashCode()
         {
             return Id;

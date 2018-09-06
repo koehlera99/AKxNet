@@ -2,13 +2,15 @@
 using RPG.Standard.Combat;
 using RPG.Standard.Units;
 using RPG.Standard.Tools;
+using RPG.Standard.Base;
+using RPG.Standard.Base.Stats;
 
 namespace RPG.Standard.Items.Offense
 {
     public class Weapon : Item, IWeapon, IDamage
     {
-        public WeaponTypes WeaponType { get; set; }
-        public DamageTypes DamageType { get; set; }
+        public WeaponProperty WeaponType { get; set; }
+        public DamageType DamageType { get; set; }
         public WeaponEffects WeaponEffect { get; set; }
         public WeaponSlots WeaponSlot { get; set; } = WeaponSlots.None;
         public Damage WeaponDamage { get; set; }
@@ -30,8 +32,8 @@ namespace RPG.Standard.Items.Offense
         public int MaxRange { get; set; } = 1; //Melee
 
         //BaseStats that are used when using this weapon (Strength: Melee, Dexterity: Ranged, Finesse)
-        public BaseStat PrimaryWeaponStat { get; set; } = BaseStat.Strength;
-        public SecondaryStat SecondaryWeaponsStat { get; set; } = SecondaryStat.None;
+        public Primary PrimaryWeaponStat { get; set; } = Primary.Str;
+        //public Secondary SecondaryWeaponsStat { get; set; } = Secondary.None;
 
         public WeaponEffects WeaponEffectList
         {
@@ -39,11 +41,11 @@ namespace RPG.Standard.Items.Offense
             {
                 WeaponEffects effects = WeaponEffects.None;
 
-                if (DamageType == DamageTypes.Blunt)
+                if (DamageType == DamageType.Blunt)
                     effects = effects | WeaponEffects.Stun;
-                if (DamageType == DamageTypes.Piercing)
+                if (DamageType == DamageType.Piercing)
                     effects = effects | WeaponEffects.Sunder;
-                if (DamageType == DamageTypes.Slashing)
+                if (DamageType == DamageType.Slashing)
                     effects = effects | WeaponEffects.Bleed;
 
                 //Clean up

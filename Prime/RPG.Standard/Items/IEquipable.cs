@@ -29,15 +29,5 @@ namespace RPG.Standard.Items
         Misc
     }
 
-    [Flags]
-    public enum MiscSlots
-    {
-        None = 0,
-        LeftRing = 1,
-        RightRing = 2,
-        Neckless = 4,
-        Cloak = 8,
-        Eyes = 16,
-        IonStone = 32
-    }
+
 }

@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Items\Gear\" />
+    <Folder Include="Classes\" />
   </ItemGroup>
 
   <ItemGroup>

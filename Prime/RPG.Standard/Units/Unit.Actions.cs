@@ -1,244 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RPG.Standard.Items;
+﻿using RPG.Standard.Items;
 using RPG.Standard.Items.Defense;
 using RPG.Standard.Items.Offense;
 using RPG.Standard.Tools;
+using System;
 
 namespace RPG.Standard.Units
 {
     public partial class Unit
     {
-        public bool Attack(Unit defender)
-        {
-            return Roll.AttackRoll(AttackBonus()) >= defender.ArmorClass;
-        }
-
-        public bool Attack(Unit defender, Weapon weapon)
-        {
-            //old :: replace with new
-            return Roll.AttackRoll(AttackBonus(weapon)) >= defender.ArmorClass;
-        }
-
-
-        public static bool Search()
-        {
-
-            return true;
-        }
-
-        public static bool CastSpell()
-        {
-
-            return true;
-
-        }
-
-        public static bool UseSpecialPower()
-        {
-
-            return true;
-        }
-
-        public static bool Move()
-        {
-
-            return true;
-        }
-
-        public static bool UseItem()
-        {
-
-            return true;
-        }
-
-        /// <summary>
-        /// Pass any equipable item, it will filter it to the correct equipment location
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        public bool EquipItem(Item item)
-        {
-            if (item is Weapon)
-                EquipWeapon((Weapon)item);
-            else if (item is Armor)
-                EquipArmor((Armor)item);
-            else if (item is EquipableItem)
-                EquipMiscItem((EquipableItem)item);
-            else if (item is Artifact)
-                EquipArtifact((Artifact)item);
-            else
-                return false;
-
-            return true;
-        }
-        public void EquipArmor(Armor armor)
-        {
-            UnEquipArmor(armor.ArmorSlot);
-            armor.IsEquiped = true;
-            EquipedArmor.Add(armor.ArmorSlot, armor);
-        }
-
-        public void UnEquipArmor(ArmorSlots slot)
-        {
-            if (EquipedArmor.ContainsKey(slot))
-            {
-                EquipedArmor[slot].IsEquiped = false;
-                Items.Add(EquipedArmor[slot]);
-                EquipedArmor.Remove(slot);
-            }
-        }
-
-        public void EquipMiscItem(EquipableItem item)
-        {
-            UnEquipMiscItem(item.EquipmentSlot);
-            item.IsEquiped = true;
-            MiscEquipment.Add(item.EquipmentSlot, item);
-        }
-
-        public void UnEquipMiscItem(MiscSlots slot)
-        {
-            if (MiscEquipment.ContainsKey(slot))
-            {
-                MiscEquipment[slot].IsEquiped = false;
-                Items.Add(MiscEquipment[slot]);
-                MiscEquipment.Remove(slot);
-            }
-        }
-
-        public void EquipArtifact(Artifact artifact)
-        {
-            UnEquipArtifact(artifact.ArtifactSlot);
-            artifact.IsEquiped = true;
-            EquipedArtifacts.Add(artifact.ArtifactSlot, artifact);
-        }
-
-        public void UnEquipArtifact(ArtifactSlots slot)
-        {
-            if (EquipedArtifacts.ContainsKey(slot))
-            {
-                EquipedArtifacts[slot].IsEquiped = false;
-                Items.Add(EquipedArtifacts[slot]);
-                EquipedArtifacts.Remove(slot);
-            }
-        }
-
-        [Obsolete]
-        public void EquipWeapon(Item weapon)
-        {
-            var bothHands = WeaponSlots.OffHand | WeaponSlots.PrimaryHand;
-            if (weapon.WeaponLocation == bothHands)
-            {
-                UnEquipWeapon(WeaponSlots.OffHand);
-                UnEquipWeapon(WeaponSlots.PrimaryHand);
-            }
-            else if (EquipedWeapons.ContainsKey(bothHands))
-                UnEquipWeapon(bothHands);
-            else if (EquipedWeapons.ContainsKey(weapon.WeaponLocation))
-                UnEquipWeapon(weapon);
-
-            weapon.IsEquiped = true;
-            EquipedWeapons.Add(weapon.WeaponLocation, (Weapon)weapon);
-        }
-
-        public bool EquipWeapon(Weapon weapon, WeaponSlots slot)
-        {
-            weapon.IsEquiped = false;
-            weapon.WeaponSlot = WeaponSlots.None;
-
-            if (slot == WeaponSlots.None)
-            {
-                return false;
-            }
-            else
-            {
-                switch (weapon.WeaponRestriction)
-                {
-                    case WeaponSlotRestriction.None:
-                        break;
-                    case WeaponSlotRestriction.OffHandOnly:
-                        if (slot != WeaponSlots.OffHand)
-                            return false;
-                        break;
-                    case WeaponSlotRestriction.OneHandedOnly:
-                        if (slot.HasFlag(WeaponSlots.PrimaryHand) && slot.HasFlag(WeaponSlots.OffHand))
-                            return false;
-                        break;
-                    case WeaponSlotRestriction.TwoHandedOnly:
-                        if (!(slot.HasFlag(WeaponSlots.PrimaryHand) && slot.HasFlag(WeaponSlots.PrimaryHand)))
-                            return false;
-                        break;
-                    default:
-                        break;
-                }
-
-                if (slot.HasFlag(WeaponSlots.PrimaryHand))
-                    UnEquipWeapon(WeaponSlots.PrimaryHand);
-
-                if (slot.HasFlag(WeaponSlots.OffHand))
-                    UnEquipWeapon(WeaponSlots.OffHand);
-
-                if (EquipedWeapons.ContainsKey(WeaponSlots.PrimaryHand | WeaponSlots.OffHand))
-                    UnEquipWeapon(WeaponSlots.PrimaryHand | WeaponSlots.OffHand);
-
-                EquipedWeapons.Add(slot, weapon);
-                weapon.IsEquiped = true;
-                weapon.WeaponSlot = slot;
-
-                return true;
-            }
-        }
-
-        public bool EquipWeapon(Weapon weapon)
-        {
-            if (EquipWeapon(weapon, weapon.WeaponSlot))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        [Obsolete]
-        public void UnEquipWeapon(Item weapon)
-        {
-            weapon.IsEquiped = false;
-
-            if (EquipedWeapons.ContainsKey(weapon.WeaponLocation))
-            {
-                Items.Add(weapon);
-                EquipedWeapons.Remove(weapon.WeaponLocation);
-            }
-        }
-
-        public void UnEquipWeapon(Weapon weapon)
-        {
-            weapon.IsEquiped = false;
-
-            if (EquipedWeapons.ContainsKey(weapon.WeaponSlot))
-            {
-                Items.Add(weapon);
-                EquipedWeapons.Remove(weapon.WeaponSlot);
-                weapon.WeaponSlot = WeaponSlots.None;
-            }
-        }
-
-        public void UnEquipWeapon(WeaponSlots weaponSlot)
-        {
-            if (EquipedWeapons.ContainsKey(weaponSlot))
-            {
-
-                EquipedWeapons[weaponSlot].IsEquiped = false;
-                Items.Add(EquipedWeapons[weaponSlot]);
-                EquipedWeapons.Remove(weaponSlot);
-            }
-        }
-
+        #region Dead Code
         //[Obsolete]
         //public void EquipItem(Item i, EquipmentSlot equipmentType)
         //{
@@ -284,54 +54,650 @@ namespace RPG.Standard.Units
         //    }
         //}
 
-        //TODO: This should be an character 'Action'
-        public void PickUpItem(Item item)
-        {
-            Items.Add(item);
-            RefreshItems();
-        }
 
-        public void DropItem(string name, int quantity = 1)
-        {
-            foreach (Item i in Items)
-            {
-                if (i.Name == name)
-                {
-                    Items.Remove(i);
-                    quantity--;
 
-                    if (quantity < 1)
-                        break;
-                }
-            }
 
-            RefreshItems();
-        }
 
-        public void DropItem(int itemID, int quantity = 1)
-        {
-            foreach (Item i in Items)
-            {
-                if (i.Id == itemID)
-                {
-                    Items.Remove(i);
-                    quantity--;
+        ////Melee Defense
+        //public int MeleeDefense
+        //{
+        //    get
+        //    {
+        //        Random r = new Random();
 
-                    if (quantity < 1)
-                        break;
-                }
-            }
+        //        if (r.Next(1, 100) < DodgeChance)
+        //            return ArmorClass + Effects("MeleeDefense") + DodgeBonus;
+        //        else
+        //            return ArmorClass + Effects("MeleeDefense");
+        //    }
+        //}
 
-            RefreshItems();
-        }
+        ////Ranged Defense
+        //public int RangedDefense
+        //{
+        //    get
+        //    {
+        //        Random r = new Random();
 
-        public void DropItem(Item item, int quantity = 1)
-        {
-            for (int i = quantity; i > 0; i--)
-                Items.Remove(item);
+        //        if (r.Next(1, 100) < DodgeChance)
+        //            return ArmorClass + Effects("RangedDefense") + DodgeBonus;
+        //        else
+        //            return ArmorClass + Effects("RangedDefense");
+        //    }
+        //}
 
-            RefreshItems();
-        }
+        //int ac = 0;
+
+        //foreach (var pair in EquipedItems)
+        //{
+        //    Item i = EquipedItems[pair.Key];
+
+        //    if (i.ItemType == ItemTypes.EquipedArmor)
+        //    {
+        //        EquipedArmor a = (EquipedArmor)i;
+        //        ac += a.ArmorClass;
+        //    }
+        //}
+
+        //foreach (var pair in EquipedWeapons)
+        //{
+        //    Item i = EquipedWeapons[pair.Key];
+
+        //    if (i.ItemType == ItemTypes.EquipedArmor)
+        //    {
+        //        EquipedArmor a = (EquipedArmor)i;
+        //        ac += a.ArmorClass;
+        //    }
+
+        //    if (i.ItemType == ItemTypes.Weapon)
+        //    {
+        //        Weapon w = (Weapon)i;
+        //        ac += w.DefenseBonus;
+        //    }
+        //}
+
+        //struct SecondaryStats
+        //{
+        //    public int Vitality { get; set; }
+        //    public int Endurance { get; set; }
+        //    public int Luck { get; set; }
+        //    public int Agility { get; set; }
+        //    public int Accuracy { get; set; }
+        //}
+
+        //struct Proficiences
+        //{
+        //    /// <summary>
+        //    /// Damage ArmorType Proficiencies
+        //    /// </summary>
+        //    public int SlashingWeapons { get; set; }
+        //    public int BluntWeapons { get; set; }
+        //    public int PiercingWeapons { get; set; }
+
+        //    /// <summary>
+        //    /// Weapon ArmorType Proficiences
+        //    /// </summary>
+        //    public int Throwing { get; set; }
+        //    public int Martial { get; set; }
+        //    public int TwoHanded { get; set; }
+        //    public int LightRanged { get; set; }
+        //    public int TwoHandedRanged { get; set; }
+
+        //    /// <summary>
+        //    /// EquipedArmor ArmorType Proficiencies
+        //    /// </summary>
+        //    public int ClothArmor { get; set; }
+        //    public int ChainMail { get; set; }
+        //    public int RingMail { get; set; }
+        //    public int ScaleMail { get; set; }
+        //    public int PlateMail { get; set; }
+        //    public int Shields { get; set; }
+        //}
+
+        #endregion
+
+
+        #region Dead Code
+        //public int MovementSpeed
+        //{
+        //    get
+        //    {
+        //        if (OverLoadedWithWeight)
+        //            return (DexBonus + Speed + GetEffect("Speed")) / 2;
+        //        else
+        //            return DexBonus + Speed + GetEffect("Speed");
+        //    }
+        //}
+
+        /// <summary>
+        /// Primary-Secondary Abilities
+        /// </summary>
+        //protected PrimaryStatistics Primary;
+        //protected PrimaryStatistics Secondary;
+
+        //protected List<Modify> ModifyList { get; set; } = new List<Modify>();
+
+
+        //public short DamageTypeBonus(Weapon weapon)
+        //{
+        //    short dmgBonus = 0;
+
+        //    //Damge ArmorType proficiencies
+        //    if (weapon.DamageTypeName == Weapon.DamageTypes.Blunt)
+        //        dmgBonus += BluntWeapons;
+        //    else if (weapon.DamageTypeName == Weapon.DamageTypes.Piercing)
+        //        dmgBonus += PiercingWeapons;
+        //    else if (weapon.DamageTypeName == Weapon.DamageTypes.Slashing)
+        //        dmgBonus += SlashingWeapons;
+
+        //    return dmgBonus;
+        //}
+
+        //public short WeaponTypeBonus(Weapon weapon)
+        //{
+        //    short attkBonus = 0;
+
+        //    //Weapon ArmorType Proficiencies
+        //    if (weapon.WeaponType == Weapon.WeaponTypes.Throwing)
+        //        attkBonus += Throwing;
+        //    else if (weapon.WeaponType == Weapon.WeaponTypes.Martial)
+        //        attkBonus += Martial;
+        //    else if (weapon.WeaponType == Weapon.WeaponTypes.TwoHanded)
+        //        attkBonus += TwoHanded;
+        //    else if (weapon.WeaponType == Weapon.WeaponTypes.LightRanged)
+        //        attkBonus += LightRanged;
+        //    else if (weapon.WeaponType == Weapon.WeaponTypes.HeavyRanged)
+        //        attkBonus += TwoHandedRanged;
+
+        //    return attkBonus;
+        //}
+
+        //public short ArmorTypeBonus(EquipedArmor armor)
+        //{
+        //    short armorBonus = 0;
+
+        //    //EquipedArmor ArmorType proficiencies
+        //    if (armor.ArmorType == ArmorType.Cloth)
+        //        armorBonus += ClothArmor;
+        //    else if (armor.ArmorType == ArmorType.Chain)
+        //        armorBonus += ChainMail;
+        //    else if (armor.ArmorType == ArmorType.Ring)
+        //        armorBonus += RingMail;
+        //    else if (armor.ArmorType == ArmorType.Scale)
+        //        armorBonus += ScaleMail;
+        //    else if (armor.ArmorType == ArmorType.Plate)
+        //        armorBonus += PlateMail;
+        //    else if (armor.ArmorType == ArmorType.Shield)
+        //        armorBonus += Shields;
+
+        //    return armorBonus;
+        //}
+
+
+
+
+
+
+
+
+        //public AttackBlob WeaponAttack(Weapon weapon, Weapon.AttackTypes attkType)
+        //{
+        //    Random random = new Random();
+        //    AttackBlob attkBlob = new AttackBlob();
+
+        //    attkBlob.Attacker = this;
+        //    attkBlob.WeaponAttackedWith = weapon;
+
+        //    int criticalRoll;
+
+        //    criticalRoll = random.Next(0, 100);
+
+        //    if (criticalRoll <= CriticalChance)
+        //    {
+        //        attkBlob.IsCriticalHit = true;
+
+        //        attkBlob.CriticalAmount = random.Next(LevelBonus, LevelBonus + CriticalDamage);
+
+        //        if (criticalRoll <= 100 - weapon.AutoCritMax)
+        //        {
+        //            attkBlob.IsMassiveAttack = true;
+        //            attkBlob.CriticalAmount *= 2;
+        //        }
+        //    }
+
+        //    attkBlob.AttackType = attkType;
+
+        //    switch (attkBlob.AttackType)
+        //    {
+        //        case Weapon.AttackTypes.Melee:
+        //        case Weapon.AttackTypes.MeleeAOE:
+        //            attkBlob.AttackTypeBonus = this.MeleeAttack;
+        //            break;
+        //        case Weapon.AttackTypes.Ranged:
+        //        case Weapon.AttackTypes.RangedAOE:
+        //            attkBlob.AttackTypeBonus = this.RangedAttack;
+        //            break;
+        //        case Weapon.AttackTypes.None:
+        //        default:
+        //            break;
+        //    }
+
+        //    attkBlob.LevelBonus = this.LevelBonus;
+        //    attkBlob.BaseAttackBonus = this.BaseAttack;
+        //    attkBlob.WeaponTypeBonus = this.WeaponTypeBonus(weapon);
+        //    attkBlob.DamageTypeBonus = this.DamageTypeBonus(weapon);
+
+        //    attkBlob.AttackRoll = random.Next(attkBlob.LevelBonus, attkBlob.GetAllAttackBonuses);
+
+        //    return attkBlob;
+        //}
+
+        //public DamageBlob DealDamage(AttackBlob attk)
+        //{
+        //    DamageBlob dmgBlob = new DamageBlob(attk);
+
+        //    //int randomRoll = 0;
+        //    //DamageBlob dmg = new DamageBlob();
+        //    //dmg.BaseDamage = 1;
+        //    //Random random = new Random();
+
+        //    //if (weapon.AutoCritMax == 0)
+        //    //{
+        //    //    dmg.BaseDamage += CriticalDamage;
+        //    //    dmg.BaseDamage += weapon.MaxDamage;
+        //    //}
+        //    //else
+        //    //{
+        //    //    randomRoll = random.Next(1, 100);
+
+        //    //    if (randomRoll <= this.CriticalChance)
+        //    //        dmg.BaseDamage += CriticalDamage;
+
+        //    //    randomRoll = random.Next(weapon.MinDamage, weapon.MaxDamage);
+        //    //    dmg.BaseDamage = randomRoll;
+        //    //}
+
+        //    //if (weapon.IsMeleeAttack)
+        //    //    dmg.BaseDamage += Strength;
+        //    //else
+        //    //    dmg.BaseDamage += Dexterity;
+
+        //    //dmg.DamageTypeName = weapon.DamageTypeName;
+        //    ////dmg. = weapon.AttackType;
+        //    //dmg.WeaponEffect = weapon.WeaponEffect;
+
+        //    return dmgBlob;
+        //}
+
+        //public DefenseBlob DefenseRoll()
+        //{
+        //    DefenseBlob defBlob = new DefenseBlob(this);
+        //    Random random = new Random();
+
+        //    int randomRoll;
+
+        //    randomRoll = random.Next(1, 100);
+
+        //    if (randomRoll <= this.DodgeChance)
+        //        defBlob.DodgeAmount = this.DodgeBonus;
+
+        //    defBlob.BaseDefense = this.LevelBonus;
+        //    defBlob.ArmorBonus = this.ArmorClass;
+        //    defBlob.DexBonus = this.DexBonus;
+
+        //    defBlob.TotalDefenseRoll = random.Next(LevelBonus, defBlob.MaxDefense);
+
+        //    return defBlob;
+        //}
+
+        //public void AbsorbDamage(DamageBlob damage)
+        //{
+        //    int damageTaken = 0;
+
+        //    //damageTaken += damage;
+        //    this.HP -= damageTaken;
+
+        //    if (this.HitPoints <= 0)
+        //        this.IsDead = true;
+        //    else
+        //        this.IsDead = false;
+
+        //    //PrintText.NormalPrint("HP Remaining: " + this.HitPoints);
+        //}
+
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //    
+
+        //    struct Alignments
+        //    {
+        //        int Good;
+        //        int Evil;
+        //        int Law;
+        //        int Chaos;
+        //        int Neutral;
+        //    }
+
+        //    struct Elements
+        //    {
+        //        int Fire;
+        //        int Earth;
+        //        int Air;
+        //        int Water;
+
+        //        int Electric;
+        //        int Sound;
+        //        int Force;
+        //        int Magnetic;
+
+        //        int Holy;
+        //        int Shadow;
+        //        int Light;
+        //        int Darkness;
+
+        //        int Poison;
+        //        int Heal;
+        //        int Life;
+        //        int Death;
+
+        //        int Moon;
+        //        int Star;
+        //        int Gravity;
+        //        int Void;
+
+        //        int Acid;
+        //        int Mind;
+        //        int Ghost;
+        //        int Plague;
+        //    }
+
+        //    struct AbilityScores
+        //    {
+        //        short Strength;
+        //        short Dexterity;
+        //        short Constitution;
+        //        short Intelligence;
+        //        short Wisdom;
+        //        short Charisma;
+        //    }
+
+        //    // Damage ArmorType Proficiencies
+
+
+        //    // Weapon ArmorType Proficiencies
+
+
+        //    struct WeaponTypes
+        //    {
+        //        short Throwing;
+        //        short Martial;
+        //        short TwoHanded;
+        //        short LightRanged;
+        //        short TwoHandedRanged;
+        //    }
+
+        //    struct ThrowingWeapons
+        //    {
+        //        short Dagger;           //Slashing
+        //        short ThrowingHammer;   //Blunt
+        //        short Javalin;          //Piercing
+        //    }
+
+        //    struct MartialWeapons
+        //    {
+        //        short Longsword;        //Slashing
+        //        short WarHammer;        //Blunt
+        //        short Spear;            //Piercing
+        //    }
+
+        //    struct TwoHandedWeapons
+        //    {
+        //        short FullBlade;        //Slashing
+        //        short MorningStar;      //Blunt
+        //        short Lance;            //Piercing
+        //    }
+
+        //    struct WeaponDamageTypes
+        //    {
+        //        short Slashing;
+        //        short Blunt;
+        //        short Piercing;
+        //    }
+
+        //    struct ArmorTypes
+        //    {
+        //        short ClothArmor;
+        //        short ChainMail;
+        //        short RingMail;
+        //        short ScaleMail;
+        //        short PlateMail;
+        //        short Shields;
+        //    }
+
+        //    class Element
+        //    {
+        //        public int ElementID { get; set; }
+        //        public string ElementName { get; set; }
+        //        public int ElementValue { get; set; }
+        //        public string ElementDescription { get; set; }
+        //        public string ElementHardness { get; set; }
+        //    }
+
+        //    enum ElementState
+        //    {
+        //        None, Solid, Liquid, Gas,
+        //        Ion, Paricle, Wave, Beam,
+        //        Ethereal, Plasma, Phase
+        //    }
+
+        //    enum PowerSource
+        //    {
+        //        None,
+        //        Physical,   //Strength, Dexterity, Constitution
+        //        Magic,      //Intelligence
+        //        Divine,     //Charisma
+        //        Nature,     //Wisdom
+        //        Psyonic,    //Intelligence, Charisma
+        //        Tech,       //Intelligence, Wisdom
+        //        Mind      //Charisma, Wisdom
+        //    }
+
+        //    class ArmoredKnight : Unit
+        //    {
+
+        //    }
+
+        //    class Berserker : Unit
+        //    {
+        //        public bool IsBerserking { get; set; }
+        //        public int BerserkBonus { get; set; }
+        //        public int BerserkDebuff { get; set; }
+        //    }
+
+
+
+
+
+        //    class Race
+        //    {
+        //        string RaceName;
+        //    }
+
+        //    interface IRace
+        //    {
+
+        //    }
+
+        //    enum PrimaryStatistics
+        //    {
+        //        Strength,
+        //        Dexterity,
+        //        Constitution,
+        //        Intelligence,
+        //        Wisdom,
+        //        Charisma
+        //    }
+
+        //    enum SecondaryStats
+        //    {
+        //        CriticalAmount,
+        //        CriticalChance,
+        //        DodgeChance
+        //    }
+
+
+        //    static class Action
+        //    {
+        //        enum Attack
+        //        {
+        //            Basic,
+        //            Melee,
+        //            Ranged,
+        //            Throw
+        //        }
+
+        //        enum Spell
+        //        {
+        //            None,
+        //            Cast,
+        //            Interupt,
+        //            Dispell,
+        //            Negate
+        //        }
+
+        //        enum Maneuver
+        //        {
+        //            None,
+        //            Basic,
+        //            Sunder,
+        //            Trip,
+        //            Disarm,
+        //            Stun,
+        //            Mark,
+        //            Push,
+        //            Pull,
+        //            Slide,
+        //            Intimidate,
+        //            Inspire,
+        //            Run,
+        //            Hide,
+        //            Jump,
+        //            DropProne,
+        //            Escape,
+        //            FindCover,
+        //            Deflect,
+        //            Gaurd
+        //        }
+
+        //        enum ActionType
+        //        {
+        //            None,
+        //            Attack,
+        //            Defend,
+        //            CastSpell,
+        //            WeaponManuever,
+        //            Run,
+        //            Escape,
+        //            Stealth
+        //        }
+        //    }
+
+        //    //class Berserker : Unit, IBerserker
+        //    //{
+        //    //    private bool isBerserking;
+        //    //    private int berserkBonus;
+        //    //    private int berserkDebuff;
+
+        //    //    public bool IsBerserking
+        //    //    {
+        //    //        get { return isBerserking; }
+        //    //        set { isBerserking = value; }
+        //    //    }
+
+        //    //    public int BerserkBonus
+        //    //    {
+        //    //        get { return berserkBonus; }
+        //    //        set { berserkBonus = value; }
+        //    //    }
+
+        //    //    public int BerserkDebuff
+        //    //    {
+        //    //        get { return berserkDebuff; }
+        //    //        set { berserkDebuff = value; }
+        //    //    }
+
+        //    //    public void Berserk()
+        //    //    {
+        //    //        MaxHP += BerserkBonus * Lvl;
+        //    //        HP += BerserkBonus * Lvl;
+        //    //        //MaxPower += BerserkBonus * 10 * Lvl;
+        //    //        MeleeAttackBonus += BerserkBonus;
+        //    //        RangedAttackBonus -= BerserkDebuff;
+        //    //        DodgeChance = 0;
+        //    //    }
+
+        //    //    public void UnBerserk()
+        //    //    {
+        //    //        MaxHP -= BerserkBonus * Lvl;
+
+        //    //        if (HP > MaxHP)
+        //    //            HP = MaxHP;
+        //    //    }
+
+
+        //    //    //Berserking Abilities
+        //    //    int BHPIncrease;
+        //    //    int BDmgIncrease;
+
+        //    //    int BBluntVulnerable;
+        //    //    int BPierceVulnerable;
+        //    //    int BSlashVulnerable;
+
+        //    //    int BPowerConsumption;
+
+
+        //    //}
+
+        //    //static class Combat
+        //    //{
+        //    //    public static int AttackAction(Character attacker, Character SelectedDefender)
+        //    //    {
+        //    //        if (attacker.AttackRoll() >= SelectedDefender.DefenseRoll())
+        //    //        {
+        //    //            int damage = attacker.DealDamage();
+        //    //            SelectedDefender.AbsorbDamage(damage);
+        //    //            return damage;
+        //    //        }
+        //    //        else
+        //    //        {
+        //    //            return 0;
+        //    //        }
+        //    //    }
+
+        //    //    public static bool CombatRound(int attackRoll, int defenceRoll)
+        //    //    {
+
+        //    //        return false;
+        //    //    }
+        //    //}
+
+        #endregion
     }
 
 

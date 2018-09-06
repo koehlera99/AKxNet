@@ -8,6 +8,7 @@ using RPG.Standard.Items.Defense;
 using RPG.Standard.Items.Offense;
 using RPG.Standard.Units;
 using RPG.Standard.Tools;
+using RPG.Standard.Base;
 
 namespace RPG.Standard.Combat
 {
@@ -98,16 +99,16 @@ namespace RPG.Standard.Combat
             }
 
             Armor a = new Armor();
-            a.ArmorType = ArmorTypes.Plate;
+            a.ArmorType = ArmorType.Plate;
             a.Hardness = 2;
 
             int r;
 
-            r = a.GetResistAmount(DamageTypes.Slashing);
-            r = a.GetResistAmount(DamageTypes.Blunt);
-            r = a.GetResistAmount(DamageTypes.Piercing);
+            r = a.GetResistAmount(DamageType.Slashing);
+            r = a.GetResistAmount(DamageType.Blunt);
+            r = a.GetResistAmount(DamageType.Piercing);
 
-            a.ArmorType = ArmorTypes.Chain;
+            a.ArmorType = ArmorType.Chain;
 
             //r = a.GetResistAmount(Items.DamageTypes.Slashing);
             //r = a.GetResistAmount(Items.DamageTypes.Blunt);
@@ -154,7 +155,7 @@ namespace RPG.Standard.Combat
         /// <summary>
         /// DamageType by 'string' or 'enum'
         /// </summary>
-        public DamageTypes DamageType { get; set; } = DamageTypes.None;
+        public DamageType DamageType { get; set; } = DamageType.None;
         public string DamageTypeName { get; set; } = string.Empty;
         /// <summary>
         /// Actual damage value
@@ -187,7 +188,7 @@ namespace RPG.Standard.Combat
         public Damage(int damageValue)
         {
             DamageValue = damageValue;
-            DamageType = DamageTypes.None;
+            DamageType = DamageType.None;
         }
         /// <summary>
         /// DamageType as 'string'
@@ -198,14 +199,14 @@ namespace RPG.Standard.Combat
         {
             DamageValue = damageValue;
             DamageTypeName = damageType;
-            DamageType = DamageTypes.None;
+            DamageType = DamageType.None;
         }
         /// <summary>
         /// DamageType as 'enum'
         /// </summary>
         /// <param name="damageValue"></param>
         /// <param name="damageType"></param>
-        public Damage(int damageValue, DamageTypes damageType)
+        public Damage(int damageValue, DamageType damageType)
         {
             DamageValue = damageValue;
             DamageType = damageType;

@@ -16,13 +16,5 @@ namespace RPG.Standard.Items
         }
     }
 
-    [Flags]
-    public enum ArtifactSlots
-    {
-        None = 0,
-        Attack = 1,
-        Defense = 2,
-        Support = 4,
-        Effect = 8
-    }
+    
 }

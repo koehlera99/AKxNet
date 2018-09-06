@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using RPG.Standard.Items.Offense;
+using RPG.Standard.Base;
 
 namespace RPG.Standard.Items.Defense
 {
@@ -11,7 +12,7 @@ namespace RPG.Standard.Items.Defense
 
 
         //old
-        public ArmorTypes ArmorType { get; set; }
+        public ArmorType ArmorType { get; set; }
         public HardnessScale ArmorHardness { get; set; }
         public ArmorSlots ArmorSlot { get; set; }
 
@@ -36,7 +37,7 @@ namespace RPG.Standard.Items.Defense
         {
             get
             {
-                if (this.ArmorType == ArmorTypes.Scale || this.ArmorType == ArmorTypes.Plate)
+                if (this.ArmorType == ArmorType.Scale || this.ArmorType == ArmorType.Plate)
                     return _resistBlunt * Hardness;
                 else
                     return _resistBlunt;
@@ -47,7 +48,7 @@ namespace RPG.Standard.Items.Defense
         {
             get
             {
-                if (this.ArmorType == ArmorTypes.Chain || this.ArmorType == ArmorTypes.Plate)
+                if (this.ArmorType == ArmorType.Chain || this.ArmorType == ArmorType.Plate)
                     return _resistBlunt * Hardness;
                 else
                     return _resistBlunt;
@@ -58,7 +59,7 @@ namespace RPG.Standard.Items.Defense
         {
             get
             {
-                if (this.ArmorType == ArmorTypes.Ring || this.ArmorType == ArmorTypes.Plate)
+                if (this.ArmorType == ArmorType.Ring || this.ArmorType == ArmorType.Plate)
                     return _resistBlunt * Hardness;
                 else
                     return _resistBlunt;
@@ -76,19 +77,17 @@ namespace RPG.Standard.Items.Defense
             {
                 switch (this.ArmorType)
                 {
-                    case ArmorTypes.Cloth:
+                    case ArmorType.Cloth:
                         return ArmorSize.Light;
-                    case ArmorTypes.Leather:
+                    case ArmorType.Leather:
                         return ArmorSize.Light;
-                    case ArmorTypes.Banded:
+                    case ArmorType.Chain:
                         return ArmorSize.Medium;
-                    case ArmorTypes.Chain:
+                    case ArmorType.Scale:
                         return ArmorSize.Medium;
-                    case ArmorTypes.Scale:
+                    case ArmorType.Ring:
                         return ArmorSize.Medium;
-                    case ArmorTypes.Ring:
-                        return ArmorSize.Medium;
-                    case ArmorTypes.Plate:
+                    case ArmorType.Plate:
                         return ArmorSize.Heavy;
                     default:
                         return ArmorSize.Light;
@@ -114,7 +113,7 @@ namespace RPG.Standard.Items.Defense
             ArmorName = "Basic EquipedArmor";
         }
 
-        public Armor(int id, string name, int defenseBonus, HardnessScale armorHardness, ArmorTypes armorType)
+        public Armor(int id, string name, int defenseBonus, HardnessScale armorHardness, ArmorType armorType)
         {
             //base();
             Id = id;
@@ -126,28 +125,26 @@ namespace RPG.Standard.Items.Defense
             ArmorType = armorType;
         }
 
-        public DamageTypes ResistDamageType
+        public DamageType ResistDamageType
         {
             get
             {
                 switch (this.ArmorType)
                 {
-                    case ArmorTypes.Cloth:
-                        return DamageTypes.None;
-                    case ArmorTypes.Leather:
-                        return DamageTypes.None;
-                    case ArmorTypes.Banded:
-                        return DamageTypes.None;
-                    case ArmorTypes.Chain:
-                        return DamageTypes.Piercing;
-                    case ArmorTypes.Scale:
-                        return DamageTypes.Blunt;
-                    case ArmorTypes.Ring:
-                        return DamageTypes.Slashing;
-                    case ArmorTypes.Plate:
-                        return DamageTypes.Piercing | DamageTypes.Slashing | DamageTypes.Blunt;
+                    case ArmorType.Cloth:
+                        return DamageType.None;
+                    case ArmorType.Leather:
+                        return DamageType.None;
+                    case ArmorType.Chain:
+                        return DamageType.Piercing;
+                    case ArmorType.Scale:
+                        return DamageType.Blunt;
+                    case ArmorType.Ring:
+                        return DamageType.Slashing;
+                    case ArmorType.Plate:
+                        return DamageType.Piercing | DamageType.Slashing | DamageType.Blunt;
                     default:
-                        return DamageTypes.None;
+                        return DamageType.None;
                 }
             }
         }
@@ -199,7 +196,7 @@ namespace RPG.Standard.Items.Defense
         //    }
         //}
 
-        public int GetResistAmount(DamageTypes type)
+        public int GetResistAmount(DamageType type)
         {
             if ((ResistDamageType & type) != 0) //|| ArmorType == ArmorTypes.Plate)
                 return Hardness * 5;
@@ -210,19 +207,19 @@ namespace RPG.Standard.Items.Defense
         }
     }
 
-    //new
-    public enum ArmorTypes
-    {
-        Cloth,
-        Leather,
-        Banded,
-        Chain,  // P
-        Ring,   // S
-        Scale,  // B
-        Plate   // P,S,B
-    }
+    ////new
+    //public enum ArmorType
+    //{
+    //    Cloth,
+    //    Leather,
+    //    Banded,
+    //    Chain,  // P
+    //    Ring,   // S
+    //    Scale,  // B
+    //    Plate   // P,S,B
+    //}
 
-    //Splint Mail, Banded Mail, Spiked EquipedArmor
+    ////Splint Mail, Banded Mail, Spiked EquipedArmor
 
     public enum ArmorSize
     {
@@ -231,14 +228,5 @@ namespace RPG.Standard.Items.Defense
         Heavy = 3
     }
 
-    [Flags]
-    public enum ArmorSlots
-    {
-        Head = 1,
-        Body = 2,
-        Feet = 4,
-        Hands = 8,
-        Arms = 16,
-        Legs = 32
-    }
+
 }
