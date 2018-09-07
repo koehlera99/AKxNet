@@ -2,7 +2,7 @@
 using RPG.Standard.Base.Stats;
 using System;
 using System.Collections.Generic;
-using RPG.Standard.Units.Classes;
+using RPG.Standard.Units.UnitClass;
 
 namespace RPG.Standard.Units
 {
@@ -15,43 +15,12 @@ namespace RPG.Standard.Units
         private Dictionary<Element, Stat> _elementDefense;
         private Dictionary<ArmorType, Stat> _armorTypes;
 
-        private Class _class;
+        private ClassBase _class;
 
-        protected int PowerBonus()
-        {
-            int bonus = 0;
-
-            if(_class.PrimaryStat == (Primary.Str | Primary.Dex | Primary.Con))
-            {
-                bonus += Get(_class.PrimaryStat) * 2;
-            }
-
-            if (_class.SecondaryStat == (Primary.Str | Primary.Dex | Primary.Con))
-            {
-                bonus += Get(_class.SecondaryStat);
-            }
-
-            return bonus;
-        }
-
-        protected int MagicBonus()
-        {
-            int bonus = 0;
-
-            if (_class.PrimaryStat == (Primary.Int | Primary.Wis | Primary.Cha))
-            {
-                bonus += Get(_class.PrimaryStat) * 2;
-            }
-
-            if (_class.SecondaryStat == (Primary.Int | Primary.Wis | Primary.Cha))
-            {
-                bonus += Get(_class.SecondaryStat);
-            }
-
-            return bonus;
-        }
+        protected int Speed;
 
         public Condition Conditions { get; private set; }
+        public Level UnitLevel;
 
         public UnitBase()
         {
@@ -73,22 +42,57 @@ namespace RPG.Standard.Units
             SetArmorStats(armorType);
         }
 
-        protected int Get(Major stat) { return _majorStats[stat].Value; }
-        protected int Get(Primary stat) { return _primaryStats[stat].Value; }
-        protected int Get(Secondary stat) { return _secondaryStats[stat].Value; }
-        protected int Get(Defense stat) { return _defenseStats[stat].Value; }
-        protected int Get(Element stat) { return _elementDefense[stat].Value; }
-        protected int Get(ArmorType stat) { return _armorTypes[stat].Value; }
+        protected int PowerBonus()
+        {
+            int bonus = 0;
 
-        public void Set(Major stat, int value) { _majorStats[stat].Set(value); }
-        public void Set(Primary stat, int value) { _primaryStats[stat].Set(value); }
-        public void Set(Secondary stat, int value) { _secondaryStats[stat].Set(value); }
-        public void Set(Defense stat, int value) { _defenseStats[stat].Set(value); }
-        public void Set(Element stat, int value) { _elementDefense[stat].Set(value); }
-        public void Set(ArmorType stat, int value) { _armorTypes[stat].Set(value); }
-        public void Set(Condition stat) { Conditions = Conditions | stat; }
+            if (_class.PrimaryStat == (Primary.Str | Primary.Dex | Primary.Con))
+            {
+                bonus += Get(_class.PrimaryStat).Value * 2;
+            }
 
-        public void Remove(Condition stat)
+            if (_class.SecondaryStat == (Primary.Str | Primary.Dex | Primary.Con))
+            {
+                bonus += Get(_class.SecondaryStat).Value;
+            }
+
+            return bonus;
+        }
+
+        protected int MagicBonus()
+        {
+            int bonus = 0;
+
+            if (_class.PrimaryStat == (Primary.Int | Primary.Wis | Primary.Cha))
+            {
+                bonus += Get(_class.PrimaryStat).Value * 2;
+            }
+
+            if (_class.SecondaryStat == (Primary.Int | Primary.Wis | Primary.Cha))
+            {
+                bonus += Get(_class.SecondaryStat).Value;
+            }
+
+            return bonus;
+        }
+
+        protected Stat Get(Major stat) { return _majorStats[stat]; }
+        protected Stat Get(Primary stat) { return _primaryStats[stat]; }
+        protected Stat Get(Secondary stat) { return _secondaryStats[stat]; }
+        protected Stat Get(Defense stat) { return _defenseStats[stat]; }
+        protected Stat Get(Element stat) { return _elementDefense[stat]; }
+        protected Stat Get(ArmorType stat) { return _armorTypes[stat]; }
+
+        //public void Set(Major stat, int value) { _majorStats[stat].Set(value); }
+        //public void Set(Primary stat, int value) { _primaryStats[stat].Set(value); }
+        //public void Set(Secondary stat, int value) { _secondaryStats[stat].Set(value); }
+        //public void Set(Defense stat, int value) { _defenseStats[stat].Set(value); }
+        //public void Set(Element stat, int value) { _elementDefense[stat].Set(value); }
+        //public void Set(ArmorType stat, int value) { _armorTypes[stat].Set(value); }
+
+        public void AddCondition(Condition stat) { Conditions = Conditions | stat; }
+
+        public void RemoveCondition(Condition stat)
         {
             if ((Conditions & stat) == stat)
             {
@@ -96,51 +100,45 @@ namespace RPG.Standard.Units
             }
         }
 
-        public void Adjust(Major stat, int value) { _majorStats[stat].Adjust(value); }
-        public void Adjust(Primary stat, int value) { _primaryStats[stat].Adjust(value); }
-        public void Adjust(Secondary stat, int value) { _secondaryStats[stat].Adjust(value); }
-        public void Adjust(Defense stat, int value) { _defenseStats[stat].Adjust(value); }
-        public void Adjust(Element stat, int value) { _elementDefense[stat].Adjust(value); }
-        public void Adjust(ArmorType stat, int value) { _armorTypes[stat].Adjust(value); }
+        //public void Adjust(Major stat, int value) { _majorStats[stat].Adjust(value); }
+        //public void Adjust(Primary stat, int value) { _primaryStats[stat].Adjust(value); }
+        //public void Adjust(Secondary stat, int value) { _secondaryStats[stat].Adjust(value); }
+        //public void Adjust(Defense stat, int value) { _defenseStats[stat].Adjust(value); }
+        //public void Adjust(Element stat, int value) { _elementDefense[stat].Adjust(value); }
+        //public void Adjust(ArmorType stat, int value) { _armorTypes[stat].Adjust(value); }
 
-        public int GreaterOf(Primary stat1, Primary stat2)
+        public int GreaterOf(Stat stat1, Stat stat2)
         {
-            if (_primaryStats[stat1].Value > _primaryStats[stat2].Value)
-                return _primaryStats[stat1].Value;
+            if (stat1.Value > stat2.Value)
+                return stat1.Value;
             else
-                return _primaryStats[stat2].Value;
+                return stat2.Value;
         }
 
-        public int GreaterOf(Secondary stat1, Secondary stat2)
-        {
-            if (_secondaryStats[stat1].Value > _secondaryStats[stat2].Value)
-                return _secondaryStats[stat1].Value;
-            else
-                return _secondaryStats[stat2].Value;
-        }
 
         private void Initialize()
         {
             Conditions = Condition.None;
 
-            SetMajorStats();
             SetPrimaryStats();
             SetSecondaryStats();
             SetDefenseStats();
             SetElementStats();
             SetArmorStats();
+            SetMajorStats();
         }
 
         private void Initialize(int[] major, int[] primary, int[] secondary, int[] defense, int[] element, int[] armorType)
         {
             Conditions = Condition.None;
 
-            SetMajorStats(major);
+
             SetPrimaryStats(primary);
             SetSecondaryStats(secondary);
             SetDefenseStats(defense);
             SetElementStats(element);
             SetArmorStats(armorType);
+            SetMajorStats(major);
         }
 
         private void SetMajorStats()
@@ -214,12 +212,11 @@ namespace RPG.Standard.Units
 
             _majorStats = new Dictionary<Major, Stat>();
 
-            foreach (Major major in (Major[])Enum.GetValues(typeof(Major)))
-            {
-                _majorStats.Add(major, new Stat(values[i]));
+            _majorStats.Add(Major.HP, new Stat(values[0], Get(Secondary.Vitality).Value + Get(Primary.Con).Value + UnitLevel.Value));
+            _majorStats.Add(Major.Power, new Stat(values[0], Get(Primary.Str).Value + Get(Primary.Dex).Value + Get(Primary.Con).Value + PowerBonus()));
+            _majorStats.Add(Major.Magic, new Stat(values[0], Get(Primary.Int).Value + Get(Primary.Wis).Value + Get(Primary.Cha).Value + MagicBonus()));
+            _majorStats.Add(Major.Energy, new Stat(values[0], Get(Major.Energy).Value));
 
-                i++;
-            }
         }
 
         private void SetPrimaryStats(int[] values)

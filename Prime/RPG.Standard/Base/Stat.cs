@@ -6,21 +6,25 @@ namespace RPG.Standard.Base
 {
     public class Stat
     {
-        private const int MaxValue = 100;
-        private const int MinValue = 0;
         private Dictionary<Guid, int> _tempValues;
 
+        public const int MinValue = 0;
+        public readonly int MaxValue;
         public int BaseValue { get; private set; }
         public int Value => _tempValues.Sum(x => x.Value) + BaseValue;
+        public int Bonus => Value / 10;
 
         public Stat()
         {
+            MaxValue = 100;
             BaseValue = 0;
             _tempValues = new Dictionary<Guid, int>();
         }
 
         public Stat(int value)
         {
+            MaxValue = 100;
+
             if (value > MaxValue)
                 value = MaxValue;
             else if (value < MinValue)
@@ -28,6 +32,32 @@ namespace RPG.Standard.Base
 
             BaseValue = value;
             _tempValues = new Dictionary<Guid, int>();
+        }
+
+        public Stat(int value, int maxValue)
+        {
+            MaxValue = maxValue;
+
+            if (value > MaxValue)
+                value = MaxValue;
+            else if (value < MinValue)
+                value = MinValue;
+
+            BaseValue = value;
+            _tempValues = new Dictionary<Guid, int>();
+        }
+
+        public static Stat operator +(Stat a, Stat b)
+        {
+            return new Stat(a.BaseValue + b.BaseValue);
+        }
+
+        public static Stat GreaterOf(Stat stat1, Stat stat2)
+        {
+            if (stat1.Value > stat2.Value)
+                return stat1;
+            else
+                return stat2;
         }
 
         public void Set(int value)

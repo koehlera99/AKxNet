@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RPG.Standard.Units.Classes
+namespace RPG.Standard.Units.UnitClass
 {
-    class Class
+    class ClassBase
     {
         public Primary PrimaryStat;
         public Primary SecondaryStat;
+
+        public short HitDice { get; set; }
     }
 }

@@ -1,68 +1,174 @@
 ﻿using RPG.Standard.Base;
 using RPG.Standard.Base.Stats;
+using RPG.Standard.Effects;
+using RPG.Standard.Items;
+using RPG.Standard.Items.Defense;
+using RPG.Standard.Items.Offense;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace RPG.Standard.Units
 {
     public abstract class UnitStats : UnitBase
     {
-        protected int HitPoints => Get(Major.HP);
-        protected int Power => Get(Major.Power);
-        protected int Magic => Get(Major.Magic);
-        protected int Energy => Get(Major.Energy);
+        protected Stat HitPoints;
+        protected Stat Power;
+        protected Stat Magic;
+        protected Stat Energy;
 
-        protected int MaxPower => Strength + Dexterity + Constitution + PowerBonus();
-        protected int MaxMagic => Intelligence + Wisdom + Charisma + MagicBonus();
-        protected int MaxEnergy => Get(Major.Energy);
+        protected Stat Strength;
+        protected Stat Dexterity;
+        protected Stat Constitution;
+        protected Stat Intelligence;
+        protected Stat Wisdom;
+        protected Stat Charisma;
 
-        protected int Strength => Get(Primary.Str);
-        protected int Dexterity => Get(Primary.Dex);
-        protected int Constitution => Get(Primary.Con);
-        protected int Intelligence => Get(Primary.Int);
-        protected int Wisdom => Get(Primary.Wis);
-        protected int Charisma => Get(Primary.Cha);
+        protected Stat Stamina;
+        protected Stat Endurance;
+        protected Stat Accuracy;
+        protected Stat Reflex;
+        protected Stat Vitality;
+        protected Stat Fortitude;
+        protected Stat Knowledge;
+        protected Stat Perception;
+        protected Stat Faith;
+        protected Stat Will;
+        protected Stat Spirit;
+        protected Stat Luck;
 
-        protected int Stamina => Get(Secondary.Stamina);
-        protected int Endurance => Get(Secondary.Endurance);
-        protected int Accuracy => Get(Secondary.Accuracy);
-        protected int Reflex => Get(Secondary.Reflex);
-        protected int Vitality => Get(Secondary.Vitality);
-        protected int Fortitude => Get(Secondary.Fortitude);
-        protected int Knowledge => Get(Secondary.Knowledge); 
-        protected int Perception => Get(Secondary.Perception); 
-        protected int Faith => Get(Secondary.Faith);
-        protected int Will => Get(Secondary.Will);
-        protected int Spirit => Get(Secondary.Spirit);
-        protected int Luck => Get(Secondary.Luck);
+        protected Stat CritChance;
+        protected Stat CritBonus;
+        protected Stat AttackSpeed;
+        protected Stat MoveSpeed;
 
-        protected int CritChance => Get(Secondary.CritChance);
-        protected int CritBonus => Get(Secondary.CritBonus);
-        protected int AttackSpeed => Get(Secondary.AttackSpeed);
-        protected int MoveSpeed => Get(Secondary.MoveSpeed);
+        protected Stat Cloth;
+        protected Stat Leather;
+        protected Stat Chain;
+        protected Stat Ring;
+        protected Stat Scale;
+        protected Stat Plate;
+        protected Stat Shields;
 
-        protected int ArmorClass => Get(Defense.AC);
-        protected int Block => Get(Defense.Block) + PhysicalDefense;
-        protected int Dodge => Get(Defense.Dodge) + DodgeDefense;
-        protected int Parry => Get(Defense.Parry) + MeleeAttack;
+        protected Stat MeleeAttack;
+        protected Stat RangedAttack;
+        protected Stat DodgeDefense;
+        protected Stat PhysicalDefense;
 
-        protected int MeleeAttack => Stamina + Strength;
-        protected int PhysicalDefense => Endurance + Strength;
-        protected int RangedAttack => Accuracy + Dexterity;
-        protected int DodgeDefense => Reflex + Dexterity;
-        protected int MaxHitPoints => Vitality + Constitution;
-        protected int ResistDisease => Fortitude + Constitution;
-        protected int MagicAttack => Knowledge + Intelligence;
-        protected int MagicDefense => Perception + Intelligence;
-        protected int HealingPower => Faith + Wisdom;
-        protected int ResistEnchantment => Will + Wisdom;
-        protected int NaturePower => Spirit + Charisma;
-        protected int RandomLuck => Luck + Charisma;
+        protected Stat ResistDisease;
+        protected Stat MagicAttack;
+        protected Stat MagicDefense;
+        protected Stat HealingPower;
+        protected Stat ResistEnchantment;
+        protected Stat NaturePower;
+        protected Stat RandomLuck;
 
-        protected int Cloth => Get(ArmorType.Cloth);
-        protected int Leather => Get(ArmorType.Leather);
-        protected int Chain => Get(ArmorType.Chain);
-        protected int Ring => Get(ArmorType.Ring);
-        protected int Scale => Get(ArmorType.Scale);
-        protected int Plate => Get(ArmorType.Plate);
-        protected int Shields => Get(ArmorType.Shield);
+        protected Stat ArmorClass;
+        protected Stat Block;
+        protected Stat Dodge;
+        protected Stat Parry;
+
+        public Stat SlashingWeapons { get; set; }
+        public Stat BluntWeapons { get; set; }
+        public Stat PiercingWeapons { get; set; }
+
+        public Stat MaxCarryCapacity { get; private set; }
+
+        public int DamageTaken => HitPoints.MaxValue - HitPoints.Value;
+
+
+
+        public List<Effect> CurrentEffects { get; set; } = new List<Effect>();
+
+        [DebuggerStepThrough]
+        public int Effects(string name)
+        {
+            RefreshEffects();
+
+            return CurrentEffects.Where(x => x.Name.ToUpper() == name.ToUpper()).Sum(x => x.Value);
+        }
+
+        public void RefreshEffects()
+        {
+            if (CurrentEffects == null)
+                CurrentEffects = new List<Effect>();
+
+            foreach (Effect e in CurrentEffects)
+                e.Refresh();
+
+            CurrentEffects.RemoveAll(CurrentEffects => CurrentEffects.IsActive == false);
+        }
+
+        public UnitStats() : base()
+        {
+            Initialize();
+        }
+
+        public UnitStats(int[] major, int[] primary, int[] secondary, int[] defense, int[] element, int[] armorType) 
+            : base(major, primary, secondary, defense, element, armorType)
+        {
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            HitPoints = Get(Major.HP);
+            Power = Get(Major.Power);
+            Magic = Get(Major.Magic);
+            Energy = Get(Major.Energy);
+
+            Strength = Get(Primary.Str);
+            Dexterity = Get(Primary.Dex);
+            Constitution = Get(Primary.Con);
+            Intelligence = Get(Primary.Int);
+            Wisdom = Get(Primary.Wis);
+            Charisma = Get(Primary.Cha);
+
+            Stamina = Get(Secondary.Stamina);
+            Endurance = Get(Secondary.Endurance);
+            Accuracy = Get(Secondary.Accuracy);
+            Reflex = Get(Secondary.Reflex);
+            Vitality = Get(Secondary.Vitality);
+            Fortitude = Get(Secondary.Fortitude);
+            Knowledge = Get(Secondary.Knowledge);
+            Perception = Get(Secondary.Perception);
+            Faith = Get(Secondary.Faith);
+            Will = Get(Secondary.Will);
+            Spirit = Get(Secondary.Spirit);
+            Luck = Get(Secondary.Luck);
+
+            CritChance = Get(Secondary.CritChance);
+            CritBonus = Get(Secondary.CritBonus);
+            AttackSpeed = Get(Secondary.AttackSpeed);
+            MoveSpeed = Get(Secondary.MoveSpeed);
+
+            Cloth = Get(ArmorType.Cloth);
+            Leather = Get(ArmorType.Leather);
+            Chain = Get(ArmorType.Chain);
+            Ring = Get(ArmorType.Ring);
+            Scale = Get(ArmorType.Scale);
+            Plate = Get(ArmorType.Plate);
+            Shields = Get(ArmorType.Shield);
+
+            MeleeAttack = Stamina + Strength;
+            PhysicalDefense = Endurance + Strength;
+            RangedAttack = Accuracy + Dexterity;
+            DodgeDefense = Reflex + Dexterity;
+
+            ResistDisease = Fortitude + Constitution;
+            MagicAttack = Knowledge + Intelligence;
+            MagicDefense = Perception + Intelligence;
+            HealingPower = Faith + Wisdom;
+            ResistEnchantment = Will + Wisdom;
+            NaturePower = Spirit + Charisma;
+            RandomLuck = Luck + Charisma;
+
+            ArmorClass = Get(Defense.AC);
+            Block = Get(Defense.Block) + PhysicalDefense;
+            Dodge = Get(Defense.Dodge) + DodgeDefense;
+            Parry = Get(Defense.Parry) + MeleeAttack;
+
+            MaxCarryCapacity = new Stat(Strength.Value * 10);
+        }
     }
 }

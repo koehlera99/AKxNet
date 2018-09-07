@@ -9,6 +9,252 @@ namespace RPG.Standard.Units
     public partial class Unit
     {
         #region Dead Code
+
+
+
+        //#region Stats
+        ////Primary Stats
+        ////private int _strength = 10;
+        ////private int _dexterity = 10;
+        ////private int _constitution = 10;
+        ////private int _intelligence = 10;
+        ////private int _wisdom = 10;
+        ////private int _charisma = 10;
+
+        ////Secondary Stats
+        ////private int _stamina;
+        ////private int _accuracy;
+        ////private int _reflex;
+        ////private int _vitality;
+        ////private int _endurance;
+        ////private int _attunement;
+        ////private int _faith;
+        ////private int _will;
+        ////private int _luck;
+        //#endregion
+
+        ////#region Proficiencis
+        //////Damage Proficiencies
+        ////private int _slashingWeapons;
+        ////private int _bluntWeapons;
+        ////private int _PiercingWeapons;
+
+        //////Weapon ArmorType Proficiences
+        ////private int _throwing;
+        ////private int _martial;
+        ////private int _twoHanded;
+        ////private int _lightRanged;
+        ////private int _twoHandedRanged;
+
+        //////EquipedArmor ArmorType Proficiences
+        ////private int _clothArmor;
+        ////private int _chainMail;
+        ////private int _ringMail;
+        ////private int _scaleMail;
+        ////private int _plateMail;
+        ////private int _shields;
+        ////#endregion
+
+        ////private int _power;
+        ////private int _magic;
+        ////private int _energy;
+
+        ////private int _dodgeChance;
+        ////private int _criticalChance;
+
+        //#region Base Stats
+        ///// <summary>
+        ///// Primary Stats
+        ///// </summary>
+
+        ////public int Strength
+        ////{
+        ////    get { return Str + Effects("Str"); }
+        ////}
+        ////public int Dexterity
+        ////{
+        ////    get { return Dex + Effects("Dex"); }
+        ////}
+        ////public int Constitution
+        ////{
+        ////    get { return Con + Effects("Con"); }
+        ////}
+        ////public int Intelligence
+        ////{
+        ////    get { return Int + Effects("Int"); }
+        ////}
+        ////public int Wisdom
+        ////{
+        ////    get { return Wis + Effects("Wis"); }
+        ////}
+        ////public int Charisma
+        ////{
+        ////    get { return Cha + Effects("Cha"); }
+        ////}
+
+        //#endregion
+
+        //#region Secondary Stats
+        ///// <summary>
+        ///// Secondary Stats
+        ///// </summary>
+        ////public int Stamina
+        ////{
+        ////    get { return _stamina + StrengthBonus + Effects("Stamina"); }
+        ////    set { _stamina = value; }
+        ////}
+
+        ////public int Accuracy
+        ////{
+        ////    get { return _accuracy + DexterityBonus + Effects("Accuracy"); }
+        ////    set { _accuracy = value; }
+        ////}
+
+        ////public int Reflex
+        ////{
+        ////    get { return _reflex + DexterityBonus + Effects("Reflex"); }
+        ////    set { _reflex = value; }
+        ////}
+
+        ////public int Vitality
+        ////{
+        ////    get { return _vitality + ConstitutionBonus + Effects("Vitality"); }
+        ////    set { _vitality = value; }
+        ////}
+
+        ////public int Endurance
+        ////{
+        ////    get { return _endurance + ConstitutionBonus + Effects("Endurance"); }
+        ////    set { _endurance = value; }
+        ////}
+
+        ////public int Attunement
+        ////{
+        ////    get { return _attunement + IntelligenceBonus + Effects("Attunement"); }
+        ////    set { _attunement = value; }
+        ////}
+
+        ////public int Faith
+        ////{
+        ////    get { return _faith + WisdomBonus + Effects("Faith"); }
+        ////    set { _faith = value; }
+        ////}
+
+        ////public int Will
+        ////{
+        ////    get { return _will + WisdomBonus + Effects("Will"); }
+        ////    set { _will = value; }
+        ////}
+
+        ////public int Luck
+        ////{
+        ////    get { return _luck + CharismaBonus + Effects("Luck"); }
+        ////    set { _luck = value; }
+        ////}
+
+        //#endregion
+
+        /////// <summary>
+        /////// Weapon ArmorType Proficiences
+        /////// </summary>
+        ////public int Throwing { get; set; }
+        ////public int Martial { get; set; }
+        ////public int TwoHanded { get; set; }
+        ////public int LightRanged { get; set; }
+        ////public int TwoHandedRanged { get; set; }
+
+        /////// <summary>
+        /////// EquipedArmor ArmorType Proficiencies
+        /////// </summary>
+        ////public int ClothArmor { get; set; }
+        ////public int ChainMail { get; set; }
+        ////public int RingMail { get; set; }
+        ////public int ScaleMail { get; set; }
+        ////public int PlateMail { get; set; }
+        ////public int Shields { get; set; }
+
+
+        ////public int HitPoints
+        ////{
+        ////    get { return _hitpoints + Effects("HitPoints"); }
+        ////    set
+        ////    {
+        ////        _hitpoints = (value > MaxHitPoints) ? MaxHitPoints : value;
+
+        ////        if (_hitpoints < 0)
+        ////            _hitpoints = 0;
+        ////    }
+        ////}
+
+        ////public int Magic
+        ////{
+        ////    get { return _magic; }
+        ////    set { _magic = (value > MaxMagic ? MaxMagic : value); }
+        ////}
+
+        ////public int Power
+        ////{
+        ////    get { return _power; }
+        ////    set { _power = (value > MaxPower ? MaxPower : value); }
+        ////}
+
+        ////public int Energy
+        ////{
+        ////    get { return _energy; }
+        ////    set { _energy = (value > MaxEnergy ? MaxEnergy : value); }
+        ////}
+
+        ////public int MaxHitPoints
+        ////{
+        ////    get { return (_level * (HitDice + ConstitutionBonus) * (1 + (Effects("HitPoints") / 100))); }
+        ////}
+
+        ////public int MaxMagic
+        ////{
+        ////    get { return Charisma * Wisdom * Intelligence + Effects("Magic"); }
+        ////}
+
+        ////public int MaxPower
+        ////{
+        ////    get { return Strength * Dexterity * Constitution + Effects("Power"); }
+        ////}
+
+        ////public int MaxEnergy
+        ////{
+        ////    get
+        ////    {
+        ////        int energy =
+        ////            EquipedWeapons.Sum(x => x.Value.Energy) +
+        ////            EquipedArmor.Sum(x => x.Value.Energy) +
+        ////            MiscEquipment.Sum(x => x.Value.Energy) +
+        ////            EquipedArtifacts.Sum(x => x.Value.Energy);
+
+
+        ////        energy += Effects("Energy");
+        ////        return energy + 10;
+        ////        //return energy;
+        ////    }
+        ////}
+
+        ////public int DodgeChance
+        ////{
+        ////    get { return _dodgeChance + Effects("DodgeChance"); }
+        ////    set { _dodgeChance = value; }
+        ////}
+
+        ////public int CriticalChance
+        ////{
+        ////    get { return _criticalChance + Effects("Critical"); }
+        ////    set { _criticalChance = value; }
+        ////}
+
+
+
+
+
+
+
+
         //[Obsolete]
         //public void EquipItem(Item i, EquipmentSlot equipmentType)
         //{
