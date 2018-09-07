@@ -72,7 +72,7 @@ namespace RPG.Standard.Base
         Radiant = 512,
         Psionic = 1024,
         Shadow = 2048,
-        Gravity = 4096
+        Force = 4096
     }
 
     public enum CreatureType
