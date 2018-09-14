@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace RPG.Standard.Base
 {
-    public class Stat
+    public class Stat : Object
     {
         private Dictionary<Guid, int> _tempValues;
 
         public const int MinValue = 0;
-        public readonly int MaxValue;
+        public int MaxValue { get; private set; }
         public int BaseValue { get; private set; }
         public int Value => _tempValues.Sum(x => x.Value) + BaseValue;
         public int Bonus => Value / 10;
@@ -73,6 +73,18 @@ namespace RPG.Standard.Base
         public void Adjust(int value)
         {
             BaseValue += value;
+
+            if (BaseValue > MaxValue)
+                BaseValue = MaxValue;
+            else if (BaseValue < MinValue)
+                BaseValue = MinValue;
+        }
+
+        public void SetMax(int maxValue)
+        {
+            BaseValue += (maxValue - MaxValue);
+
+            MaxValue = maxValue;
 
             if (BaseValue > MaxValue)
                 BaseValue = MaxValue;

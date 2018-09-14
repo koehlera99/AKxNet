@@ -1,20 +1,19 @@
-﻿using System;
+﻿using RPG.Standard.Base;
 using RPG.Standard.Combat;
-using RPG.Standard.Units;
+using RPG.Standard.Stats;
 using RPG.Standard.Tools;
-using RPG.Standard.Base;
-using RPG.Standard.Base.Stats;
+using System;
 
 namespace RPG.Standard.Items.Offense
 {
-    public class Weapon : Item, IWeapon, IDamage
+    public class Weapon : Item
     {
         public WeaponProperty WeaponType { get; set; }
-        public DamageType DamageType { get; set; }
+        public WeaponDamageType DamageType { get; set; }
         public WeaponEffects WeaponEffect { get; set; }
         public WeaponSlots WeaponSlot { get; set; } = WeaponSlots.None;
-        public Damage WeaponDamage { get; set; }
-        public Element WeaponElementDamage { get; set; }
+        //public Damage WeaponDamage { get; set; }
+        public PhysicalElement WeaponElementDamage { get; set; }
         public WeaponSlotRestriction WeaponRestriction { get; set; }
 
         public int DefenseBonus { get; set; } = 0;
@@ -26,14 +25,14 @@ namespace RPG.Standard.Items.Offense
         public int CritChanceBonus { get; set; } = 0;
         public int CritDamageBonus { get; set; } = 0;
 
-        
-
         public int MinRange { get; set; } = 0; //Self
         public int MaxRange { get; set; } = 1; //Melee
 
-        //BaseStats that are used when using this weapon (Strength: Melee, Dexterity: Ranged, Finesse)
-        public Primary PrimaryWeaponStat { get; set; } = Primary.Str;
-        //public Secondary SecondaryWeaponsStat { get; set; } = Secondary.None;
+        public PrimaryFlag PrimaryWeaponStat { get; set; } = PrimaryFlag.Str;
+        public int DamageAmount => Roll.Dice(DamageDie);
+        public int MinDamage { get; } = 1;
+        public int MaxDamage { get; set; } = 10;
+        public Die DamageDie { get; set; } = Die.D6;
 
         public WeaponEffects WeaponEffectList
         {
@@ -41,11 +40,11 @@ namespace RPG.Standard.Items.Offense
             {
                 WeaponEffects effects = WeaponEffects.None;
 
-                if (DamageType == DamageType.Blunt)
+                if (DamageType == WeaponDamageType.Blunt)
                     effects = effects | WeaponEffects.Stun;
-                if (DamageType == DamageType.Piercing)
+                if (DamageType == WeaponDamageType.Piercing)
                     effects = effects | WeaponEffects.Sunder;
-                if (DamageType == DamageType.Slashing)
+                if (DamageType == WeaponDamageType.Slashing)
                     effects = effects | WeaponEffects.Bleed;
 
                 //Clean up
@@ -56,18 +55,9 @@ namespace RPG.Standard.Items.Offense
             }
         }
 
-        public int DamageAmount => Roll.Dice(DamageDie);
-
-        public int MinDamage { get; } = 1;
-        public int MaxDamage { get; set; } = 10;
-
-        public Die DamageDie { get; set; } = Die.D6;
-        PrimaryDamageType IDamage.DamageType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
         public Weapon()
         {
             Name = "Basic Weapon";
-            //ItemType = ItemTypes.Weapon;
             Size = 1;
             Weight = 1;
         }
@@ -75,7 +65,6 @@ namespace RPG.Standard.Items.Offense
         public Weapon(float size, float weight, string name) //: base(size, weight, false)
         {
             Name = name;
-            //ItemType = ItemTypes.Weapon;
             Size = size;
             Weight = weight;
         }
@@ -86,24 +75,14 @@ namespace RPG.Standard.Items.Offense
             return r.Next(MinDamage, MaxDamage + 1);
         }
 
-        public Damage DealDamage()
-        {
-            return new Damage(DealDamageValue(), DamageType);
-        }
+        //public Damage DealDamage()
+        //{
+        //    return new Damage(DealDamageValue(), DamageType);
+        //}
 
-        public Damage DealDamage(int damageModifier)
-        {
-            return new Damage(DealDamageValue() + damageModifier, DamageType);
-        }
-
-        public IAttack GetAttack()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDamage GetDamage()
-        {
-            throw new NotImplementedException();
-        }
+        //public Damage DealDamage(int damageModifier)
+        //{
+        //    return new Damage(DealDamageValue() + damageModifier, DamageType);
+        //}
     }
 }

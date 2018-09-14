@@ -8,6 +8,8 @@ namespace RPG.Standard.Items
 {
     public class Material : Object
     {
-        private List<Element> Elements = new List<Element>();
+        private List<PhysicalElement> PhysicalElements = new List<PhysicalElement>();
+
+        public HardnessScale GetHardness => (HardnessScale)(int)PhysicalElements.Average(x => (int)x.Hardness);
     }
 }

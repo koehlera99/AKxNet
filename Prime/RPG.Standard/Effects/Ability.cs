@@ -8,19 +8,17 @@ namespace RPG.Standard
 {
     public class Ability : Object
     {
-        public string Name { get; set; }
         public int Value { get; set; }
-        public string Description { get; set; }
         public AbilityHandler AbilityFunction { get; set; }
 
         public Ability() { }
         public Ability(int id, string name, int value, string description, AbilityHandler function)
         {
-            this.Id = id;
-            this.Name = name;
-            this.Value = value;
-            this.Description = description;
-            this.AbilityFunction = function;
+            Id = id;
+            Name = name;
+            Value = value;
+            Description = description;
+            AbilityFunction = function;
         }
 
     }

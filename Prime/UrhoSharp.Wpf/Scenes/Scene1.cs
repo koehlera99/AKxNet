@@ -98,7 +98,7 @@ namespace UrhoSharp.Wpf.Scenes
 
         public void DropCharacterSpheres()
         {
-            int count = 1;
+            int count = 4;
 
             foreach(var block in ListOfCharacters)
             {
@@ -116,6 +116,10 @@ namespace UrhoSharp.Wpf.Scenes
 
                 block.Value.BlockNode.RunActionsAsync(ease);
 
+                count++;
+
+                if (count == 6)
+                    count = 3;
 
 
                 //if (count == 0)
@@ -136,12 +140,12 @@ namespace UrhoSharp.Wpf.Scenes
                 //    count = -1;
                 //}
 
-                count++;
+
 
                 //if (count == 5)
                 //    count = 0;
                 //else
-                    
+
             }
         }
 

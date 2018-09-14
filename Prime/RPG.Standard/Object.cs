@@ -8,6 +8,7 @@ namespace RPG.Standard
 {
     public abstract class Object : IEquatable<Object>
     {
+        private static int _sharedId = 0;
         public Guid Guid { get; }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -16,6 +17,7 @@ namespace RPG.Standard
         protected Object()
         {
             Guid = new Guid();
+            Id = ++_sharedId;
         }
 
         protected Object(int id)

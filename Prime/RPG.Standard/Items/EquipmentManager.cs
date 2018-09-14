@@ -1,6 +1,7 @@
 ﻿using RPG.Standard.Base;
 using RPG.Standard.Items.Defense;
 using RPG.Standard.Items.Offense;
+using RPG.Standard.Stats;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,62 +10,91 @@ namespace RPG.Standard.Items
 {
     public class EquipmentManager
     {
-        protected Dictionary<WeaponSlots, Weapon> EquipedWeapons { get; set; } = new Dictionary<WeaponSlots, Weapon>();
-        protected Dictionary<ArmorSlots, Armor> EquipedArmor { get; set; } = new Dictionary<ArmorSlots, Armor>();
-        protected Dictionary<MiscSlots, EquipableItem> MiscEquipment { get; set; } = new Dictionary<MiscSlots, EquipableItem>();
-        protected Dictionary<ArtifactSlots, Artifact> EquipedArtifacts { get; set; } = new Dictionary<ArtifactSlots, Artifact>();
-        protected List<Item> Items { get; set; } = new List<Item>();
+        public Dictionary<WeaponSlots, Weapon> EquipedWeapons { get; }
+        public Dictionary<ArmorSlots, Armor> EquipedArmor { get; }
+        public Dictionary<MiscSlots, MiscEquipableItem> MiscEquipment { get; }
+        public Dictionary<ArtifactSlots, Artifact> EquipedArtifacts { get; }
+        public List<Item> Items { get; }
 
         public Weapon EquipedWeapon => EquipedWeapons[WeaponSlots.PrimaryHand];
 
-        public int EquipedArmorClass => EquipedWeapons.Sum(x => x.Value.DefenseBonus) + EquipedArmor.Sum(x => x.Value.ArmorClass);
+        private int _equipedArmorClass => EquipedWeapons.Sum(x => x.Value.DefenseBonus) + EquipedArmor.Sum(x => x.Value.ArmorClass);
+        private int _equipedParryChance => EquipedWeapons.Sum(x => x.Value.ParryChance);
+        private int _equipedBlockChance => EquipedWeapons.Sum(x => x.Value.BlockChance);
+
+        private int _equipedBluntResist => EquipedArmor
+                    .Where(x => x.Value.ArmorTypes == ArmorTypeFlag.Scale || x.Value.ArmorTypes == ArmorTypeFlag.Plate)
+                    .Sum(x => x.Value.ArmorHardnessValue);
+
+        private int _equipedPierceResist => EquipedArmor
+                    .Where(x => x.Value.ArmorTypes == ArmorTypeFlag.Chain || x.Value.ArmorTypes == ArmorTypeFlag.Plate)
+                    .Sum(x => x.Value.ArmorHardnessValue);
+
+        private int _equipedSlashResist => EquipedArmor
+                    .Where(x => x.Value.ArmorTypes == ArmorTypeFlag.Ring || x.Value.ArmorTypes == ArmorTypeFlag.Plate)
+                    .Sum(x => x.Value.ArmorHardnessValue);
+
+        private int _equipedEnergy => 
+            EquipedWeapons.Sum(x => x.Value.Energy) +
+            EquipedArmor.Sum(x => x.Value.Energy) +
+            MiscEquipment.Sum(x => x.Value.Energy) +
+            EquipedArtifacts.Sum(x => x.Value.Energy);
+
+        public float WeightCarried =>
+            Items.Sum(x => x.Weight) +
+            EquipedWeapons.Sum(x => x.Value.Weight) +
+            EquipedArmor.Sum(x => x.Value.Weight) +
+            MiscEquipment.Sum(x => x.Value.Weight) +
+            EquipedArtifacts.Sum(x => x.Value.Weight);
+
         public int ArmorDexReduction => (int)EquipedArmor.Sum(x => x.Value.MaxDexReduction);
+        public Stat Energy { get; }
 
-        public Stat BluntResist { get; }
-        public Stat PierceResist { get; private set; }
-        public Stat SlashResist { get; private set; }
+        private Stat ArmorClass, ParryChance, BlockChance, BluntResist, PierceResist, SlashResist;
 
-        public EquipmentManager()
+        private int _unitArmorClass, _unitParryChance, _unitBlockChance, _unitBluntResist, _unitPierceResist, _unitSlashResist;
+
+        public EquipmentManager(Stat energy, Stat bluntResist, Stat pierceResist, Stat slashResist, Stat armorClass, Stat parryChance, Stat blockChance)
         {
-            EquipedWeapons = new Dictionary<WeaponSlots, Weapon>();
-            EquipedArmor = new Dictionary<ArmorSlots, Armor>();
-            MiscEquipment = new Dictionary<MiscSlots, EquipableItem>();
-            EquipedArtifacts = new Dictionary<ArtifactSlots, Artifact>();
             Items = new List<Item>();
 
-            BluntResist = new Stat();
-            PierceResist = new Stat();
-            SlashResist = new Stat();
+            EquipedWeapons = new Dictionary<WeaponSlots, Weapon>();
+            EquipedArmor = new Dictionary<ArmorSlots, Armor>();
+            MiscEquipment = new Dictionary<MiscSlots, MiscEquipableItem>();
+            EquipedArtifacts = new Dictionary<ArtifactSlots, Artifact>();
+            
+
+            Energy = energy;
+
+            _unitArmorClass = armorClass.Value;
+            _unitParryChance = parryChance.Value;
+            _unitBlockChance = blockChance.Value;
+
+            _unitBluntResist = bluntResist.Value;
+            _unitPierceResist = pierceResist.Value;
+            _unitSlashResist = slashResist.Value;
+
+            ArmorClass = armorClass;
+            ParryChance = parryChance;
+            BlockChance = blockChance;
+
+            BluntResist = bluntResist;
+            PierceResist = pierceResist;
+            SlashResist = slashResist;
 
             RefreshEquipmentStats();
         }
 
-        private int GetBluntResist()
-        {
-            return EquipedArmor
-                    .Where(x => x.Value.ArmorType == ArmorType.Scale || x.Value.ArmorType == ArmorType.Plate)
-                    .Sum(x => x.Value.ArmorHardnessValue);
-        }
-
-        private int GetPierceResist()
-        {
-            return EquipedArmor
-                    .Where(x => x.Value.ArmorType == ArmorType.Chain || x.Value.ArmorType == ArmorType.Plate)
-                    .Sum(x => x.Value.ArmorHardnessValue);
-        }
-
-        private int GetSlashResist()
-        {
-            return EquipedArmor
-                    .Where(x => x.Value.ArmorType == ArmorType.Ring || x.Value.ArmorType == ArmorType.Plate)
-                    .Sum(x => x.Value.ArmorHardnessValue);
-        }
-
         private void RefreshEquipmentStats()
         {
-            BluntResist.Set(GetBluntResist());
-            PierceResist.Set(GetPierceResist());
-            SlashResist.Set(GetSlashResist());
+            Energy.SetMax(_equipedEnergy);
+
+            ArmorClass.Set(_equipedArmorClass + _unitArmorClass);
+            ParryChance.Set(_equipedParryChance + _unitParryChance);
+            BlockChance.Set(_equipedBlockChance + _unitBlockChance);
+            BluntResist.Set(_equipedBluntResist + _unitBluntResist);
+            PierceResist.Set(_equipedPierceResist + _unitPierceResist);
+            SlashResist.Set(_equipedSlashResist + _unitSlashResist);
         }
 
         public void EquipArmor(Armor armor)
@@ -88,11 +118,13 @@ namespace RPG.Standard.Items
             }
         }
 
-        public void EquipMiscItem(EquipableItem item)
+        public void EquipMiscItem(MiscEquipableItem item)
         {
             UnEquipMiscItem(item.EquipmentSlot);
             item.IsEquiped = true;
             MiscEquipment.Add(item.EquipmentSlot, item);
+
+            Energy.SetMax(_equipedEnergy);
         }
 
         public void UnEquipMiscItem(MiscSlots slot)
@@ -102,6 +134,8 @@ namespace RPG.Standard.Items
                 MiscEquipment[slot].IsEquiped = false;
                 Items.Add(MiscEquipment[slot]);
                 MiscEquipment.Remove(slot);
+
+                Energy.SetMax(_equipedEnergy);
             }
         }
 
@@ -110,6 +144,8 @@ namespace RPG.Standard.Items
             UnEquipArtifact(artifact.ArtifactSlot);
             artifact.IsEquiped = true;
             EquipedArtifacts.Add(artifact.ArtifactSlot, artifact);
+
+            Energy.SetMax(_equipedEnergy);
         }
 
         public void UnEquipArtifact(ArtifactSlots slot)
@@ -119,6 +155,8 @@ namespace RPG.Standard.Items
                 EquipedArtifacts[slot].IsEquiped = false;
                 Items.Add(EquipedArtifacts[slot]);
                 EquipedArtifacts.Remove(slot);
+
+                Energy.SetMax(_equipedEnergy);
             }
         }
 
@@ -165,6 +203,8 @@ namespace RPG.Standard.Items
             weapon.IsEquiped = true;
             weapon.WeaponSlot = slot;
 
+            Energy.SetMax(_equipedEnergy);
+
             return true;
         }
 
@@ -177,6 +217,8 @@ namespace RPG.Standard.Items
                 Items.Add(weapon);
                 EquipedWeapons.Remove(weapon.WeaponSlot);
                 weapon.WeaponSlot = WeaponSlots.None;
+
+                Energy.SetMax(_equipedEnergy);
             }
         }
 
@@ -187,6 +229,8 @@ namespace RPG.Standard.Items
                 EquipedWeapons[weaponSlot].IsEquiped = false;
                 Items.Add(EquipedWeapons[weaponSlot]);
                 EquipedWeapons.Remove(weaponSlot);
+
+                Energy.SetMax(_equipedEnergy);
             }
         }
 
@@ -196,12 +240,14 @@ namespace RPG.Standard.Items
                 EquipWeapon((Weapon)item);
             else if (item is Armor)
                 EquipArmor((Armor)item);
-            else if (item is EquipableItem)
-                EquipMiscItem((EquipableItem)item);
+            else if (item is MiscEquipableItem)
+                EquipMiscItem((MiscEquipableItem)item);
             else if (item is Artifact)
                 EquipArtifact((Artifact)item);
             else
                 return false;
+
+            Energy.SetMax(_equipedEnergy);
 
             return true;
         }
@@ -210,7 +256,7 @@ namespace RPG.Standard.Items
         {
             Items.Add(item);
 
-            return GetWeightCarried();
+            return WeightCarried;
         }
 
         public float DropItem(string name, int quantity = 1)
@@ -227,7 +273,7 @@ namespace RPG.Standard.Items
                 }
             }
 
-            return GetWeightCarried();
+            return WeightCarried;
         }
 
         public float DropItem(int itemID, int quantity = 1)
@@ -244,7 +290,7 @@ namespace RPG.Standard.Items
                 }
             }
 
-            return GetWeightCarried();
+            return WeightCarried;
         }
 
         public float DropItem(Item item, int quantity = 1)
@@ -252,50 +298,8 @@ namespace RPG.Standard.Items
             for (int i = quantity; i > 0; i--)
                 Items.Remove(item);
 
-            return GetWeightCarried();
+            return WeightCarried;
         }
 
-        public float GetWeightCarried()
-        {
-            float wt =
-                Items.Sum(x => x.Weight) +
-                EquipedWeapons.Sum(x => x.Value.Weight) +
-                EquipedArmor.Sum(x => x.Value.Weight) +
-                MiscEquipment.Sum(x => x.Value.Weight) +
-                EquipedArtifacts.Sum(x => x.Value.Weight);
-
-            return wt;
-        }
-
-        [Obsolete]
-        public void EquipWeapon(Item weapon)
-        {
-            var bothHands = WeaponSlots.OffHand | WeaponSlots.PrimaryHand;
-
-            if (weapon.WeaponLocation == bothHands)
-            {
-                UnEquipWeapon(WeaponSlots.OffHand);
-                UnEquipWeapon(WeaponSlots.PrimaryHand);
-            }
-            else if (EquipedWeapons.ContainsKey(bothHands))
-                UnEquipWeapon(bothHands);
-            else if (EquipedWeapons.ContainsKey(weapon.WeaponLocation))
-                UnEquipWeapon(weapon);
-
-            weapon.IsEquiped = true;
-            EquipedWeapons.Add(weapon.WeaponLocation, (Weapon)weapon);
-        }
-
-        [Obsolete]
-        public void UnEquipWeapon(Item weapon)
-        {
-            weapon.IsEquiped = false;
-
-            if (EquipedWeapons.ContainsKey(weapon.WeaponLocation))
-            {
-                Items.Add(weapon);
-                EquipedWeapons.Remove(weapon.WeaponLocation);
-            }
-        }
     }
 }

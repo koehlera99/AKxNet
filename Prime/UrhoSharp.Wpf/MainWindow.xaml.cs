@@ -59,15 +59,16 @@ namespace UrhoSharp.Wpf
 
         private void InitializeUnits()
         {
-            player = new BasicUnit(200, 100, 50, 25);
-            target = new BasicUnit(150, 50, 200, 50);
+            player = new Unit();
+            target = new Unit();
 
-            MyLevels.Unit = player;
-            TargetLevels.Unit = target;
+            MyLevels.BasicUnit = player;
+            TargetLevels.BasicUnit = target;
         }
 
-        BasicUnit player;
-        BasicUnit target;
+        Unit player;
+        Unit target;
+
         Weapon weapon = new Weapon();
 
         private bool player1 = true;
@@ -75,17 +76,17 @@ namespace UrhoSharp.Wpf
         private void Attack_Click(object sender, RoutedEventArgs e)
         {
             if (player1)
-                player.PerformAttack(target, weapon);
+                player.PerformMeleeAttack(target, weapon);
             else
-                target.PerformAttack(player, weapon);
+                target.PerformMeleeAttack(player, weapon);
 
             player1 = !player1;
 
             MyLevels.RefreshResourceBar();
             TargetLevels.RefreshResourceBar();
 
-            //MyLevels.Unit = player;
-            //TargetLevels.Unit = target;
+            //MyLevels.BasicUnit = player;
+            //TargetLevels.BasicUnit = target;
         }
 
         private void Heal_Click(object sender, RoutedEventArgs e)

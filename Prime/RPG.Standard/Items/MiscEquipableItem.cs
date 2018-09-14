@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace RPG.Standard.Items
 {
-    public class Artifact : Item
+    public class MiscEquipableItem : Item
     {
-        public ArtifactSlots ArtifactSlot { get; set; } = ArtifactSlots.None;
+        public MiscSlots EquipmentSlot { get; set; } = MiscSlots.None;
 
-        public Artifact()
+        public MiscEquipableItem()
         {
-            Name = "Artifact";
+
         }
     }
 }

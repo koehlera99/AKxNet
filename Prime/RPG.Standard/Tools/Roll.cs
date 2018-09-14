@@ -60,85 +60,14 @@ namespace RPG.Standard.Tools
             get { return random.Next(0, 1000) + 1; }
         }
 
-        public static int D4(int multiplier)
-        {
-            int value = 0;
-
-            for (int i = 0; i < multiplier; i++)
-                value += random.Next(0, 4) + 1;
-
-            return value;
-        }
-
-        public static int D6(int multiplier)
-        {
-            int value = 0;
-
-            for (int i = 0; i < multiplier; i++)
-                value += random.Next(0, 6) + 1;
-
-            return value;
-        }
-
-        public static int D8(int multiplier)
-        {
-            int value = 0;
-
-            for (int i = 0; i < multiplier; i++)
-                value += random.Next(0, 8) + 1;
-
-            return value;
-        }
-
-        public static int D10(int multiplier)
-        {
-            int value = 0;
-
-            for (int i = 0; i < multiplier; i++)
-                value += random.Next(0, 10) + 1;
-
-            return value;
-        }
-
-        public static int D12(int multiplier)
-        {
-            int value = 0;
-
-            for (int i = 0; i < multiplier; i++)
-                value += random.Next(0, 12) + 1;
-
-            return value;
-        }
-
-        public static int D20(int multiplier)
-        {
-            int value = 0;
-
-            for (int i = 0; i < multiplier; i++)
-                value += random.Next(0, 20) + 1;
-
-            return value;
-        }
-
-        public static int D100(int multiplier)
-        {
-            int value = 0;
-
-            for (int i = 0; i < multiplier; i++)
-                value += random.Next(0, 100) + 1;
-
-            return value;
-        }
-
-        public static int D1000(int multiplier)
-        {
-            int value = 0;
-
-            for (int i = 0; i < multiplier; i++)
-                value += random.Next(0, 1000) + 1;
-
-            return value;
-        }
+        public static int D4 => random.Next(0, 4) + 1;
+        public static int D6 => random.Next(0, 6) + 1;
+        public static int D8 => random.Next(0, 8) + 1;
+        public static int D10 => random.Next(0, 10) + 1;
+        public static int D12 => random.Next(0, 12) + 1;
+        public static int D20 => random.Next(0, 20) + 1;
+        public static int D100 => random.Next(0, 100) + 1;
+        public static int D1000 => random.Next(0, 1000) + 1;
 
         public static int Dice(int die, int multiplier = 1)
         {

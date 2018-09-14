@@ -1,16 +1,25 @@
-﻿namespace RPG.Standard.Combat
+﻿using RPG.Standard.Units;
+
+namespace RPG.Standard.Combat
 {
-    class Attack : IAttack
+    public abstract class Attack
     {
-        public Attack(AttackType attackType, int attackRoll, int damageRoll)
+        public Attack(Unit attacker, Unit defender)
         {
-            AttackType = attackType;
-            AttackRoll = attackRoll;
-            DamageRoll = damageRoll;
+            Attacker = attacker;
+            Defender = defender;
+
+            AttackRoll = Tools.Roll.D100;
+            CritRoll = Tools.Roll.D100;
         }
 
-        public AttackType AttackType { get; }
+        public Unit Attacker { get; }
+        public Unit Defender { get; }
+        
         public int AttackRoll { get; }
-        public int DamageRoll { get; }
+        public int CritRoll { get; }
+
+        public int TotalAttackValue { get; protected set; }
+        public int DamageAmount { get; protected set; }
     }
 }

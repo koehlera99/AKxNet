@@ -14,11 +14,11 @@ namespace TestConsole
         {
             Unit unit = new Unit();
 
-            unit.RemoveCondition(Condition.Berserk);
-            unit.AddCondition(Condition.Berserk);
-            unit.AddCondition(Condition.Confused);
-            unit.AddCondition(Condition.Berserk);
-            unit.RemoveCondition(Condition.Berserk);
+            unit.Stats.RemoveCondition(Condition.Berserk);
+            unit.Stats.AddCondition(Condition.Berserk);
+            unit.Stats.AddCondition(Condition.Confused);
+            unit.Stats.AddCondition(Condition.Berserk);
+            unit.Stats.RemoveCondition(Condition.Berserk);
 
 
         }

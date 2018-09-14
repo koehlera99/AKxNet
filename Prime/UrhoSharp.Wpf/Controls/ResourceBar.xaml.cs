@@ -1,6 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using RPG.Standard.Units;
+using System.Windows.Controls;
 using System.Windows.Media.Animation;
-using RPG.Standard.Units;
 
 namespace UrhoSharp.Wpf.Controls
 {
@@ -19,7 +19,7 @@ namespace UrhoSharp.Wpf.Controls
         private int maxMagic;
         private int maxEnergy;
 
-        private BasicUnit _unit;
+        private Unit _unit;
 
         public int MaxHP
         {
@@ -156,14 +156,14 @@ namespace UrhoSharp.Wpf.Controls
             InitializeComponent();
         }
 
-        public ResourceBar(BasicUnit unit)
+        public ResourceBar(Unit unit)
         {
             InitializeComponent();
 
-            Unit = unit;
+            BasicUnit = unit;
         }
 
-        public BasicUnit Unit
+        public Unit BasicUnit
         {
             get
             {
@@ -179,22 +179,17 @@ namespace UrhoSharp.Wpf.Controls
 
         public void RefreshResourceBar()
         {
-            this.MaxHP = _unit.MaxHp;
-            this.HP = _unit.CurrentHp;
+            this.MaxHP = _unit.Stats.HitPoints.MaxValue;
+            this.HP = _unit.Stats.HitPoints.Value;
 
-            this.MaxPower = _unit.MaxPower;
-            this.Power = _unit.CurrentPower;
+            this.MaxPower = _unit.Stats.Power.MaxValue;
+            this.Power = _unit.Stats.Power.Value;
 
-            this.MaxMagic = _unit.MaxMagic;
-            this.Magic = _unit.CurrentMagic;
+            this.MaxMagic = _unit.Stats.Magic.MaxValue;
+            this.Magic = _unit.Stats.Magic.Value;
 
-            this.MaxEnergy = _unit.MaxEnergy;
-            this.Energy = _unit.CurrentEnergy;
+            this.MaxEnergy = _unit.Stats.Energy.MaxValue;
+            this.Energy = _unit.Stats.Energy.Value;
         }
-
-
-        
-
-
     }
 }
