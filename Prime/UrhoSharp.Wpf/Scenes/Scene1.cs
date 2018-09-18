@@ -98,8 +98,6 @@ namespace UrhoSharp.Wpf.Scenes
 
         public void DropCharacterSpheres()
         {
-            int count = 4;
-
             foreach(var block in ListOfCharacters)
             {
                 var vector = block.Value.Location;
@@ -111,16 +109,10 @@ namespace UrhoSharp.Wpf.Scenes
                     vector.Y += 5;
                 }
 
-                var moveTo = new MoveTo(count, vector);
+                var moveTo = new MoveTo(NextRandom(8), vector);
                 var ease = new EaseBounceOut(moveTo);
 
                 block.Value.BlockNode.RunActionsAsync(ease);
-
-                count++;
-
-                if (count == 6)
-                    count = 3;
-
 
                 //if (count == 0)
                 //{
@@ -157,7 +149,7 @@ namespace UrhoSharp.Wpf.Scenes
                 {
                     var block = new Block(scene.CreateChild());
 
-                    block.Location = new Vector3(x * 5, 0, y * 5);
+                    block.Location = new Vector3(x * 5, 50, y * 5);
 
                     var box = block.BlockNode.CreateComponent<Box>();
 
@@ -185,11 +177,11 @@ namespace UrhoSharp.Wpf.Scenes
                     {
                         var block = new Block(scene.CreateChild());
 
-                        block.Location = new Vector3(x * 5, z * 5, y * 5);
+                        block.Location = new Vector3(x * 5, (z * 5) + 50, y * 5);
 
                         var box = block.BlockNode.CreateComponent<Box>();
 
-                        if ((z == 1 || z == 2) && (x == 17 || x == 18))
+                        if ((z == 1 + 50 || z == 2 + 50) && (x == 17 + 50 || x == 18 + 50))
                         {
                             box.SetMaterial(Texture.OakPanel);
                         }
@@ -201,6 +193,23 @@ namespace UrhoSharp.Wpf.Scenes
                         ListOfStaticBlocks.Add(block.Location, block);
                     }
                 }
+            }
+        }
+
+        public void DropLevelFoundation()
+        {
+            foreach (var block in ListOfStaticBlocks)
+            {
+                var vector = block.Value.Location;
+
+                vector.Y -= 50;
+
+
+
+                var moveTo = new MoveTo(NextRandom(2, 8), vector);
+                var ease = new EaseBounceOut(moveTo);
+
+                block.Value.BlockNode.RunActionsAsync(ease);
             }
         }
 
@@ -216,7 +225,7 @@ namespace UrhoSharp.Wpf.Scenes
 
                 do
                 {
-                    block.Location = new Vector3(NextRandom(i) * size, size, NextRandom(i) * size);
+                    block.Location = new Vector3(NextRandom(i) * size, size + 50, NextRandom(i) * size);
                 }
                 while (ListOfStaticBlocks.ContainsKey(block.Location));
                 
@@ -234,7 +243,7 @@ namespace UrhoSharp.Wpf.Scenes
 
                 do
                 {
-                    block.Location = new Vector3(NextRandom(i) * size, size, NextRandom(i) * size);
+                    block.Location = new Vector3(NextRandom(i) * size, size + 50, NextRandom(i) * size);
                 }
                 while (ListOfStaticBlocks.ContainsKey(block.Location));
 
@@ -252,7 +261,7 @@ namespace UrhoSharp.Wpf.Scenes
 
                 do
                 {
-                    block.Location = new Vector3(NextRandom(i) * size, size, NextRandom(i) * size);
+                    block.Location = new Vector3(NextRandom(i) * size, size + 50, NextRandom(i) * size);
                 }
                 while (ListOfStaticBlocks.ContainsKey(block.Location));
 
@@ -270,7 +279,7 @@ namespace UrhoSharp.Wpf.Scenes
 
                 do
                 {
-                    block.Location = new Vector3(NextRandom(i) * size, size, NextRandom(i) * size);
+                    block.Location = new Vector3(NextRandom(i) * size, size + 50, NextRandom(i) * size);
                 }
                 while (ListOfStaticBlocks.ContainsKey(block.Location));
 
@@ -288,6 +297,13 @@ namespace UrhoSharp.Wpf.Scenes
             int next = Random.Next(0, (int)max + 5);
 
             return next; // > 5 ? max : next;
+        }
+
+        public float NextRandom(int min, int max)
+        {
+            int next = Random.Next(min, max);
+
+            return next + (float)Random.NextDouble() ; // > 5 ? max : next;
         }
     }
 }

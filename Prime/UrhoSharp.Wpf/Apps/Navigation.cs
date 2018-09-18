@@ -34,6 +34,7 @@ using Urho.Shapes;
 using System.Threading.Tasks;
 using RPG.Standard.Tools;
 using UrhoSharp.Wpf.Scenes;
+using System.Threading;
 
 namespace UrhoSharp.Wpf.Apps
 {
@@ -63,8 +64,9 @@ namespace UrhoSharp.Wpf.Apps
 
             //UI.m
             //UI.KeyDown += HandleKeyDown;
-
-            scene1.DropCharacterSpheres();
+            scene1.DropLevelFoundation();
+            Thread.Sleep(10000);
+            //scene1.DropCharacterSpheres();
 
 
         }
@@ -119,7 +121,7 @@ namespace UrhoSharp.Wpf.Apps
 
         public static void AddAndDropSpheres()
         {
-            scene1.AddCharacterSpheresAgain(BrickScene);
+            //scene1.AddCharacterSpheresAgain(BrickScene);
             scene1.DropCharacterSpheres();
         }
 

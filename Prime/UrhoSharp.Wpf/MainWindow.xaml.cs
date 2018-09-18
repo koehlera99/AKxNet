@@ -75,6 +75,9 @@ namespace UrhoSharp.Wpf
 
         private void Attack_Click(object sender, RoutedEventArgs e)
         {
+            Navigation.AddAndDropSpheres();
+            //scene1.DropCharacterSpheres();
+
             if (player1)
                 player.PerformMeleeAttack(target, weapon);
             else

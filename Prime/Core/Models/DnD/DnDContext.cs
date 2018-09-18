@@ -30,4 +30,12 @@ namespace Core.Models.DnD
         public int BlogId { get; set; }
         public Blog Blog { get; set; }
     }
+
+    public class DnD2Context : DbContext
+    {
+        public DnD2Context(DbContextOptions<DnDContext> options) : base(options) { }
+
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Post> Posts { get; set; }
+    }
 }

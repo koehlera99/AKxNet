@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DnD", "DnD\DnD.csproj", "{F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{C14FF420-515E-462D-B299-76030486B375}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RPG.Web", "RPG.Web\RPG.Web.csproj", "{CA6DA955-D882-4A69-B698-5D2FEAAD82CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -115,6 +117,14 @@ Global
 		{C14FF420-515E-462D-B299-76030486B375}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C14FF420-515E-462D-B299-76030486B375}.Release|x86.ActiveCfg = Release|Any CPU
 		{C14FF420-515E-462D-B299-76030486B375}.Release|x86.Build.0 = Release|Any CPU
+		{CA6DA955-D882-4A69-B698-5D2FEAAD82CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA6DA955-D882-4A69-B698-5D2FEAAD82CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA6DA955-D882-4A69-B698-5D2FEAAD82CC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CA6DA955-D882-4A69-B698-5D2FEAAD82CC}.Debug|x86.Build.0 = Debug|Any CPU
+		{CA6DA955-D882-4A69-B698-5D2FEAAD82CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA6DA955-D882-4A69-B698-5D2FEAAD82CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA6DA955-D882-4A69-B698-5D2FEAAD82CC}.Release|x86.ActiveCfg = Release|Any CPU
+		{CA6DA955-D882-4A69-B698-5D2FEAAD82CC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
