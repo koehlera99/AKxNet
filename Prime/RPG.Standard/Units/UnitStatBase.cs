@@ -4,7 +4,7 @@ using RPG.Standard.Units.UnitClass;
 
 namespace RPG.Standard.Units
 {
-    public abstract class UnitStatBase : Object
+    public abstract class StatBase : Object
     {
         private ClassBase Class = new ClassBase();
 
@@ -14,17 +14,17 @@ namespace RPG.Standard.Units
         protected DefenseStats Defense { get; private set; }
         protected ArcaneElementStats ElementDefense { get; private set; }
         protected ArmorTypeStats ArmorTypes { get; private set; }
-        protected WeaponTypeStats WeaponTypes { get; private set; }
+        protected WeaponDamageTypeStats WeaponTypes { get; private set; }
 
         public Condition Conditions { get; private set; }
         public Level UnitLevel;
 
-        public UnitStatBase()
+        public StatBase()
         {
             Initialize();
         }
 
-        public UnitStatBase(int[] primary, int[] secondary, int[] defense, int[] element, int[] armorType, int[] weaponType)
+        public StatBase(int[] primary, int[] secondary, int[] defense, int[] element, int[] armorType, int[] weaponType)
         {
             Initialize(primary, secondary, defense, element, armorType, weaponType);
         }
@@ -126,7 +126,7 @@ namespace RPG.Standard.Units
             Defense = new DefenseStats();
             ElementDefense = new ArcaneElementStats();
             ArmorTypes = new ArmorTypeStats();
-            WeaponTypes = new WeaponTypeStats();
+            WeaponTypes = new WeaponDamageTypeStats();
 
             SetMajorStats();
         }
@@ -142,7 +142,7 @@ namespace RPG.Standard.Units
             Defense = new DefenseStats(defense);
             ElementDefense = new ArcaneElementStats(element);
             ArmorTypes = new ArmorTypeStats(armorType);
-            WeaponTypes = new WeaponTypeStats(weaponType);
+            WeaponTypes = new WeaponDamageTypeStats(weaponType);
 
             SetMajorStats();
         }

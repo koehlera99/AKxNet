@@ -3,7 +3,7 @@ using RPG.Standard.Stats;
 
 namespace RPG.Standard.Units
 {
-    public class UnitStats : UnitStatBase
+    public class UnitStats : StatBase
     {
         public Stat HitPoints { get; private set; }
         public Stat Power { get; private set; }
@@ -132,9 +132,9 @@ namespace RPG.Standard.Units
             Plate = ArmorTypes.Stats[ArmorTypeFlag.Plate];
             Shields = ArmorTypes.Stats[ArmorTypeFlag.Shield];
 
-            SlashingWeapons = WeaponTypes.Stats[WeaponTypeFlag.SlashingWeapons];
-            BluntWeapons = WeaponTypes.Stats[WeaponTypeFlag.BluntWeapons];
-            PiercingWeapons = WeaponTypes.Stats[WeaponTypeFlag.PiercingWeapons];
+            SlashingWeapons = WeaponTypes.Stats[WeaponDamageTypeFlag.SlashingWeapons];
+            BluntWeapons = WeaponTypes.Stats[WeaponDamageTypeFlag.BluntWeapons];
+            PiercingWeapons = WeaponTypes.Stats[WeaponDamageTypeFlag.PiercingWeapons];
 
             MeleeAttack = Stamina + Strength;
             PhysicalDefense = Endurance + Strength;

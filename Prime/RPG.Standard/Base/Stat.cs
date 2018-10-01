@@ -52,6 +52,16 @@ namespace RPG.Standard.Base
             return new Stat(a.BaseValue + b.BaseValue);
         }
 
+        public static Stat operator -(Stat a, Stat b)
+        {
+            return new Stat(a.BaseValue - b.BaseValue);
+        }
+
+        public static Stat operator *(Stat a, Stat b)
+        {
+            return new Stat(a.BaseValue * b.BaseValue);
+        }
+
         public static Stat GreaterOf(Stat stat1, Stat stat2)
         {
             if (stat1.Value > stat2.Value)
