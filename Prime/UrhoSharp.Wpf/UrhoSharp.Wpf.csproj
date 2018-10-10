@@ -147,6 +147,7 @@
     <EmbeddedResource Include="MyData\Models\tombstone_01.001.mdl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <None Include="MyData\Models\lMid1.mdl" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

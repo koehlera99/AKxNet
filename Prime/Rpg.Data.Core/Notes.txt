@@ -1,0 +1,7 @@
+﻿Scaffold-DbContext "Server=.\SQLExpress;Database=Rpg;Trusted_Connection=True;Integrated Security=SSPI;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -ContextDir Context -Context RpgContext -Project Rpg.Data.Core -DataAnnotations -Force
+
+
+Scaffold-DbContext "Server=tcp:akxnet.database.windows.net,1433;Initial Catalog=Rpg;Persist Security Info=False;User ID='aaron';Password='#Arcade1';MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -ContextDir Context -Context RpgContext -Project Rpg.Data.Core -DataAnnotations -Force
+
+
+Server=tcp:akxnet.database.windows.net,1433;Initial Catalog=Rpg;Persist Security Info=False;User ID={aaron};Password={#Arcade1};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
