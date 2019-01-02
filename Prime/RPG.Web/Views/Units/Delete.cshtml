@@ -1,0 +1,225 @@
+﻿@model RPG.Web.Models.Unit.Unit
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Unit</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UnitName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UnitName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Squad)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Squad.SquadId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Strength)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Strength)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Dexterity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Dexterity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Constitution)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Constitution)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Intelligence)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Intelligence)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Wisdom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Wisdom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Charisma)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Charisma)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Stamina)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Stamina)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Endurance)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Endurance)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Accuracy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Accuracy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Reflex)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Reflex)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Vitality)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Vitality)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Fortitude)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Fortitude)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Knowledge)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Knowledge)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Perception)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Perception)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Faith)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Faith)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Will)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Will)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Spirit)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Spirit)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Luck)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Luck)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CritChance)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CritChance)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CritBonus)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CritBonus)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AttackSpeed)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AttackSpeed)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MoveSpeed)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MoveSpeed)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cloth)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cloth)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Leather)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Leather)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Chain)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Chain)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Ring)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ring)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Scale)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Scale)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Plate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Plate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Shields)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Shields)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SlashingWeapons)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SlashingWeapons)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BluntWeapons)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BluntWeapons)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PiercingWeapons)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PiercingWeapons)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="UnitId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

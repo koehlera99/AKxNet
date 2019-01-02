@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using RPG.Core.Effects;
-using RPG.Core.Items;
-using RPG.Core.Units;
+using RPG.Standard.Effects;
+using RPG.Standard.Items;
+using RPG.Standard.Units;
 using System.Linq;
 
-namespace RPG.Core.Worlds
+namespace RPG.Standard.Worlds
 {
     class Room : Object
     {

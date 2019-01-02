@@ -1,0 +1,30 @@
+﻿@model RPG.Web.Models.Unit.Army
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Army</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ArmyName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ArmyName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Player)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Player.PlayerId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ArmyId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

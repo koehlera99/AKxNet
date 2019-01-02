@@ -1,17 +1,25 @@
-﻿namespace RPG.Core.Combat
-{
-    class Attack : IAttack
-    {
-        public Attack(AttackType attackType, int attackRoll, int damageRoll)
-        {
-            AttackType = attackType;
-            AttackRoll = attackRoll;
-            DamageRoll = damageRoll;
+﻿using RPG.Standard.Units;
 
+namespace RPG.Standard.Combat
+{
+    public abstract class Attack
+    {
+        public Attack(Unit attacker, Unit defender)
+        {
+            Attacker = attacker;
+            Defender = defender;
+
+            AttackRoll = Tools.Roll.D100;
+            CritRoll = Tools.Roll.D100;
         }
 
-        public AttackType AttackType { get; }
+        public Unit Attacker { get; }
+        public Unit Defender { get; }
+        
         public int AttackRoll { get; }
-        public int DamageRoll { get; }
+        public int CritRoll { get; }
+
+        public int TotalAttackValue { get; protected set; }
+        public int DamageAmount { get; protected set; }
     }
 }

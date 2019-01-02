@@ -1,15 +1,10 @@
-﻿using System;
+﻿using RPG.Standard.Effects;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-using RPG.Core.Effects;
-using RPG.Core.Items.Offense;
-
-namespace RPG.Core.Items
+namespace RPG.Standard.Items
 {
-    public class Item : Object, IItem, IEquipable
+    public class Item : Object
     {
         public float Size { get; set; }
         public float Weight { get; set; }
@@ -25,10 +20,7 @@ namespace RPG.Core.Items
         public IEnumerable<Ability> Abilities { get; set; }
         public IEnumerable<Property> Properties { get; set; }
         public IEnumerable<Material> Materials { get; set; }
-        public IEnumerable<IItem> Items { get; set; }
-
-        //public ItemTypes ItemType { get; set; } = ItemTypes.Gear;
-        public EquipmentSlot Slot { get; set; } = EquipmentSlot.None;
+        public IEnumerable<Item> Items { get; set; }
         public WeaponSlots WeaponLocation { get; set; } = WeaponSlots.PrimaryHand;
 
         public Item()
@@ -40,8 +32,8 @@ namespace RPG.Core.Items
             Properties = new List<Property>();
         }
 
-        public Item(int Id, ItemTypes itemType, string itemName, float size, float weight, bool iscontainer, EquipmentSlot equipSlot,
-            int hp, int energy, List<Element> elements, List<Property> properties)
+        public Item(int Id, string itemName, float size, float weight, bool iscontainer,
+            int hp, int energy, List<PhysicalElement> elements, List<Property> properties)
         {
             Size = size;
             Weight = weight;
@@ -66,51 +58,4 @@ namespace RPG.Core.Items
             }
         }
     }
-
-    
-
-
-
- 
-
-
-
-
-
-
-
-    
-
-    ////TODO: Remove ??
-    //enum RingSlots
-    //{
-    //    LeftPointer,
-    //    LeftMiddle,
-    //    LeftRing,
-    //    RightPointer,
-    //    RightMiddle,
-    //    RightRing,
-    //}
-
-    //class Modify
-    //{
-    //    public int ModifyID { get; set; }
-    //    public string ModifyName { get; set; }
-    //    public string ModifyType { get; set; }
-    //    public int ModifyValue { get; set; }
-    //    public string ModifyDescription { get; set; }
-
-    //    public Modify() { }
-    //    public Modify(int id, string name, string type, int value, string desc)
-    //    {
-    //        ModifyID = id;
-    //        ModifyName = name;
-    //        ModifyType = type;
-    //        ModifyValue = value;
-    //        ModifyDescription = desc;
-    //    }
-    //}
-
-
-
 }

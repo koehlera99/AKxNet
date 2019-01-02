@@ -5,13 +5,94 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UrhoSharp.Wpf"
         xmlns:wpf="clr-namespace:Urho.Extensions.Wpf;assembly=Urho.Extensions.Wpf"
+        xmlns:control="clr-namespace:UrhoSharp.Wpf.Controls"
         mc:Ignorable="d" Loaded="Window_Loaded"
-        Title="My UrhoSharp app" Height="800" Width="1200">
+        Title="Tactical Combat Suite" Height="800" Width="1200" WindowState="Maximized">
+    <Window.Resources>
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Path Fill="{TemplateBinding Background}"
+                            Data="M 0,0 A 100,100 90 0 0 100,100 L 100,100 100,0" />
+                            <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalAlignment}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="900*"/>
             <ColumnDefinition Width="100*"/>
         </Grid.ColumnDefinitions>
-        <wpf:UrhoSurface x:Name="UrhoSurface" Grid.ColumnSpan="1"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"/>
+        </Grid.RowDefinitions>
+        <TabControl>
+            <TabItem Header="TabItem">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100*"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="205"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Column="1" Grid.Row="1" Panel.ZIndex="1">
+                        <wpf:UrhoSurface x:Name="UrhoSurface" />
+                    </Grid>
+
+                    <Grid Grid.Column="2" Margin="1,0,0,0" Grid.Row="1">
+                        <control:DirectionPanel x:Name="DirectionPanel" Height="122" VerticalAlignment="Top" HorizontalAlignment="Left" Width="99" Loaded="DirectionPanel_Loaded" />
+                        <Button Content="Attack" HorizontalAlignment="Left" Height="49" Margin="10,127,0,0" VerticalAlignment="Top" Width="62" Click="Attack_Click"/>
+                        <Button Content="Heal" HorizontalAlignment="Left" Height="41" Margin="10,191,0,0" VerticalAlignment="Top" Width="62" Click="Heal_Click"/>
+                    </Grid>
+                    <StackPanel Grid.ColumnSpan="3" Margin="1,0,0,0" Orientation="Horizontal" Grid.Row="2">
+                        <control:ResourceBar x:Name="TargetLevels" Height="190" Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="290" />
+                        <control:ResourceBar x:Name="MyLevels" Height="190" Margin="0,0,0,0" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Left" Width="290" />
+                    </StackPanel>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="TabItem">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100*"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="100*"/>
+                        <RowDefinition Height="200"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.ColumnSpan="3" Margin="1,0,0,0" Orientation="Vertical">
+
+
+                    </StackPanel>
+                    <Grid Grid.Column="2" Margin="1,0,0,0" Grid.Row="1">
+                        <Button Content="Attack" HorizontalAlignment="Left" Height="30" Margin="10,10,0,0" VerticalAlignment="Top" Width="79" Click="Attack_Click"/>
+                        <Button Content="Heal" HorizontalAlignment="Left" Height="30" Margin="10,45,0,0" VerticalAlignment="Top" Width="79" Click="Heal_Click"/>
+                    </Grid>
+                    <StackPanel Grid.ColumnSpan="3" Margin="1,0,0,0" Orientation="Horizontal" Grid.Row="2">
+                        <control:ResourceBar x:Name="AttackerLevels" Height="190" Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="290" />
+                        <control:ResourceBar x:Name="DefenderLevels" Height="190" Margin="0,0,0,0" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Left" Width="290" />
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+
     </Grid>
+
+
 </Window>

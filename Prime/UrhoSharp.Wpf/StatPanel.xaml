@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="UrhoSharp.Wpf.StatPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UrhoSharp.Wpf"
+             xmlns:control="clr-namespace:UrhoSharp.Wpf.Controls"
+             mc:Ignorable="d" Height="202.119" Width="585.169" Visibility="Visible">
+    <Grid Margin="0,0,-18,0">
+        <StackPanel Margin="1,0,10,10" Orientation="Horizontal">
+            <control:ResourceBar x:Name="TargetLevels" Height="190" Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="290" />
+            <control:ResourceBar x:Name="MyLevels" Height="190" Margin="0,0,0,0" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Left" Width="290" />
+        </StackPanel>
+    </Grid>
+</UserControl>

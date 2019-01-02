@@ -4,17 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG.Core
+namespace RPG.Standard
 {
     public abstract class Object : IEquatable<Object>
     {
+        private static int _sharedId = 0;
+        public Guid Guid { get; }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
-        protected Object() { }
+        protected Object()
+        {
+            Guid = new Guid();
+            Id = ++_sharedId;
+        }
+
         protected Object(int id)
         {
+            Guid = new Guid();
             Id = id;
         }
 
@@ -26,6 +34,16 @@ namespace RPG.Core
         public bool Equals(Object obj)
         {
             return obj != null && Id.Equals(obj.Id);
+        }
+
+        public static bool operator== (Object obj, Object obj2)
+        {
+            return obj != null && obj2 != null && obj.Id.Equals(obj2.Id);
+        }
+
+        public static bool operator !=(Object obj, Object obj2)
+        {
+            return obj == null || obj2 == null || !obj.Id.Equals(obj2.Id);
         }
 
         public override int GetHashCode()

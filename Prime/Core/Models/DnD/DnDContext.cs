@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Core.Models.DnD
 {
@@ -25,7 +26,16 @@ namespace Core.Models.DnD
         public string Title { get; set; }
         public string Content { get; set; }
 
+        [Display(Name = "Blog Name")]
         public int BlogId { get; set; }
         public Blog Blog { get; set; }
+    }
+
+    public class DnD2Context : DbContext
+    {
+        public DnD2Context(DbContextOptions<DnDContext> options) : base(options) { }
+
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Post> Posts { get; set; }
     }
 }
